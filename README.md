@@ -24,8 +24,8 @@ LMS Front End
     npm run dev
 
     # Build project
-    yarn run build
+    npm run build
 
     # Serve project
-    yarn run preview
+    npm run preview
     ```
