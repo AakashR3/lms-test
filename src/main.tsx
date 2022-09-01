@@ -6,7 +6,6 @@ import AppLayout from '~/layouts/app';
 import { routes, location } from '~/router';
 
 import 'virtual:windi.css';
-import 'virtual:windi-devtools';
 
 export class LmsApp {
 	init() {
