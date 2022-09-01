@@ -6,23 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
 		<title>LMS</title>
 		<style>
-			html,
-			body,
-			#root {
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-				background: #fafafa;
-				font-family: 'Inter', sans-serif !important;
+			.animate-opacity {
+				animation: opac 0.8s;
 			}
-			.animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
+			@keyframes opac {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
 		</style>
 	</head>
-	<body>
-		<div id="root" class="animate-opacity"></div>
+	<body class="w-full h-screen overflow-hidden font-inter bg=[#fafafa]">
+		<div id="root" class="w-full h-full overflow-hidden animate-opacity"></div>
 		<script type="module" src="/src/main.tsx"></script>
 	</body>
 </html>

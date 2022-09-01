@@ -1,37 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Router } from "@tanstack/react-location";
+import { Router } from '@tanstack/react-location';
 
-import { location, routes } from "~/router";
-import AppLayout from "~/components/layout";
-import { setup, strict } from "@twind/react";
+import AppLayout from '~/layouts/app';
+import { routes, location } from '~/router';
+
+import 'virtual:windi.css';
+import 'virtual:windi-devtools';
 
 export class LmsApp {
-    init() {
-        try {
-            console.log('App Initialization...');
-			this.setupTheme()
-            const ElementRef = document.getElementById('root') as HTMLElement;
-            ReactDOM.createRoot(ElementRef).render(this.render());
-        } catch (error: any) {
-            console.error('Failed to start App', error);
-        }
-    }
-	setupTheme(){
-		setup({
-			theme: {},
-			darkMode: 'class'
-		})
+	init() {
+		try {
+			console.log('App Initialization...');
+			const ElementRef = document.getElementById('root') as HTMLElement;
+			ReactDOM.createRoot(ElementRef).render(this.render());
+		} catch (error: any) {
+			console.error('Failed to start App', error);
+		}
 	}
-    render() {
-        return (
-            <React.StrictMode>
+
+	render() {
+		return (
+			<React.StrictMode>
 				<Router routes={routes} location={location}>
 					<AppLayout />
 				</Router>
-            </React.StrictMode>
-        );
-    }
+			</React.StrictMode>
+		);
+	}
 }
 
 const App = new LmsApp();

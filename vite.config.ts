@@ -2,12 +2,13 @@
 
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
-import { defineConfig, UserConfig } from 'vite';
+import { defineConfig } from 'vite';
+import WindiCSS from 'vite-plugin-windicss';
 
 const globalVendorPackages = ['react', 'react-dom', '@tanstack/react-location'];
 
 export default defineConfig((option) => ({
-	plugins: [react()],
+	plugins: [react(), WindiCSS()],
 	resolve: {
 		alias: {
 			'~': resolve(__dirname, './src')

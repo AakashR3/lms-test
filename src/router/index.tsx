@@ -1,25 +1,10 @@
 import { ReactLocation, Route } from '@tanstack/react-location';
-
-import DashboardPageContainer from '~/features/dashboard';
-import AuthPageLayout from '~/features/auth/layout';
-import { LoginPage } from '~/features/auth/Login';
-import { ResetPasswordPage } from '~/features/auth/ResetPassword';
-import { SsoLoginPage } from "~/features/auth/SsoLogin";
-import { SingupPage } from "~/features/auth/Singup";
+import AuthenticationRoute from '~/router/authentication';
+import { DashboardContainer } from '~/features/dashboard';
 
 export const routes: Route[] = [
-	{ path: '/', element: <DashboardPageContainer /> },
-	{
-		path: '/auth',
-		element: <AuthPageLayout />,
-		children: [
-			{ path: '/', element: <LoginPage /> },
-			{ path: 'reset-password', element: <ResetPasswordPage /> },
-			{ path: 'sso-login', element: <SsoLoginPage /> },
-			{ path: 'sign-up', element: <SingupPage /> },
-			{ element: `This would render as the fallback when URL were not matched` }
-		]
-	},
+	{ path: '/', element: <DashboardContainer /> },
+	AuthenticationRoute,
 	{ element: `This would render as the fallback when URL were not matched` }
 ];
 
