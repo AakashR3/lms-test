@@ -13,7 +13,7 @@ LMS Front End
 2. Go to project directory and install all dependencies
 
     ```bash
-    cd react-vite-twin-macro
+    cd LMS-UI
     npm install
     ```
 
