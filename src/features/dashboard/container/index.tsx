@@ -7,7 +7,6 @@ import {
 	CartesianGrid,
 	LineChart,
 	Line,
-	Legend,
 	Tooltip,
 	XAxis,
 	YAxis,
@@ -106,8 +105,8 @@ function DashboardContainer() {
 	return (
 		<section className="flex flex-col space-y-5">
 			<Banner />
-			<div className="flex flex-col container mx-auto">
-				<section className="flex w-full bg-[#1469b2] relative -top-16 items-center space-between rounded-md text-white p-5">
+			<div className="container mx-auto px-4">
+				<section className="flex w-full bg-[#1469b2] items-center space-between relative -top-16 rounded-md text-white p-5">
 					<div className="flex-1">
 						<div className="flex flex-col flex-1">
 							<span>Update your business information</span>
@@ -122,8 +121,8 @@ function DashboardContainer() {
 					</button>
 				</section>
 			</div>
-			<div className="flex flex-col container mx-auto relative -top-14">
-				<section className="grid grid-cols-24 gap-5 w-full">
+			<div className="container mx-auto px-4">
+				<section className="grid grid-cols-24 gap-5 w-full grid pb-5 relative -top-14">
 					{[...Array(4)].map((key) => (
 						<StateWidget />
 					))}
@@ -208,7 +207,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-12 flex flex-col bg-white bg-white border rounded p-5 w-full">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">Time Spend</h6>
@@ -229,7 +227,6 @@ function DashboardContainer() {
 							</BarChart>
 						</ResponsiveContainer>
 					</div>
-
 					<div className="col-span-full flex-col bg-white bg-white border rounded p-5">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">Recommended for you</h6>
@@ -317,7 +314,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-12 flex flex-col bg-white bg-white border rounded p-5 w-full">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">Favorites</h6>
@@ -345,7 +341,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-12 flex flex-col bg-white bg-white border rounded p-5 w-full">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">Bookmarked lessons</h6>
@@ -373,7 +368,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-12 flex-col bg-white bg-white border rounded p-5 w-full">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">Certificates Earned</h6>
@@ -383,7 +377,7 @@ function DashboardContainer() {
 						</div>
 						<div className="grid grid-cols-2 pt-5 gap-5">
 							{[...Array(4)].map((key) => (
-								<div key={key} className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+								<div key={key} className="relative overflow-rounded-lg shadow-lg cursor-pointer">
 									<img
 										className="object-cover w-full h-48"
 										src="/certificate.jpeg"
@@ -403,7 +397,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-12 flex-col bg-white bg-white border rounded p-5 w-full">
 						<div className="flex items-center justify-between">
 							<p className="text-2xl capitalize">Recent Activity</p>
@@ -445,7 +438,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-full flex-col bg-white bg-white border rounded p-5">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">New courses</h6>
@@ -533,7 +525,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 					<div className="col-span-full flex flex-col bg-white bg-white border rounded p-5">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl">Trending Trainings lorem</h6>
@@ -559,7 +550,6 @@ function DashboardContainer() {
 							))}
 						</div>
 					</div>
-
 				</section>
 			</div>
 		</section>
