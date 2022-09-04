@@ -18,8 +18,7 @@ function LoginContainer() {
 
 	const onSubmit: SubmitHandler<ILoginFormInput> = (data) => {
 		console.log('login form data', data);
-		login(data);
-		// navigate({ to: '/' });
+		navigate({ to: '/' });
 	};
 
 	return (
