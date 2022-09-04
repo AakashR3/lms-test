@@ -6,6 +6,7 @@ import AppLayout from '~/layouts/app';
 import { routes, location } from '~/router';
 
 import 'virtual:windi.css';
+import 'keen-slider/keen-slider.min.css';
 
 export class LmsApp {
 	init() {

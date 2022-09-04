@@ -4,22 +4,44 @@ import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import WindiCSS from 'vite-plugin-windicss';
+import { dependencies } from './package.json';
 
-const globalVendorPackages = ['react', 'react-dom', '@tanstack/react-location'];
+const globalVendorPackages = [
+	'react',
+	'react-dom',
+	'@tanstack/react-location',
+	'keen-slider',
+	'react-hook-form',
+	'reactjs-social-login'
+];
+
+function renderChunks(deps: Record<string, string>) {
+	let chunks = {};
+	Object.keys(deps).forEach((key) => {
+		if (globalVendorPackages.includes(key)) return;
+		chunks[key] = [key];
+	});
+	return chunks;
+}
 
 export default defineConfig((option) => ({
 	plugins: [react(), WindiCSS()],
+	json: {
+		stringify: true
+	},
 	resolve: {
 		alias: {
 			'~': resolve(__dirname, './src')
 		}
 	},
 	build: {
+		cssCodeSplit: false,
 		sourcemap: option.mode === 'development',
 		rollupOptions: {
 			output: {
 				manualChunks: {
-					vendor: globalVendorPackages
+					vendor: globalVendorPackages,
+					...renderChunks(dependencies)
 				}
 			}
 		}

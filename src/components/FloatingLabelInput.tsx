@@ -1,12 +1,19 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 
-export function FloatingLabelInput({ type, name, label, handleVerify }: any) {
+interface IFloatingLabelInput {
+	type?: 'text' | 'email' | 'password';
+	name?: string;
+	handleVerify?: any;
+	register?: any;
+}
+
+export function FloatingLabelInput({ type, name, handleVerify, register }: IFloatingLabelInput) {
 	const [active, setActive] = React.useState(false);
 	const [showPassword, setShowPassword] = React.useState(false);
-
 	function handleActivation(e: any) {
 		setActive(!!e.target.value);
+		register.onChange(e);
 	}
 
 	return (
@@ -19,19 +26,19 @@ export function FloatingLabelInput({ type, name, label, handleVerify }: any) {
 					type === 'password' ? 'pr-11' : '',
 					handleVerify ? 'pr-24' : ''
 				].join(' ')}
-				id={name}
-				name={name}
+				id={name || register?.name}
 				type={showPassword ? 'text' : type || 'text'}
+				{...register}
 				onChange={handleActivation}
 			/>
 			<label
 				className={[
-					'absolute cursor-text h-12 top-0 left-0 flex items-center py-2 px-3 transition-all duration-200 ease-in-out',
+					'absolute capitalize cursor-text h-12 top-0 left-0 flex items-center py-2 px-3 transition-all duration-200 ease-in-out',
 					active ? 'text-[10px] h-auto' : 'text-sm'
 				].join(' ')}
-				htmlFor={name}
+				htmlFor={name || register?.name}
 			>
-				{label}
+				{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, '$1 $2')}
 			</label>
 			{handleVerify && (
 				<button

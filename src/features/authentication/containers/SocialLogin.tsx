@@ -1,6 +1,11 @@
 import { Icon } from '@iconify/react';
+import { useCallback } from 'react';
+import { IResolveParams, LoginSocialLinkedin, LoginSocialFacebook, LoginSocialGoogle } from 'reactjs-social-login';
 
 export function SocialLogin() {
+	const onLoginStart = useCallback(() => {
+		console.log('login start');
+	}, []);
 	return (
 		<section className="flex-col mt-10 space-y-5">
 			<div className="relative">
@@ -10,15 +15,61 @@ export function SocialLogin() {
 				</span>
 			</div>
 			<div className="flex space-x-3">
-				<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-					<Icon width={22} icon="flat-color-icons:google" />
-				</button>
-				<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-					<Icon width={22} icon="akar-icons:linkedin-box-fill" color="#0e76a8" />
-				</button>
-				<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-					<Icon width={22} icon="akar-icons:facebook-fill" color="#3b5998" />
-				</button>
+				<LoginSocialGoogle
+					client_id={''}
+					onLoginStart={onLoginStart}
+					redirect_uri={'REDIRECT_URI'}
+					scope="openid profile email"
+					discoveryDocs="claims_supported"
+					access_type="offline"
+					onResolve={({ provider, data }: IResolveParams) => {
+						console.log(provider);
+						console.log(data);
+					}}
+					onReject={(err) => {
+						console.log(err);
+					}}
+				>
+					<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
+						<Icon width={22} icon="flat-color-icons:google" />
+					</button>
+				</LoginSocialGoogle>
+				<LoginSocialLinkedin
+					client_id={''}
+					client_secret={''}
+					redirect_uri={'REDIRECT_URI'}
+					onLoginStart={onLoginStart}
+					onResolve={({ provider, data }: IResolveParams) => {
+						console.log(provider);
+						console.log(data);
+					}}
+					onReject={(err) => {
+						console.log(err);
+					}}
+				>
+					<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
+						<Icon width={22} icon="akar-icons:linkedin-box-fill" color="#0e76a8" />
+					</button>
+				</LoginSocialLinkedin>
+				<LoginSocialFacebook
+					appId={''}
+					fieldsProfile={
+						'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
+					}
+					onLoginStart={onLoginStart}
+					redirect_uri={'REDIRECT_URI'}
+					onResolve={({ provider, data }: IResolveParams) => {
+						console.log(provider);
+						console.log(data);
+					}}
+					onReject={(err) => {
+						console.log(err);
+					}}
+				>
+					<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
+						<Icon width={22} icon="akar-icons:facebook-fill" color="#3b5998" />
+					</button>
+				</LoginSocialFacebook>
 			</div>
 		</section>
 	);

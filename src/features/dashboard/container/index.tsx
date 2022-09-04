@@ -1,17 +1,8 @@
 import { Icon } from '@iconify/react';
 import { Banner } from '~/features/dashboard/components/Banner';
-import { StateWidget } from '~/features/dashboard/components';
-import {
-	BarChart,
-	Bar,
-	CartesianGrid,
-	LineChart,
-	Line,
-	Tooltip,
-	XAxis,
-	YAxis,
-	ResponsiveContainer
-} from 'recharts';
+import { BarChart, Bar, CartesianGrid, LineChart, Line, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { CompleteProfileBanner } from '../components/ComopleteProfileBanner';
+import { StateOverview } from '../components';
 
 const lineData = [
 	{
@@ -105,27 +96,11 @@ function DashboardContainer() {
 	return (
 		<section className="flex flex-col space-y-5">
 			<Banner />
-			<div className="container mx-auto px-4">
-				<section className="flex w-full bg-[#1469b2] items-center space-between relative -top-16 rounded-md text-white p-5">
-					<div className="flex-1">
-						<div className="flex flex-col flex-1">
-							<span>Update your business information</span>
-							<span>
-								Complete your profile to access all the features, and preferences based recommendations
-							</span>
-						</div>
-					</div>
-					<button className="flex items-center space-x-2 bg-white text-blue-500 rounded-md px-4 py-2">
-						<span>Go To Profile</span>
-						<Icon width={20} icon="mingcute:arrow-right-line" />
-					</button>
-				</section>
-			</div>
+			<CompleteProfileBanner />
+
 			<div className="container mx-auto px-4">
 				<section className="grid grid-cols-24 gap-5 w-full grid pb-5 relative -top-14">
-					{[...Array(4)].map((key) => (
-						<StateWidget />
-					))}
+					<StateOverview />
 					<div className="col-span-16 flex flex-col bg-white bg-white border rounded p-5">
 						<div className="flex items-center justify-between">
 							<h6 className="text-2xl capitalize">popular roles</h6>
@@ -186,7 +161,11 @@ function DashboardContainer() {
 							{[...Array(4)].map((key) => (
 								<div key={key} className="flex items-center space-x-4 py-3">
 									<div className="flex-shrink-0">
-										<img className="w-12 h-12 rounded" src="/profile.jpeg" alt="Neil image" />
+										<img
+											className="w-12 h-12 rounded"
+											src="/assets/images/profile.jpeg"
+											alt="Neil image"
+										/>
 									</div>
 									<div className="flex-1 min-w-0">
 										<p className="text-lg font-medium text-gray-900 truncate">
@@ -242,17 +221,13 @@ function DashboardContainer() {
 						<div className="flex pt-5 gap-5">
 							{[...Array(3)].map((key) => (
 								<div className="bg-white flex flex-col border rounded-md">
-									<img className="rounded-t-md h-[250px]" src="/sample.png" alt="" />
+									<img className="rounded-t-md h-[250px]" src="/assets/images/sample.png" alt="" />
 									<div className="flex flex-col p-3">
 										<div className="my-2 gap-2">
-											<span
-												className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40">
 												CATIA V5
 											</span>
-											<span
-												className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40">
 												3D Experience
 											</span>
 										</div>
@@ -261,51 +236,43 @@ function DashboardContainer() {
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit...
 										</p>
 										<div className="gap-2">
-											<span
-												className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40">
 												15 hrs
 											</span>
-											<span
-												className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40">
 												4.5
 											</span>
-											<span
-												className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40">
 												Advanced
 											</span>
 										</div>
 										<div className="flex mt-3 -space-x-4">
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
-											<span
-												className="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-black rounded-md border-2 border-white"
-											>
+											<span className="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-black rounded-md border-2 border-white">
 												+99
 											</span>
 										</div>
@@ -322,7 +289,11 @@ function DashboardContainer() {
 							{[...Array(3)].map((key) => (
 								<div key={key} className="flex items-center space-x-4 py-3">
 									<div className="flex-shrink-0">
-										<img className="w-12 h-12 rounded" src="/profile.jpeg" alt="Neil image" />
+										<img
+											className="w-12 h-12 rounded"
+											src="/assets/images/profile.jpeg"
+											alt="Neil image"
+										/>
 									</div>
 									<div className="flex-1 min-w-0">
 										<p className="text-lg font-medium text-gray-900 truncate">
@@ -349,7 +320,11 @@ function DashboardContainer() {
 							{[...Array(3)].map((key) => (
 								<div key={key} className="flex items-center space-x-4 py-3">
 									<div className="flex-shrink-0">
-										<img className="w-12 h-12 rounded" src="/profile.jpeg" alt="Neil image" />
+										<img
+											className="w-12 h-12 rounded"
+											src="/assets/images/profile.jpeg"
+											alt="Neil image"
+										/>
 									</div>
 									<div className="flex-1 min-w-0">
 										<p className="text-lg font-medium text-gray-900 truncate">
@@ -380,14 +355,12 @@ function DashboardContainer() {
 								<div key={key} className="relative overflow-rounded-lg shadow-lg cursor-pointer">
 									<img
 										className="object-cover w-full h-48"
-										src="/certificate.jpeg"
+										src="/assets/images/certificate.jpeg"
 										alt="certificate"
 									/>
 									<span className="bg-gray-900 absolute inset-0 bg-opacity-50" />
 									<div className="absolute bottom-0 left-0 right-0 p-4">
-										<h4 className="text-md text-white">
-											Advanced Assambly Design
-										</h4>
+										<h4 className="text-md text-white">Advanced Assambly Design</h4>
 										<div className="leading-normal text-sm text-gray-100">
 											<span>CAVITA-V5 .</span>
 											<span>1d ago</span>
@@ -456,14 +429,10 @@ function DashboardContainer() {
 									<img className="rounded-t-md h-[250px]" src="/sample.png" alt="" />
 									<div className="flex flex-col p-3">
 										<div className="my-2 gap-2">
-											<span
-												className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40">
 												CATIA V5
 											</span>
-											<span
-												className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-blue-700 bg-blue-200 rounded-md bg-opacity-40">
 												3D Experience
 											</span>
 										</div>
@@ -472,51 +441,43 @@ function DashboardContainer() {
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit...
 										</p>
 										<div className="gap-2">
-											<span
-												className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40">
 												15 hrs
 											</span>
-											<span
-												className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40">
 												4.5
 											</span>
-											<span
-												className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40"
-											>
+											<span className="px-2 py-1 text-xs font-normal text-gray-700 bg-gray-200 rounded-md bg-opacity-40">
 												Advanced
 											</span>
 										</div>
 										<div className="flex mt-3 -space-x-4">
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
 											<img
 												className="w-10 h-10 rounded-md border-2 border-white object-cover object-center"
-												src="/profile.jpeg"
+												src="/assets/images/profile.jpeg"
 												alt=""
 											/>
-											<span
-												className="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-black rounded-md border-2 border-white"
-											>
+											<span className="flex justify-center items-center w-10 h-10 text-xs font-medium text-white bg-black rounded-md border-2 border-white">
 												+99
 											</span>
 										</div>
@@ -540,11 +501,13 @@ function DashboardContainer() {
 						<div className="flex pt-5 gap-5">
 							{[...Array(4)].map((key) => (
 								<div className="flex bg-white flex-col border rounded-md max-w-xs">
-									<img className="rounded-t-md" src="/sample.png" alt="" />
+									<img className="rounded-t-md" src="/assets/images/sample.png" alt="" />
 									<div className="flex flex-col p-3">
 										<p className="font-bold text-2xl tracking-tight">3D Experience Training</p>
 										<p className="font-normal mb-3 text-gray-400">44 Courses</p>
-										<span className='my-5 text-[#6A7681] tracking-wider text-sm'><b className="text-[#1868B3] text-lg">₹7150</b>/per user</span>
+										<span className="my-5 text-[#6A7681] tracking-wider text-sm">
+											<b className="text-[#1868B3] text-lg">₹7150</b>/per user
+										</span>
 									</div>
 								</div>
 							))}

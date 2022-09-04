@@ -1,11 +1,29 @@
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from '@tanstack/react-location';
 import { FloatingLabelInput } from '~/components/FloatingLabelInput';
 import { SocialLogin } from '~/features/authentication/containers/SocialLogin';
 
+export interface ILoginFormInput {
+	email: String;
+	password: String;
+}
+
 function LoginContainer() {
 	const navigate = useNavigate();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isDirty, isValid }
+	} = useForm<ILoginFormInput>({ mode: 'onChange' });
+
+	const onSubmit: SubmitHandler<ILoginFormInput> = (data) => {
+		console.log('login form data', data);
+		login(data);
+		// navigate({ to: '/' });
+	};
+
 	return (
-		<div className="animate-opacity">
+		<div className="animate-opacity flex justify-center px-8 flex-col max-w-md mx-auto w-full h-full">
 			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Login</h1>
 			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">
 				<span>Have Organization login? </span>
@@ -14,8 +32,17 @@ function LoginContainer() {
 				</Link>
 			</p>
 			<div className="flex flex-col space-y-3">
-				<FloatingLabelInput name="username" label="Email" />
-				<FloatingLabelInput name="password" type="password" label="Password" />
+				<FloatingLabelInput
+					register={register('email', {
+						required: true,
+						pattern: {
+							value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+							message: 'invalid email address'
+						}
+					})}
+				/>
+				{errors.email?.type === 'required' && 'First name is required'}
+				<FloatingLabelInput type="password" register={register('password', { required: true })} />
 			</div>
 			<div className="flex items-center justify-between mt-6">
 				<div className="flex items-center select-none">
@@ -30,13 +57,14 @@ function LoginContainer() {
 					</label>
 				</div>
 
-				<Link to="./reset-password" className="text-sm text-[rgba(0,0,0,0.6)] no-underline">
+				<Link to="./forgot-password" className="text-sm text-[rgba(0,0,0,0.6)] no-underline">
 					Forgot your password?
 				</Link>
 			</div>
 			<button
-				onClick={() => navigate({ to: '/' })}
-				className="block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
+				disabled={!isDirty || !isValid}
+				onClick={handleSubmit(onSubmit)}
+				className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
 			>
 				Log in
 			</button>

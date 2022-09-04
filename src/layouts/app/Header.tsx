@@ -7,7 +7,7 @@ export function AppHeader() {
 			<section className="container mx-auto px-4 flex justify-between py-2 w-full">
 				<div className="flex items-center">
 					<Link to="#!">
-						<img className="object-cover" src="/public/logo.png" alt="Store Logo" />
+						<img className="object-cover" src="/assets/images/logo.png" alt="Store Logo" />
 					</Link>
 				</div>
 				<div className="flex items-center space-x-5">

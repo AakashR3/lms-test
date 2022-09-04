@@ -1,20 +1,19 @@
 import { Route } from '@tanstack/react-location';
-import {
-	AuthLayout,
-	LoginContainer,
-	ResetPasswordContainer,
-	SingUpContainer,
-	SsoLoginContainer
-} from '~/features/authentication';
 
 const AuthenticationRoute: Route = {
 	path: '/auth',
-	element: <AuthLayout />,
+	element: () => import('~/features/authentication').then((Res) => <Res.AuthLayout />),
 	children: [
-		{ path: '/', element: <LoginContainer /> },
-		{ path: 'reset-password', element: <ResetPasswordContainer /> },
-		{ path: 'sso-login', element: <SsoLoginContainer /> },
-		{ path: 'sign-up', element: <SingUpContainer /> },
+		{ path: '/', element: () => import('~/features/authentication').then((Res) => <Res.LoginContainer />) },
+		{
+			path: 'forgot-password',
+			element: () => import('~/features/authentication').then((Res) => <Res.ForgotPasswordContainer />)
+		},
+		{
+			path: 'sso-login',
+			element: () => import('~/features/authentication').then((Res) => <Res.SsoLoginContainer />)
+		},
+		{ path: 'sign-up', element: () => import('~/features/authentication').then((Res) => <Res.SingUpContainer />) },
 		{ element: `This would render as the fallback when URL were not matched` }
 	]
 };
