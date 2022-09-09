@@ -16,9 +16,9 @@ export function SocialLogin() {
 			</div>
 			<div className="flex space-x-3">
 				<LoginSocialGoogle
-					client_id={''}
+					client_id={'tesdfsdfds'}
 					onLoginStart={onLoginStart}
-					redirect_uri={'REDIRECT_URI'}
+					redirect_uri="/social-login/callback"
 					scope="openid profile email"
 					discoveryDocs="claims_supported"
 					access_type="offline"
@@ -35,9 +35,9 @@ export function SocialLogin() {
 					</button>
 				</LoginSocialGoogle>
 				<LoginSocialLinkedin
-					client_id={''}
-					client_secret={''}
-					redirect_uri={'REDIRECT_URI'}
+					client_id="client_id"
+					client_secret="client_secret"
+					redirect_uri="/social-login/callback"
 					onLoginStart={onLoginStart}
 					onResolve={({ provider, data }: IResolveParams) => {
 						console.log(provider);
@@ -52,12 +52,12 @@ export function SocialLogin() {
 					</button>
 				</LoginSocialLinkedin>
 				<LoginSocialFacebook
-					appId={''}
+					appId="32434123"
 					fieldsProfile={
 						'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
 					}
 					onLoginStart={onLoginStart}
-					redirect_uri={'REDIRECT_URI'}
+					redirect_uri="/social-login/callback"
 					onResolve={({ provider, data }: IResolveParams) => {
 						console.log(provider);
 						console.log(data);

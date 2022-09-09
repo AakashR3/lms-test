@@ -2,23 +2,26 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from '@tanstack/react-location';
 import { FloatingLabelInput } from '~/components/FloatingLabelInput';
 import { SocialLogin } from '~/features/authentication/containers/SocialLogin';
+import { useDoLoginMutation } from '~/services/auth';
 
 export interface ILoginFormInput {
-	email: String;
-	password: String;
+	UserName: String;
+	EncPassword: String;
 }
 
 function LoginContainer() {
 	const navigate = useNavigate();
+	const [doLogin, option] = useDoLoginMutation();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ILoginFormInput>({ mode: 'onChange' });
 
-	const onSubmit: SubmitHandler<ILoginFormInput> = (data) => {
-		console.log('login form data', data);
-		navigate({ to: '/' });
+	const onSubmit: SubmitHandler<ILoginFormInput> = async (data) => {
+		const resp: any = await doLogin(data);
+		if (!resp.error) navigate({ to: '/' });
 	};
 
 	return (
@@ -31,17 +34,28 @@ function LoginContainer() {
 				</Link>
 			</p>
 			<div className="flex flex-col space-y-3">
-				<FloatingLabelInput
-					register={register('email', {
-						required: true,
-						pattern: {
-							value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-							message: 'invalid email address'
-						}
-					})}
-				/>
-				{errors.email?.type === 'required' && 'First name is required'}
-				<FloatingLabelInput type="password" register={register('password', { required: true })} />
+				<div>
+					<FloatingLabelInput
+						register={register('UserName', {
+							required: 'UserName is required'
+							// pattern: {
+							// 	value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+							// 	message: 'invalid email address'
+							// }
+						})}
+					/>
+					{errors.UserName && <span className="text-red-500 text-xs ml-2">{errors.UserName?.message}</span>}
+				</div>
+				<div>
+					<FloatingLabelInput
+						type="password"
+						name="Password"
+						register={register('EncPassword', { required: 'Passeord is required' })}
+					/>
+					{errors.EncPassword && (
+						<span className="text-red-500 text-xs ml-2">{errors.EncPassword?.message}</span>
+					)}
+				</div>
 			</div>
 			<div className="flex items-center justify-between mt-6">
 				<div className="flex items-center select-none">
@@ -61,7 +75,7 @@ function LoginContainer() {
 				</Link>
 			</div>
 			<button
-				disabled={!isDirty || !isValid}
+				disabled={!isDirty || !isValid || option.isLoading}
 				onClick={handleSubmit(onSubmit)}
 				className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
 			>

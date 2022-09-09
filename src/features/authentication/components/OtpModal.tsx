@@ -28,6 +28,7 @@ export function OtpModal({ handleVerify }: TOtpModal) {
 			<input
 				key={name}
 				id={name}
+				type="tel"
 				className="m-2 border h-12 w-12 text-center form-control rounded"
 				{...register(name, {
 					required: true

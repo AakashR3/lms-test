@@ -34,6 +34,7 @@ export default defineConfig((option) => ({
 			'~': resolve(__dirname, './src')
 		}
 	},
+	server: { port: 3001 },
 	build: {
 		cssCodeSplit: false,
 		sourcemap: option.mode === 'development',
