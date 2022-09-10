@@ -16,10 +16,12 @@ type TOtpModal = {
 	handleVerify: (otp: string) => void;
 };
 
+const timing = 30;
+
 export function OtpModal({ Email, handleVerify }: TOtpModal) {
 	const [verifyOtp, options] = useVerifyOtpMutation();
 	const [sendOtp] = useSendVerifyEmailMutation();
-	const [timer, setTimer] = useState(10);
+	const [timer, setTimer] = useState(timing);
 	const {
 		register,
 		handleSubmit,
@@ -84,13 +86,13 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 							onClick={() => {
 								sendOtp({ Email }).then((resp: any) => {
 									if (resp.data) {
-										setTimer(10);
+										setTimer(timing);
 										toast.success(resp.data.Message);
 									}
 								});
 							}}
 						>
-							Resent OTP
+							Resend OTP
 						</div>
 					</div>
 					<button

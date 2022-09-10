@@ -1,10 +1,10 @@
 import { Icon } from '@iconify/react';
 import { useNavigate } from '@tanstack/react-location';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { LoginSocialLinkedin, LoginSocialGoogle, IResolveParams } from 'reactjs-social-login';
 import { toast } from 'react-hot-toast';
 
-const REDIRECT_URI = '/login/callback';
+const REDIRECT_URI = '/auth/sl-callback';
 
 export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 	const navigate = useNavigate();
@@ -28,10 +28,9 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 						<LoginSocialGoogle
 							client_id="444327535067-lb92ki3mag7ec0umidovej6jvbjluja2.apps.googleusercontent.com"
 							onLoginStart={() => setIsLoading('google')}
+							scope="openid profile email"
 							onResolve={({ provider, data }: IResolveParams) => {
-								console.log(data);
 								setIsLoading(undefined);
-
 								if (isLoginPage) {
 									localStorage.setItem('isLogged', 'true');
 									localStorage.setItem('user', data?.name);
@@ -70,6 +69,7 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 					client_secret={import.meta.env.REACT_APP_LINKEDIN_APP_SECRET || ''}
 					redirect_uri={REDIRECT_URI}
 					onLoginStart={onLoginStart}
+					isOnlyGetToken
 					onResolve={({ provider, data }) => {
 						console.log(data, 'data');
 						console.log(provider, 'provider');
