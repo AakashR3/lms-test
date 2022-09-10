@@ -1,4 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useSendVerifyEmailMutation, useVerifyOtpMutation } from '~/services/auth';
+import { toast } from 'react-hot-toast';
+import { useEffect, useRef, useState } from 'react';
+import CountDownTimer from './CountDownTimer';
 
 interface OtpValues {
 	value_1: string;
@@ -8,9 +12,14 @@ interface OtpValues {
 }
 
 type TOtpModal = {
+	Email: String;
 	handleVerify: (otp: string) => void;
 };
-export function OtpModal({ handleVerify }: TOtpModal) {
+
+export function OtpModal({ Email, handleVerify }: TOtpModal) {
+	const [verifyOtp, options] = useVerifyOtpMutation();
+	const [sendOtp] = useSendVerifyEmailMutation();
+	const [timer, setTimer] = useState(10);
 	const {
 		register,
 		handleSubmit,
@@ -18,9 +27,17 @@ export function OtpModal({ handleVerify }: TOtpModal) {
 	} = useForm<OtpValues>({ mode: 'onChange' });
 
 	const onSubmit: SubmitHandler<OtpValues> = (data) => {
-		console.log('login form data', data);
-		const otp = `${data.value_1}${data.value_2}${data.value_3}${data.value_4}`;
-		handleVerify(otp);
+		const Otp = `${data.value_1}${data.value_2}${data.value_3}${data.value_4}`;
+		console.log('login form data', { Email, Otp });
+
+		verifyOtp({ Email, Otp }).then((resp: any) => {
+			if (resp.data.Status === 'F') {
+				toast.error(resp.data.Message);
+				return;
+			}
+			handleVerify(Otp);
+			toast.success(resp.data.Message);
+		});
 	};
 
 	const renderInput = (name: keyof OtpValues) => {
@@ -51,9 +68,30 @@ export function OtpModal({ handleVerify }: TOtpModal) {
 					<div id="otp" className="flex flex-row justify-between mt-5">
 						{['value_1', 'value_2', 'value_3', 'value_4'].map((val: any) => renderInput(val))}
 					</div>
-					<div className="flex space-x-3 my-5 items-center justify-center text-xs">
-						<span className="text-[#00000099]">00:28</span>
-						<span className="text-[#C7CFD761]">Resent OTP</span>
+					<div className="flex items-center space-x-3 my-5 items-center justify-center text-xs">
+						<CountDownTimer
+							hours={0}
+							minutes={0}
+							seconds={timer}
+							onTimeUp={() => {
+								setTimer(0);
+							}}
+						/>
+						<div
+							className={`${
+								timer === 0 ? 'cursor-pointer text-blue-500' : 'text-[#C7CFD761] pointer-events-none'
+							}`}
+							onClick={() => {
+								sendOtp({ Email }).then((resp: any) => {
+									if (resp.data) {
+										setTimer(10);
+										toast.success(resp.data.Message);
+									}
+								});
+							}}
+						>
+							Resent OTP
+						</div>
 					</div>
 					<button
 						disabled={!isDirty || !isValid}

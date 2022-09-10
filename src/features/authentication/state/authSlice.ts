@@ -19,7 +19,8 @@ const auth = authApi.endpoints;
 const matchsRejected = isAnyOf(
 	auth.doSignUp.matchRejected,
 	auth.doLogin.matchRejected,
-	auth.forgotPassword.matchRejected
+	auth.forgotPassword.matchRejected,
+	auth.sendVerifyEmail.matchRejected
 );
 
 const authSlice = createSlice({

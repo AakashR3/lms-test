@@ -1,10 +1,14 @@
 import { Icon } from '@iconify/react';
-import { useCallback } from 'react';
+import { useNavigate } from '@tanstack/react-location';
+import { useCallback, useRef, useState } from 'react';
 import { LoginSocialLinkedin, LoginSocialGoogle } from 'reactjs-social-login';
 
 const REDIRECT_URI = '/login/callback';
 
-export function SocialLogin() {
+export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
+	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState<string | undefined>(undefined);
+
 	const onLoginStart = useCallback(() => {
 		console.log('login start');
 	}, []);
@@ -18,21 +22,36 @@ export function SocialLogin() {
 				</span>
 			</div>
 			<div className="flex space-x-3">
-				<LoginSocialGoogle
-					client_id="1024616921919.apps.googleusercontent.com"
-					onLoginStart={onLoginStart}
-					onResolve={({ provider, data }: any) => {
-						console.log(data, 'data');
-						console.log(provider, 'provider');
-					}}
-					onReject={(err: any) => {
-						console.log('hbhbdhd', err);
-					}}
-				>
-					<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-						<Icon width={22} icon="flat-color-icons:google" />
-					</button>
-				</LoginSocialGoogle>
+				<>
+					{isLoading !== 'google' && (
+						<LoginSocialGoogle
+							client_id="444327535067-lb92ki3mag7ec0umidovej6jvbjluja2.apps.googleusercontent.com"
+							onLoginStart={() => setIsLoading('google')}
+							onResolve={({ provider, data }: any) => {
+								console.log(data);
+								setIsLoading(undefined);
+
+								if (isLoginPage) {
+									localStorage.setItem('isLogged', 'true');
+									localStorage.setItem('user', data.name);
+									navigate({ to: '/' });
+								}
+							}}
+							onReject={(err: any) => {
+								console.log('hbhbdhd', err);
+							}}
+						>
+							<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
+								<Icon width={22} icon="flat-color-icons:google" />
+							</button>
+						</LoginSocialGoogle>
+					)}
+					{isLoading === 'google' && (
+						<span className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
+							<Icon width={22} icon="tabler:loader-2" className="animate-spin" />
+						</span>
+					)}
+				</>
 				<LoginSocialLinkedin
 					client_id={import.meta.env.REACT_APP_LINKEDIN_APP_ID || ''}
 					client_secret={import.meta.env.REACT_APP_LINKEDIN_APP_SECRET || ''}
@@ -51,9 +70,21 @@ export function SocialLogin() {
 					</button>
 				</LoginSocialLinkedin>
 
+				{/* <LoginSocialFacebook
+					appId={'431451242017946'}
+					onLoginStart={onLoginStart}
+					onResolve={({ provider, data }: any) => {
+						console.log(data, 'data');
+						console.log(provider, 'provider');
+					}}
+					onReject={(err: any) => {
+						console.log(err);
+					}}
+				> */}
 				<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
 					<Icon width={22} icon="akar-icons:facebook-fill" color="#3b5998" />
 				</button>
+				{/* </LoginSocialFacebook> */}
 			</div>
 		</section>
 	);

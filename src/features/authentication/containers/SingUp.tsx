@@ -5,7 +5,8 @@ import { FloatingLabelInput } from '~/components/FloatingLabelInput';
 import { SocialLogin } from '~/features/authentication/containers/SocialLogin';
 import { OtpModal } from '~/features/authentication/components/OtpModal';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDoSignUpMutation } from '~/services/auth';
+import { useDoSignUpMutation, useSendVerifyEmailMutation } from '~/services/auth';
+import { toast } from 'react-hot-toast';
 
 interface ISingUpFormInput {
 	FirstName: String;
@@ -19,11 +20,14 @@ interface ISingUpFormInput {
 function SingUpContainer() {
 	const [isVerified, setIsVerified] = React.useState<boolean>(false);
 	const [doLogin, option] = useDoSignUpMutation();
+	const [verifyEmail, verifyEmailOption] = useSendVerifyEmailMutation();
+
 	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
 		setValue,
+		getValues,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ISingUpFormInput>({ mode: 'onChange' });
 
@@ -44,6 +48,20 @@ function SingUpContainer() {
 		register('optVerified', { required: true });
 	}, []);
 
+	const handleVerifyEmail = () => {
+		const { Email } = getValues();
+		if (!Email) {
+			toast.error('Invalid Email Address');
+			return;
+		}
+		verifyEmail({ Email }).then((resp: any) => {
+			console.log(resp);
+			if (resp.data) {
+				setIsVerified(true);
+				toast.success(resp.data.Message);
+			}
+		});
+	};
 	return (
 		<>
 			<section className="animate-opacity flex justify-center flex-col max-w-md mx-auto px-4 w-full h-full">
@@ -79,7 +97,7 @@ function SingUpContainer() {
 							)}
 						</div>
 					</div>
-					<div>
+					<div className="relative">
 						<FloatingLabelInput
 							register={register('Email', {
 								required: 'Email Address is required',
@@ -88,8 +106,22 @@ function SingUpContainer() {
 									message: 'invalid email address'
 								}
 							})}
-							handleVerify={() => setIsVerified(true)}
+							handleVerify={() => {
+								handleVerifyEmail();
+							}}
 						/>
+						{verifyEmailOption.isLoading && (
+							<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
+								<Icon width={22} icon="tabler:loader-2" color="#666" className="animate-spin" />
+							</span>
+						)}
+
+						{getValues('optVerified') && (
+							<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
+								<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
+							</span>
+						)}
+
 						{errors.Email && <span className="text-red-500 text-xs ml-2">{errors.Email?.message}</span>}
 					</div>
 					<div>
@@ -135,7 +167,7 @@ function SingUpContainer() {
 				</div>
 				<SocialLogin />
 			</section>
-			{isVerified && <OtpModal handleVerify={handleOtp} />}
+			{isVerified && <OtpModal Email={getValues('Email')} handleVerify={handleOtp} />}
 		</>
 	);
 }

@@ -82,7 +82,7 @@ function LoginContainer() {
 				Log in
 			</button>
 
-			<SocialLogin />
+			<SocialLogin isLoginPage />
 
 			<p className="mt-5 tracking-wide text-[#00000099] text-sm pt-1 mb-0 space-x-2">
 				<span>Don't have an account?</span>

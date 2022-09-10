@@ -40,6 +40,46 @@ export const authApi = api.injectEndpoints({
 				return { data: result.data };
 			}
 		}),
+		sendVerifyEmail: build.mutation({
+			async queryFn(params, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: 'Users/SendOTP',
+					method: 'POST',
+					params,
+					body: {}
+				});
+
+				if (result.error) {
+					// but refetch on another error
+					return { error: result.error };
+				}
+
+				return { data: result.data };
+			}
+		}),
+		verifyOtp: build.mutation({
+			async queryFn(body, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: 'Users/VerifyOTP',
+					method: 'POST',
+					body
+				});
+
+				console.log(result);
+
+				if (result.error?.status === 400) {
+					// don't refetch on 404
+					return { data: result.data };
+				}
+
+				if (result.error) {
+					// but refetch on another error
+					return { error: result.error };
+				}
+
+				return { data: result.data };
+			}
+		}),
 		doSignUp: build.mutation({
 			async queryFn(user, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
@@ -64,4 +104,10 @@ export const authApi = api.injectEndpoints({
 	})
 });
 
-export const { useDoLoginMutation, useDoSignUpMutation, useForgotPasswordMutation } = authApi;
+export const {
+	useDoLoginMutation,
+	useDoSignUpMutation,
+	useForgotPasswordMutation,
+	useSendVerifyEmailMutation,
+	useVerifyOtpMutation
+} = authApi;
