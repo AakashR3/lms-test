@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react';
 import { useNavigate } from '@tanstack/react-location';
 import { useCallback, useRef, useState } from 'react';
-import { LoginSocialLinkedin, LoginSocialGoogle } from 'reactjs-social-login';
+import { LoginSocialLinkedin, LoginSocialGoogle, IResolveParams } from 'reactjs-social-login';
+import { toast } from 'react-hot-toast';
 
 const REDIRECT_URI = '/login/callback';
 
@@ -27,14 +28,26 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 						<LoginSocialGoogle
 							client_id="444327535067-lb92ki3mag7ec0umidovej6jvbjluja2.apps.googleusercontent.com"
 							onLoginStart={() => setIsLoading('google')}
-							onResolve={({ provider, data }: any) => {
+							onResolve={({ provider, data }: IResolveParams) => {
 								console.log(data);
 								setIsLoading(undefined);
 
 								if (isLoginPage) {
 									localStorage.setItem('isLogged', 'true');
-									localStorage.setItem('user', data.name);
+									localStorage.setItem('user', data?.name);
 									navigate({ to: '/' });
+								} else {
+									if (!data?.email) {
+										toast.error('something went wrong unable to find email');
+									}
+									console.log({
+										Email: data?.email || '',
+										Password: '',
+										FirstName: data?.family_name,
+										LastName: data?.given_name,
+										PreferredSoftwareID: 0,
+										FavouriteSoftware: 0
+									});
 								}
 							}}
 							onReject={(err: any) => {
