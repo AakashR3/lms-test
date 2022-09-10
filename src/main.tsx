@@ -51,7 +51,7 @@ export class LmsApp {
 					<Router routes={routes} location={location}>
 						<AppLayout />
 					</Router>
-					<Toaster position="top-right" />
+					<Toaster position="top-right" toastOptions={{ duration: 15000 }} />
 				</Provider>
 			</React.StrictMode>
 		);
