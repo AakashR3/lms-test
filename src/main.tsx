@@ -1,13 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
-import { Router } from '@tanstack/react-location';
 import { configureStore } from '@reduxjs/toolkit';
 import { Toaster } from 'react-hot-toast';
 
-import { api } from './config/api';
-import AppLayout from '~/layouts/app';
-import { routes, location } from '~/router';
+import { api } from '~/config/api';
+import AppRouter from '~/router';
 import { setStore, store, StoreState } from '~/config/store';
 import { createRootReducer } from '~/config/store/reducers';
 
@@ -48,10 +46,8 @@ export class LmsApp {
 		return (
 			<React.StrictMode>
 				<Provider store={store}>
-					<Router routes={routes} location={location}>
-						<AppLayout />
-					</Router>
-					<Toaster position="top-right" toastOptions={{ duration: 15000 }} />
+					<AppRouter />
+					<Toaster position="top-right" toastOptions={{ duration: 5000 }} />
 				</Provider>
 			</React.StrictMode>
 		);

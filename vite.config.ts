@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 import WindiCSS from 'vite-plugin-windicss';
 import { dependencies } from './package.json';
 
-const globalVendorPackages = ['react', 'react-dom', '@tanstack/react-location', 'keen-slider', 'react-hook-form'];
+const globalVendorPackages = ['react', 'react-dom', 'react-router-dom', 'keen-slider', 'react-hook-form'];
 
 function renderChunks(deps: Record<string, string>) {
 	let chunks = {};

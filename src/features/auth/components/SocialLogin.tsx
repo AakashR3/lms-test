@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
-import { useNavigate } from '@tanstack/react-location';
 import { useCallback, useState } from 'react';
 import { LoginSocialLinkedin, LoginSocialGoogle, IResolveParams } from 'reactjs-social-login';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const REDIRECT_URI = '/auth/sl-callback';
 
@@ -31,23 +31,24 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 							scope="openid profile email"
 							onResolve={({ provider, data }: IResolveParams) => {
 								setIsLoading(undefined);
-								if (isLoginPage) {
-									localStorage.setItem('isLogged', 'true');
-									localStorage.setItem('user', data?.name);
-									navigate({ to: '/' });
-								} else {
-									if (!data?.email) {
-										toast.error('something went wrong unable to find email');
-									}
-									console.log({
-										Email: data?.email || '',
-										Password: '',
-										FirstName: data?.family_name,
-										LastName: data?.given_name,
-										PreferredSoftwareID: 0,
-										FavouriteSoftware: 0
-									});
-								}
+								// if (isLoginPage) {
+								console.log(data);
+								localStorage.setItem('isLogged', 'true');
+								localStorage.setItem('user', JSON.stringify(data));
+								navigate('/');
+								// } else {
+								// 	if (!data?.email) {
+								// 		toast.error('something went wrong unable to find email');
+								// 	}
+								// 	console.log({
+								// 		Email: data?.email || '',
+								// 		Password: '',
+								// 		FirstName: data?.family_name,
+								// 		LastName: data?.given_name,
+								// 		PreferredSoftwareID: 0,
+								// 		FavouriteSoftware: 0
+								// 	});
+								// }
 							}}
 							onReject={(err: any) => {
 								console.log('hbhbdhd', err);

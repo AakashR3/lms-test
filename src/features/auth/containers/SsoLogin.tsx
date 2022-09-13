@@ -1,6 +1,6 @@
 import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { Link } from '@tanstack/react-location';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 interface ISsoLoginFormInput {
 	domain: String;

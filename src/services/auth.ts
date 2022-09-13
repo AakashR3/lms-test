@@ -1,4 +1,5 @@
 import { api } from '~/config/api';
+import { endPoints } from '~/config/api/endPoints';
 
 export const authApi = api.injectEndpoints({
 	endpoints: (build) => ({
@@ -100,6 +101,22 @@ export const authApi = api.injectEndpoints({
 
 				return { data: result.data };
 			}
+		}),
+		resetPassword: build.mutation({
+			async queryFn(params, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: endPoints.account.resetPassword,
+					method: 'POST',
+					params
+				});
+
+				if (result.error) {
+					// but refetch on another error
+					return { error: result.error };
+				}
+
+				return { data: result.data };
+			}
 		})
 	})
 });
@@ -109,5 +126,6 @@ export const {
 	useDoSignUpMutation,
 	useForgotPasswordMutation,
 	useSendVerifyEmailMutation,
-	useVerifyOtpMutation
+	useVerifyOtpMutation,
+	useResetPasswordMutation
 } = authApi;

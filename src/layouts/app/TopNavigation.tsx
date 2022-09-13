@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-location';
+import { NavLink } from 'react-router-dom';
 
 const menus = ['Dashboard', 'Library', 'Account', 'Objectives', 'Reports', 'More'];
 
@@ -8,13 +8,13 @@ export function TopNavigation() {
 			<div className="container mx-auto px-4 flex items-center justify-between">
 				<nav className="flex items-center space-x-8">
 					{menus.map((menu) => (
-						<Link
-							to=""
+						<NavLink
+							to={menu.toLowerCase()}
 							key={menu}
 							className="flex no-underline text-gray-600 hover:text-blue-500 cursor-pointer transition-colors"
 						>
 							{menu}
-						</Link>
+						</NavLink>
 					))}
 				</nav>
 				<div className="relative">

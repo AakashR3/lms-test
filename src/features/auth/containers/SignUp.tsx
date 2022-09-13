@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { Icon } from '@iconify/react';
-import { Link, useNavigate } from '@tanstack/react-location';
 import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { SocialLogin } from '~/features/authentication/containers/SocialLogin';
-import { OtpModal } from '~/features/authentication/components/OtpModal';
+import { SocialLogin } from '~/features/auth/components/SocialLogin';
+import { OtpModal } from '~/features/auth/components/OtpModal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDoSignUpMutation, useSendVerifyEmailMutation } from '~/services/auth';
 import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface ISingUpFormInput {
 	FirstName: String;
@@ -17,7 +17,7 @@ interface ISingUpFormInput {
 	optVerified?: Boolean;
 }
 
-function SingUpContainer() {
+function SignUpContainer() {
 	const [isVerified, setIsVerified] = React.useState<boolean>(false);
 	const [doLogin, option] = useDoSignUpMutation();
 	const [verifyEmail, verifyEmailOption] = useSendVerifyEmailMutation();
@@ -35,7 +35,7 @@ function SingUpContainer() {
 		delete user.optVerified;
 		const MarketingEmail = user.MarketingEmail ? 'Yes' : 'No';
 		const resp: any = await doLogin({ ...user, MarketingEmail });
-		if (!resp.error) navigate({ to: '/auth' });
+		if (!resp.error) navigate('/auth');
 	};
 
 	const handleOtp = useCallback((otp: string) => {
@@ -106,6 +106,7 @@ function SingUpContainer() {
 									message: 'invalid email address'
 								}
 							})}
+							isVerify={!!getValues('Email') && !errors.Email}
 							handleVerify={() => {
 								handleVerifyEmail();
 							}}
@@ -172,4 +173,4 @@ function SingUpContainer() {
 	);
 }
 
-export default SingUpContainer;
+export default SignUpContainer;

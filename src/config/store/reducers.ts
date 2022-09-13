@@ -1,6 +1,6 @@
 import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import { api } from '~/config/api';
-import authSlice from '~/features/authentication/state/authSlice';
+import authSlice from '~/features/auth/state/authSlice';
 
 const rootReducers = {
 	...authSlice,

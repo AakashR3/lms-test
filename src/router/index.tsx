@@ -1,10 +1,44 @@
-import { ReactLocation, Route } from '@tanstack/react-location';
-import AuthenticationRoute from '~/router/authentication';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { DashboardContainer } from '~/features/dashboard';
+import AppLayout from '~/layouts/app';
+import {
+	AuthLayout,
+	ForgotPasswordContainer,
+	LoginContainer,
+	SignUpContainer,
+	SsoLoginContainer
+} from '~/features/auth';
+import ProtectedRoutes from '~/router/ProtectedRoute';
+import ResetPasswordContainer from '~/features/account/reset-password/container';
 
-export const routes: Route[] = [
-	{ path: '/', element: () => import('~/features/dashboard').then((Res) => <Res.DashboardContainer />) },
-	AuthenticationRoute,
-	{ element: `This would render as the fallback when URL were not matched` }
-];
+function AppRouter() {
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<ProtectedRoutes />}>
+					<Route path="/" element={<AppLayout />}>
+						<Route index element={<DashboardContainer />} />
+						<Route path="*" element="page not found" />
+					</Route>
+				</Route>
+				{/** Public Routes */}
+				<Route path="auth" element={<AuthLayout />}>
+					<Route index element={<Navigate to="/auth/login" />} />
+					<Route path="login" element={<LoginContainer />} />
+					<Route path="signup" element={<SignUpContainer />} />
+					<Route path="forgot-password" element={<ForgotPasswordContainer />} />
+					<Route path="sso-login" element={<SsoLoginContainer />} />
+					<Route path="*" element="page not found" />
+				</Route>
 
-export const location = new ReactLocation();
+				<Route path="account">
+					<Route path="reset-password" element={<ResetPasswordContainer />} />
+				</Route>
+
+				<Route path="*" element="page not found" />
+			</Routes>
+		</BrowserRouter>
+	);
+}
+
+export default AppRouter;

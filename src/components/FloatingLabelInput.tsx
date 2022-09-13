@@ -4,11 +4,12 @@ import { Icon } from '@iconify/react';
 interface IFloatingLabelInput {
 	type?: 'text' | 'email' | 'password';
 	name?: string;
+	isVerify?: Boolean;
 	handleVerify?: any;
 	register?: any;
 }
 
-export function FloatingLabelInput({ type, name, handleVerify, register }: IFloatingLabelInput) {
+export function FloatingLabelInput({ type, name, isVerify = true, handleVerify, register }: IFloatingLabelInput) {
 	const [active, setActive] = React.useState(false);
 	const [showPassword, setShowPassword] = React.useState(false);
 	function handleActivation(e: any) {
@@ -40,10 +41,10 @@ export function FloatingLabelInput({ type, name, handleVerify, register }: IFloa
 			>
 				{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, '$1 $2')}
 			</label>
-			{handleVerify && (
+			{handleVerify && isVerify && (
 				<button
 					onClick={() => handleVerify()}
-					className="absolute top-0 bg-white right-0 h-11 w-auto text-sm pr-3 text-blue-500 inline-flex items-center justify-center focus:outline-none"
+					className="absolute capitalize rounded-t top-0 bg-white right-0 h-11 w-auto text-sm pr-3 text-blue-500 inline-flex items-center justify-center focus:outline-none"
 				>
 					Verify email
 				</button>

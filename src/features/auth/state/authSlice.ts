@@ -20,7 +20,8 @@ const matchsRejected = isAnyOf(
 	auth.doSignUp.matchRejected,
 	auth.doLogin.matchRejected,
 	auth.forgotPassword.matchRejected,
-	auth.sendVerifyEmail.matchRejected
+	auth.sendVerifyEmail.matchRejected,
+	auth.resetPassword.matchRejected
 );
 
 const authSlice = createSlice({
@@ -31,11 +32,12 @@ const authSlice = createSlice({
 	},
 	extraReducers(builder) {
 		builder
-			.addMatcher(auth.doLogin.matchFulfilled, (state, action) => {
-				console.log('fulfilled', action);
+			.addMatcher(auth.doLogin.matchFulfilled, (state, action: any) => {
+				console.log('fulfilled', action.payload.Data[0]);
 				// state.user = action.payload.user;
 				// state.token = action.payload;
 				localStorage.setItem('isLogged', 'true');
+				localStorage.setItem('user', JSON.stringify(action.payload.Data[0]));
 				state.isAuthenticated = true;
 			})
 			.addMatcher(auth.doSignUp.matchFulfilled, (state, action: any) => {

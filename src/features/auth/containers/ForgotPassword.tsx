@@ -1,9 +1,9 @@
 import { FloatingLabelInput } from '~/components/FloatingLabelInput';
 import { Icon } from '@iconify/react';
-import { Link, useNavigate } from '@tanstack/react-location';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useForgotPasswordMutation } from '~/services/auth';
 import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 interface IForgotPasswordFormInput {
 	UserName?: String | null;
 }
@@ -19,13 +19,19 @@ function ForgotPasswordContainer() {
 	} = useForm<IForgotPasswordFormInput>({ mode: 'onChange' });
 
 	const onSubmit: SubmitHandler<IForgotPasswordFormInput> = ({ UserName }) => {
-		ForgotPassword({ UserName }).then((res: any) => {
-			console.log(res.data);
-			if (res.data.Status === 'S') {
-				navigate({ to: '/auth', replace: true });
-			}
-			toast.success(res.data.Message);
+		toast.promise(ForgotPassword({ UserName }), {
+			loading: 'Saving...',
+			success: <b>Settings saved!</b>,
+			error: <b>Could not save.</b>
 		});
+
+		// ForgotPassword({ UserName }).then((res: any) => {
+		// 	console.log(res.data);
+		// 	if (res.data.Status === 'S') {
+		// 		navigate('/auth');
+		// 	}
+		// 	toast.success(res.data.Message);
+		// });
 	};
 
 	return (

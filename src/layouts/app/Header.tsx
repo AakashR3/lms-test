@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Link, useNavigate } from '@tanstack/react-location';
+import { Link, useNavigate } from 'react-router-dom';
 
 const safeText = (text: string): string => {
 	if (text?.length <= 4) return text;
@@ -8,6 +8,7 @@ const safeText = (text: string): string => {
 
 export function AppHeader() {
 	const navigate = useNavigate();
+	const user = localStorage.getItem('user');
 	return (
 		<header className="bg-white">
 			<section className="container mx-auto px-4 flex justify-between py-2 w-full">
@@ -25,7 +26,7 @@ export function AppHeader() {
 						<Icon
 							onClick={() => {
 								localStorage.clear();
-								navigate({ to: '/auth' });
+								navigate('/auth');
 							}}
 							width={20}
 							icon="ant-design:logout-outlined"
@@ -33,12 +34,10 @@ export function AppHeader() {
 					</div>
 					<div className="flex items-center space-x-2">
 						<div className="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-md">
-							<span className="font-medium uppercase tracking-wider text-lg text-gray-600">
-								{safeText(localStorage.getItem('user') || '')}
-							</span>
+							<span className="font-medium uppercase tracking-wider text-lg text-gray-600">RA</span>
 						</div>
 						<div className="font-medium leading-5">
-							<div>{localStorage.getItem('user')}</div>
+							<div>First Name </div>
 							<div className="text-sm text-gray-500">Joined in August 2014</div>
 						</div>
 					</div>
