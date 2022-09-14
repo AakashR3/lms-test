@@ -1,17 +1,16 @@
-import { Icon } from '@iconify/react';
-import { useCallback, useState } from 'react';
-import { LoginSocialLinkedin, LoginSocialGoogle, IResolveParams } from 'reactjs-social-login';
-import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Icon } from "@iconify/react";
+import { useCallback, useState } from "react";
+import { LoginSocialLinkedin, LoginSocialGoogle, IResolveParams } from "reactjs-social-login";
+import { useNavigate } from "react-router-dom";
 
-const REDIRECT_URI = '/auth/sl-callback';
+const REDIRECT_URI = "/auth/sl-callback";
 
 export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState<string | undefined>(undefined);
 
 	const onLoginStart = useCallback(() => {
-		console.log('login start');
+		console.log("login start");
 	}, []);
 
 	return (
@@ -24,18 +23,18 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 			</div>
 			<div className="flex space-x-3">
 				<>
-					{isLoading !== 'google' && (
+					{isLoading !== "google" && (
 						<LoginSocialGoogle
 							client_id="444327535067-lb92ki3mag7ec0umidovej6jvbjluja2.apps.googleusercontent.com"
-							onLoginStart={() => setIsLoading('google')}
+							onLoginStart={() => setIsLoading("google")}
 							scope="openid profile email"
 							onResolve={({ provider, data }: IResolveParams) => {
 								setIsLoading(undefined);
 								// if (isLoginPage) {
 								console.log(data);
-								localStorage.setItem('isLogged', 'true');
-								localStorage.setItem('user', JSON.stringify(data));
-								navigate('/');
+								localStorage.setItem("isLogged", "true");
+								localStorage.setItem("user", JSON.stringify(data));
+								navigate("/");
 								// } else {
 								// 	if (!data?.email) {
 								// 		toast.error('something went wrong unable to find email');
@@ -51,7 +50,7 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 								// }
 							}}
 							onReject={(err: any) => {
-								console.log('hbhbdhd', err);
+								console.log("hbhbdhd", err);
 							}}
 						>
 							<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
@@ -59,21 +58,21 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 							</button>
 						</LoginSocialGoogle>
 					)}
-					{isLoading === 'google' && (
+					{isLoading === "google" && (
 						<span className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
 							<Icon width={22} icon="tabler:loader-2" className="animate-spin" />
 						</span>
 					)}
 				</>
 				<LoginSocialLinkedin
-					client_id={import.meta.env.REACT_APP_LINKEDIN_APP_ID || ''}
-					client_secret={import.meta.env.REACT_APP_LINKEDIN_APP_SECRET || ''}
+					client_id={import.meta.env.REACT_APP_LINKEDIN_APP_ID || ""}
+					client_secret={import.meta.env.REACT_APP_LINKEDIN_APP_SECRET || ""}
 					redirect_uri={REDIRECT_URI}
 					onLoginStart={onLoginStart}
 					isOnlyGetToken
 					onResolve={({ provider, data }) => {
-						console.log(data, 'data');
-						console.log(provider, 'provider');
+						console.log(data, "data");
+						console.log(provider, "provider");
 					}}
 					onReject={(err: any) => {
 						console.log(err);

@@ -1,14 +1,8 @@
-import { Icon } from '@iconify/react';
-import { Link, useNavigate } from 'react-router-dom';
-
-const safeText = (text: string): string => {
-	if (text?.length <= 4) return text;
-	return text?.slice(0, 2);
-};
+import { Icon } from "@iconify/react";
+import { Link, useNavigate } from "react-router-dom";
 
 export function AppHeader() {
 	const navigate = useNavigate();
-	const user = localStorage.getItem('user');
 	return (
 		<header className="bg-white">
 			<section className="container mx-auto px-4 flex justify-between py-2 w-full">
@@ -26,7 +20,7 @@ export function AppHeader() {
 						<Icon
 							onClick={() => {
 								localStorage.clear();
-								navigate('/auth');
+								navigate("/auth");
 							}}
 							width={20}
 							icon="ant-design:logout-outlined"

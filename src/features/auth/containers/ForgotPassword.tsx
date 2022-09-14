@@ -1,9 +1,9 @@
-import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { Icon } from '@iconify/react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useForgotPasswordMutation } from '~/services/auth';
-import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { FloatingLabelInput } from "~/components/FloatingLabelInput";
+import { Icon } from "@iconify/react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useForgotPasswordMutation } from "~/services/auth";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 interface IForgotPasswordFormInput {
 	UserName?: String | null;
 }
@@ -13,25 +13,18 @@ function ForgotPasswordContainer() {
 	const [ForgotPassword, { isLoading }] = useForgotPasswordMutation();
 	const {
 		register,
-		reset,
 		handleSubmit,
 		formState: { errors, isDirty, isValid }
-	} = useForm<IForgotPasswordFormInput>({ mode: 'onChange' });
+	} = useForm<IForgotPasswordFormInput>({ mode: "onChange" });
 
 	const onSubmit: SubmitHandler<IForgotPasswordFormInput> = ({ UserName }) => {
-		toast.promise(ForgotPassword({ UserName }), {
-			loading: 'Saving...',
-			success: <b>Settings saved!</b>,
-			error: <b>Could not save.</b>
+		ForgotPassword({ UserName }).then((res: any) => {
+			console.log(res.data);
+			if (res.data.Status === "S") {
+				navigate("/auth");
+			}
+			toast.success(res.data.Message);
 		});
-
-		// ForgotPassword({ UserName }).then((res: any) => {
-		// 	console.log(res.data);
-		// 	if (res.data.Status === 'S') {
-		// 		navigate('/auth');
-		// 	}
-		// 	toast.success(res.data.Message);
-		// });
 	};
 
 	return (
@@ -47,11 +40,11 @@ function ForgotPasswordContainer() {
 			<div>
 				<FloatingLabelInput
 					name="Email"
-					register={register('UserName', {
-						required: 'Email is required',
+					register={register("UserName", {
+						required: "Email is required",
 						pattern: {
 							value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-							message: 'invalid email address'
+							message: "invalid email address"
 						}
 					})}
 				/>
@@ -65,14 +58,7 @@ function ForgotPasswordContainer() {
 				Send Instructions
 			</button>
 
-			<p
-				onClick={() => {
-					reset({
-						UserName: null
-					});
-				}}
-				className="space-x-1 tracking-wide text-sm font-normal text-[#00000099] mt-7"
-			>
+			<p>
 				<span>If you are still having trouble this</span>
 				<span className="text-[#1869B3] underline cursor-pointer">article</span>
 				<span>might help</span>

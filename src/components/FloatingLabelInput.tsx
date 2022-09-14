@@ -1,10 +1,10 @@
-import React from 'react';
-import { Icon } from '@iconify/react';
+import React from "react";
+import { Icon } from "@iconify/react";
 
 interface IFloatingLabelInput {
-	type?: 'text' | 'email' | 'password';
+	type?: "text" | "email" | "password";
 	name?: string;
-	isVerify?: Boolean;
+	isVerify?: boolean;
 	handleVerify?: any;
 	register?: any;
 }
@@ -22,24 +22,24 @@ export function FloatingLabelInput({ type, name, isVerify = true, handleVerify, 
 			<input
 				autoComplete="off"
 				className={[
-					'h-12 leading-8 outline-none cursor-text w-full rounded-md bg-transparent text-sm transition-all duration-200 ease-in-out py-2 px-3',
-					active ? 'pt-6' : '',
-					type === 'password' ? 'pr-11' : '',
-					handleVerify ? 'pr-24' : ''
-				].join(' ')}
+					"h-12 leading-8 outline-none cursor-text w-full rounded-md bg-transparent text-sm transition-all duration-200 ease-in-out py-2 px-3",
+					active ? "pt-6" : "",
+					type === "password" ? "pr-11" : "",
+					handleVerify ? "pr-24" : ""
+				].join(" ")}
 				id={name || register?.name}
-				type={showPassword ? 'text' : type || 'text'}
+				type={showPassword ? "text" : type || "text"}
 				{...register}
 				onChange={handleActivation}
 			/>
 			<label
 				className={[
-					'absolute capitalize cursor-text h-12 top-0 left-0 flex items-center py-2 px-3 transition-all duration-200 ease-in-out',
-					active ? 'text-[10px] h-auto' : 'text-sm'
-				].join(' ')}
+					"absolute capitalize cursor-text h-12 top-0 left-0 flex items-center py-2 px-3 transition-all duration-200 ease-in-out",
+					active ? "text-[10px] h-auto" : "text-sm"
+				].join(" ")}
 				htmlFor={name || register?.name}
 			>
-				{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, '$1 $2')}
+				{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}
 			</label>
 			{handleVerify && isVerify && (
 				<button
@@ -49,14 +49,14 @@ export function FloatingLabelInput({ type, name, isVerify = true, handleVerify, 
 					Verify email
 				</button>
 			)}
-			{type === 'password' && (
+			{type === "password" && (
 				<button
 					onClick={() => setShowPassword(!showPassword)}
 					className="absolute top-0 right-0 h-11 w-12 inline-flex items-center justify-center focus:outline-none"
 				>
 					<Icon
 						color="rgba(55, 65, 81, 1)"
-						icon={!showPassword ? 'akar-icons:eye' : 'akar-icons:eye-slashed'}
+						icon={!showPassword ? "akar-icons:eye" : "akar-icons:eye-slashed"}
 						width={24}
 					/>
 				</button>

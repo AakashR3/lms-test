@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { useKeenSlider } from 'keen-slider/react';
+import { useState } from "react";
+import { useKeenSlider } from "keen-slider/react";
 
 const dataSlider = [
 	{
 		id: 1,
-		title: 'Lorem ipsum',
-		subTitle: 'Lorem'
+		title: "Lorem ipsum",
+		subTitle: "Lorem"
 	},
 	{
 		id: 2,
-		title: 'Lorem ipsum',
-		subTitle: 'Lorem'
+		title: "Lorem ipsum",
+		subTitle: "Lorem"
 	},
 	{
 		id: 3,
-		title: 'Lorem ipsum',
-		subTitle: 'Lorem'
+		title: "Lorem ipsum",
+		subTitle: "Lorem"
 	}
 ];
 
@@ -35,7 +35,7 @@ export function Slider() {
 			}
 		},
 		[
-			(slider) => {
+			slider => {
 				let timeout: ReturnType<typeof setTimeout>;
 				let mouseOver = false;
 				function clearNextTimeout() {
@@ -48,32 +48,32 @@ export function Slider() {
 						slider.next();
 					}, 3000);
 				}
-				slider.on('created', () => {
-					slider.container.addEventListener('mouseover', () => {
+				slider.on("created", () => {
+					slider.container.addEventListener("mouseover", () => {
 						mouseOver = true;
 						clearNextTimeout();
 					});
-					slider.container.addEventListener('mouseout', () => {
+					slider.container.addEventListener("mouseout", () => {
 						mouseOver = false;
 						nextTimeout();
 					});
 					nextTimeout();
 				});
-				slider.on('dragStarted', clearNextTimeout);
-				slider.on('animationEnded', nextTimeout);
-				slider.on('updated', nextTimeout);
+				slider.on("dragStarted", clearNextTimeout);
+				slider.on("animationEnded", nextTimeout);
+				slider.on("updated", nextTimeout);
 			}
 		]
 	);
 	return (
 		<section
 			className="flex w-1/2 justify-around bg-no-repeat bg-cover px-8"
-			style={{ backgroundImage: 'url(/assets/images/login.png)' }}
+			style={{ backgroundImage: "url(/assets/images/login.png)" }}
 		>
 			<div className="relative w-full max-w-lg mx-auto py-16 lg:px-8 xl:px-0 tracking-wide flex flex-col">
 				<img alt="logo_w" className="mb-10" width={87} height={31} src="/assets/images/logo_w.png" />
 				<div ref={sliderRef} className="keen-slider">
-					{dataSlider.map((slide) => (
+					{dataSlider.map(slide => (
 						<div key={slide.id} className="keen-slider__slide number-slide1">
 							<h1 className="text-white font-semibold text-2xl leading-7">
 								Start learning now {slide.id}
@@ -89,15 +89,15 @@ export function Slider() {
 				{loaded && instanceRef.current && (
 					<div className="flex space-x-2 mt-5">
 						{Array.from({ length: dataSlider.length }).map((item, idx) => (
-							<span
+							<button
 								key={idx}
 								onClick={() => {
 									instanceRef.current?.moveToIdx(idx);
 								}}
 								className={`${
 									currentSlide === idx
-										? 'w-6 bg-white cursor-none'
-										: 'cursor-pointer w-2 bg-[#93CBF1]'
+										? "w-6 bg-white cursor-none"
+										: "cursor-pointer w-2 bg-[#93CBF1]"
 								} h-2 inline-block rounded-full ease-in-out duration-300`}
 							/>
 						))}

@@ -1,8 +1,8 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSendVerifyEmailMutation, useVerifyOtpMutation } from '~/services/auth';
-import { toast } from 'react-hot-toast';
-import { useEffect, useRef, useState } from 'react';
-import CountDownTimer from './CountDownTimer';
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useSendVerifyEmailMutation, useVerifyOtpMutation } from "~/services/auth";
+import { toast } from "react-hot-toast";
+import { useState } from "react";
+import CountDownTimer from "./CountDownTimer";
 
 interface OtpValues {
 	value_1: string;
@@ -19,21 +19,21 @@ type TOtpModal = {
 const timing = 30;
 
 export function OtpModal({ Email, handleVerify }: TOtpModal) {
-	const [verifyOtp, options] = useVerifyOtpMutation();
+	const [verifyOtp] = useVerifyOtpMutation();
 	const [sendOtp] = useSendVerifyEmailMutation();
 	const [timer, setTimer] = useState(timing);
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, isValid }
-	} = useForm<OtpValues>({ mode: 'onChange' });
+		formState: { isDirty, isValid }
+	} = useForm<OtpValues>({ mode: "onChange" });
 
-	const onSubmit: SubmitHandler<OtpValues> = (data) => {
+	const onSubmit: SubmitHandler<OtpValues> = data => {
 		const Otp = `${data.value_1}${data.value_2}${data.value_3}${data.value_4}`;
-		console.log('login form data', { Email, Otp });
+		console.log("login form data", { Email, Otp });
 
 		verifyOtp({ Email, Otp }).then((resp: any) => {
-			if (resp.data.Status === 'F') {
+			if (resp.data.Status === "F") {
 				toast.error(resp.data.Message);
 				return;
 			}
@@ -68,7 +68,7 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 				<div className="relative bg-white rounded-lg shadow p-10">
 					<h3 className="text-xl font-semibold text-gray-900 text-center">OTP Verification</h3>
 					<div id="otp" className="flex flex-row justify-between mt-5">
-						{['value_1', 'value_2', 'value_3', 'value_4'].map((val: any) => renderInput(val))}
+						{["value_1", "value_2", "value_3", "value_4"].map((val: any) => renderInput(val))}
 					</div>
 					<div className="flex items-center space-x-3 my-5 items-center justify-center text-xs">
 						<CountDownTimer
@@ -79,9 +79,9 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 								setTimer(0);
 							}}
 						/>
-						<div
+						<button
 							className={`${
-								timer === 0 ? 'cursor-pointer text-blue-500' : 'text-[#C7CFD761] pointer-events-none'
+								timer === 0 ? "cursor-pointer text-blue-500" : "text-[#C7CFD761] pointer-events-none"
 							}`}
 							onClick={() => {
 								sendOtp({ Email }).then((resp: any) => {
@@ -93,7 +93,7 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 							}}
 						>
 							Resend OTP
-						</div>
+						</button>
 					</div>
 					<button
 						disabled={!isDirty || !isValid}

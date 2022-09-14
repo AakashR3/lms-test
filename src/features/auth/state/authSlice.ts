@@ -1,7 +1,7 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { StoreState } from '~/config/store';
-import { authApi } from '~/services/auth';
-import toast from 'react-hot-toast';
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { StoreState } from "~/config/store";
+import { authApi } from "~/services/auth";
+import toast from "react-hot-toast";
 
 interface IAuthState {
 	user?: null;
@@ -25,7 +25,7 @@ const matchsRejected = isAnyOf(
 );
 
 const authSlice = createSlice({
-	name: 'auth',
+	name: "auth",
 	initialState,
 	reducers: {
 		logout: () => initialState
@@ -33,11 +33,11 @@ const authSlice = createSlice({
 	extraReducers(builder) {
 		builder
 			.addMatcher(auth.doLogin.matchFulfilled, (state, action: any) => {
-				console.log('fulfilled', action.payload.Data[0]);
+				console.log("fulfilled", action.payload.Data[0]);
 				// state.user = action.payload.user;
 				// state.token = action.payload;
-				localStorage.setItem('isLogged', 'true');
-				localStorage.setItem('user', JSON.stringify(action.payload.Data[0]));
+				localStorage.setItem("isLogged", "true");
+				localStorage.setItem("user", JSON.stringify(action.payload.Data[0]));
 				state.isAuthenticated = true;
 			})
 			.addMatcher(auth.doSignUp.matchFulfilled, (state, action: any) => {
@@ -45,7 +45,7 @@ const authSlice = createSlice({
 				// state.user = action.payload.user;
 			})
 			.addMatcher(matchsRejected, (state, action: any) => {
-				toast.error(action.payload?.data?.Message || 'Something Went Wrong. Try Again');
+				toast.error(action.payload?.data?.Message || "Something Went Wrong. Try Again");
 			});
 	}
 });
@@ -53,4 +53,7 @@ const authSlice = createSlice({
 export const selectIsAuthenticated = (state: StoreState) => state.auth.isAuthenticated;
 
 export const { logout } = authSlice.actions;
-export default { auth: authSlice.reducer };
+
+const reducer = { auth: authSlice.reducer };
+
+export default reducer;

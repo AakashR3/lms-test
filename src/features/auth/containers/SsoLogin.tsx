@@ -1,20 +1,20 @@
-import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { FloatingLabelInput } from "~/components/FloatingLabelInput";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 interface ISsoLoginFormInput {
-	domain: String;
+	domain: string;
 }
 
 function SsoLoginContainer() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, isValid }
-	} = useForm<ISsoLoginFormInput>({ mode: 'onChange' });
+		formState: { isDirty, isValid }
+	} = useForm<ISsoLoginFormInput>({ mode: "onChange" });
 
-	const onSubmit: SubmitHandler<ISsoLoginFormInput> = (data) => {
-		console.log('login form data', data);
+	const onSubmit: SubmitHandler<ISsoLoginFormInput> = data => {
+		console.log("login form data", data);
 	};
 	return (
 		<div className="animate-opacity flex justify-center flex-col max-w-md mx-auto w-full h-full">
@@ -23,7 +23,7 @@ function SsoLoginContainer() {
 				If your company has single sign-on set-up with i GET IT, enter your company's web address to access your
 				unique login page. The format needs to be as such: "domainname.com".
 			</p>
-			<FloatingLabelInput register={register('domain', { required: true })} />
+			<FloatingLabelInput register={register("domain", { required: true })} />
 			<button
 				disabled={!isDirty || !isValid}
 				onClick={handleSubmit(onSubmit)}

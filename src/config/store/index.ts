@@ -1,7 +1,8 @@
-import { Store } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import type { Store } from "@reduxjs/toolkit";
+import type { TypedUseSelectorHook } from "react-redux";
 
-import { createRootReducer } from '~/config/store/reducers';
+import { useSelector } from "react-redux";
+import { createRootReducer } from "~/config/store/reducers";
 
 export type StoreState = ReturnType<ReturnType<typeof createRootReducer>>;
 

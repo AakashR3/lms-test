@@ -1,20 +1,20 @@
-import React, { useCallback, useEffect } from 'react';
-import { Icon } from '@iconify/react';
-import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { SocialLogin } from '~/features/auth/components/SocialLogin';
-import { OtpModal } from '~/features/auth/components/OtpModal';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDoSignUpMutation, useSendVerifyEmailMutation } from '~/services/auth';
-import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect } from "react";
+import { Icon } from "@iconify/react";
+import { FloatingLabelInput } from "~/components/FloatingLabelInput";
+import { SocialLogin } from "~/features/auth/components/SocialLogin";
+import { OtpModal } from "~/features/auth/components/OtpModal";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDoSignUpMutation, useSendVerifyEmailMutation } from "~/services/auth";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ISingUpFormInput {
-	FirstName: String;
-	LastName: String;
-	Email: String;
-	Password: String;
-	MarketingEmail: Boolean;
-	optVerified?: Boolean;
+	FirstName: string;
+	LastName: string;
+	Email: string;
+	Password: string;
+	MarketingEmail: boolean;
+	optVerified?: boolean;
 }
 
 function SignUpContainer() {
@@ -29,29 +29,31 @@ function SignUpContainer() {
 		setValue,
 		getValues,
 		formState: { errors, isDirty, isValid }
-	} = useForm<ISingUpFormInput>({ mode: 'onChange' });
+	} = useForm<ISingUpFormInput>({ mode: "onChange" });
 
-	const onSubmit: SubmitHandler<ISingUpFormInput> = async (user) => {
+	const onSubmit: SubmitHandler<ISingUpFormInput> = async user => {
 		delete user.optVerified;
-		const MarketingEmail = user.MarketingEmail ? 'Yes' : 'No';
+		const MarketingEmail = user.MarketingEmail ? "Yes" : "No";
 		const resp: any = await doLogin({ ...user, MarketingEmail });
-		if (!resp.error) navigate('/auth');
+		if (!resp.error) navigate("/auth");
 	};
 
 	const handleOtp = useCallback((otp: string) => {
-		console.log('login start', otp);
-		if (otp) setValue('optVerified', true, { shouldValidate: true });
+		console.log("login start", otp);
+		if (otp) setValue("optVerified", true, { shouldValidate: true });
 		setIsVerified(false);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
-		register('optVerified', { required: true });
+		register("optVerified", { required: true });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleVerifyEmail = () => {
 		const { Email } = getValues();
 		if (!Email) {
-			toast.error('Invalid Email Address');
+			toast.error("Invalid Email Address");
 			return;
 		}
 		verifyEmail({ Email }).then((resp: any) => {
@@ -76,8 +78,8 @@ function SignUpContainer() {
 					<div className="flex space-x-5">
 						<div>
 							<FloatingLabelInput
-								register={register('FirstName', {
-									required: 'First Name is Required',
+								register={register("FirstName", {
+									required: "First Name is Required",
 									pattern: /^[A-Za-z]+$/i
 								})}
 							/>
@@ -87,8 +89,8 @@ function SignUpContainer() {
 						</div>
 						<div>
 							<FloatingLabelInput
-								register={register('LastName', {
-									required: 'Last Name is Required',
+								register={register("LastName", {
+									required: "Last Name is Required",
 									pattern: /^[A-Za-z]+$/i
 								})}
 							/>
@@ -99,14 +101,14 @@ function SignUpContainer() {
 					</div>
 					<div className="relative">
 						<FloatingLabelInput
-							register={register('Email', {
-								required: 'Email Address is required',
+							register={register("Email", {
+								required: "Email Address is required",
 								pattern: {
 									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-									message: 'invalid email address'
+									message: "invalid email address"
 								}
 							})}
-							isVerify={!!getValues('Email') && !errors.Email}
+							isVerify={!!getValues("Email") && !errors.Email}
 							handleVerify={() => {
 								handleVerifyEmail();
 							}}
@@ -117,7 +119,7 @@ function SignUpContainer() {
 							</span>
 						)}
 
-						{getValues('optVerified') && (
+						{getValues("optVerified") && (
 							<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
 								<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
 							</span>
@@ -128,11 +130,11 @@ function SignUpContainer() {
 					<div>
 						<FloatingLabelInput
 							type="password"
-							register={register('Password', {
-								required: 'Passeord is required',
+							register={register("Password", {
+								required: "Passeord is required",
 								pattern: {
 									value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
-									message: 'Use 8 or more characters with a mix of letters, numbers & symbols'
+									message: "Use 8 or more characters with a mix of letters, numbers & symbols"
 								}
 							})}
 						/>
@@ -145,7 +147,7 @@ function SignUpContainer() {
 					<input
 						id="marketing"
 						type="checkbox"
-						{...register('MarketingEmail')}
+						{...register("MarketingEmail")}
 						className="h-4 w-4 cursor-pointer rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
 					/>
 					<label htmlFor="marketing" className="relative -top-[2px] cursor-pointer ml-1.5 block text-sm">
@@ -168,7 +170,7 @@ function SignUpContainer() {
 				</div>
 				<SocialLogin />
 			</section>
-			{isVerified && <OtpModal Email={getValues('Email')} handleVerify={handleOtp} />}
+			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={handleOtp} />}
 		</>
 	);
 }
