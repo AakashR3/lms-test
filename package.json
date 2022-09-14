@@ -1,5 +1,5 @@
 {
-	"name": "lms",
+	"name": "lms-ui",
 	"private": true,
 	"version": "1.0.0",
 	"scripts": {
