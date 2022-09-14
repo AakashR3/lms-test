@@ -7,13 +7,13 @@ LMS Front End
 1. Clone this repository
 
     ```bash
-    git clone https://github.com/codincity123/LMS-UI.git
+    git clone https://dev.azure.com/igetitcodin/IGETITV2/_git/UI LMS_UI
     ```
 
 2. Go to project directory and install all dependencies
 
     ```bash
-    cd LMS-UI
+    cd LMS_UI
     npm install
     ```
 
