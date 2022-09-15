@@ -1,8 +1,20 @@
 import { Icon } from "@iconify/react";
+import { gapi } from "gapi-script";
 import { Link, useNavigate } from "react-router-dom";
+import { navigateLink } from "~/config/api/links";
 
 export function AppHeader() {
 	const navigate = useNavigate();
+
+	const signOut = () => {
+		const auth2 = gapi.auth2.getAuthInstance();
+		console.log(auth2);
+		auth2.signOut().then(() => {
+			console.log("User signed out.");
+			navigate(navigateLink.auth.login, { replace: true });
+		});
+	};
+
 	return (
 		<header className="bg-white">
 			<section className="container mx-auto px-4 flex justify-between py-2 w-full">
@@ -26,6 +38,7 @@ export function AppHeader() {
 							icon="ant-design:logout-outlined"
 						/>
 					</div>
+					<button onClick={() => signOut()}>lo</button>
 					<div className="flex items-center space-x-2">
 						<div className="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-md">
 							<span className="font-medium uppercase tracking-wider text-lg text-gray-600">RA</span>

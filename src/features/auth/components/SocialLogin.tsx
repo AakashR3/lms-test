@@ -1,7 +1,8 @@
 import { Icon } from "@iconify/react";
 import { useCallback, useState } from "react";
-import { LoginSocialLinkedin, LoginSocialGoogle, IResolveParams } from "reactjs-social-login";
+import { LoginSocialLinkedin } from "reactjs-social-login";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "./GoogleLogin";
 
 const REDIRECT_URI = "/auth/sl-callback";
 
@@ -22,48 +23,7 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 				</span>
 			</div>
 			<div className="flex space-x-3">
-				<>
-					{isLoading !== "google" && (
-						<LoginSocialGoogle
-							client_id="444327535067-lb92ki3mag7ec0umidovej6jvbjluja2.apps.googleusercontent.com"
-							onLoginStart={() => setIsLoading("google")}
-							scope="openid profile email"
-							onResolve={({ provider, data }: IResolveParams) => {
-								setIsLoading(undefined);
-								// if (isLoginPage) {
-								console.log(data);
-								localStorage.setItem("isLogged", "true");
-								localStorage.setItem("user", JSON.stringify(data));
-								navigate("/");
-								// } else {
-								// 	if (!data?.email) {
-								// 		toast.error('something went wrong unable to find email');
-								// 	}
-								// 	console.log({
-								// 		Email: data?.email || '',
-								// 		Password: '',
-								// 		FirstName: data?.family_name,
-								// 		LastName: data?.given_name,
-								// 		PreferredSoftwareID: 0,
-								// 		FavouriteSoftware: 0
-								// 	});
-								// }
-							}}
-							onReject={(err: any) => {
-								console.log("hbhbdhd", err);
-							}}
-						>
-							<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-								<Icon width={22} icon="flat-color-icons:google" />
-							</button>
-						</LoginSocialGoogle>
-					)}
-					{isLoading === "google" && (
-						<span className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-							<Icon width={22} icon="tabler:loader-2" className="animate-spin" />
-						</span>
-					)}
-				</>
+				<GoogleLogin />
 				<LoginSocialLinkedin
 					client_id={import.meta.env.REACT_APP_LINKEDIN_APP_ID || ""}
 					client_secret={import.meta.env.REACT_APP_LINKEDIN_APP_SECRET || ""}
