@@ -1,11 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Slider } from "./../components/Slider";
 import { useEffect } from "react";
-import * as md5 from "md5";
 
 function AuthLayout() {
 	useEffect(() => {
-		console.log(md5("message"));
 		localStorage.clear();
 	}, []);
 	return (

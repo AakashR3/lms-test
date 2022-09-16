@@ -6,7 +6,7 @@ export const authApi = api.injectEndpoints({
 		doLogin: build.mutation({
 			async queryFn({ body, params }, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: "Users/UserAuthentication",
+					url: endPoints.auth.login,
 					method: "POST",
 					body,
 					params
@@ -23,7 +23,7 @@ export const authApi = api.injectEndpoints({
 		forgotPassword: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: "Users/ForgotPassword",
+					url: endPoints.auth.forgotPassword,
 					params
 				});
 
@@ -45,7 +45,7 @@ export const authApi = api.injectEndpoints({
 		sendVerifyEmail: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: "Users/SendOTP",
+					url: endPoints.auth.sendOtp,
 					method: "POST",
 					params,
 					body: {}
@@ -62,7 +62,7 @@ export const authApi = api.injectEndpoints({
 		verifyOtp: build.mutation({
 			async queryFn(body, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: "Users/VerifyOTP",
+					url: endPoints.auth.verifyOtp,
 					method: "POST",
 					body
 				});
@@ -85,7 +85,7 @@ export const authApi = api.injectEndpoints({
 		doSignUp: build.mutation({
 			async queryFn(user, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: "Users/UserRegistration",
+					url: endPoints.account.create,
 					method: "POST",
 					body: {
 						...user,

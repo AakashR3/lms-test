@@ -8,6 +8,7 @@ import { ILoginFormInput } from "~/features/auth/type";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SocialLogin } from "~/features/auth/components/SocialLogin";
 import { LoginType } from "~/config/api/endPoints";
+import { encryptPassword } from "~/helpers";
 
 const validationSchema = Yup.object().shape({
 	UserName: Yup.string().required("Email is required"),
@@ -23,7 +24,11 @@ function LoginContainer() {
 	const { register, handleSubmit, formState } = useForm<ILoginFormInput>({ ...formOptions, mode: "onChange" });
 	const { errors, isDirty, isValid } = formState;
 
-	const onSubmit: SubmitHandler<ILoginFormInput> = async body => {
+	const onSubmit: SubmitHandler<ILoginFormInput> = async form => {
+		const body = {
+			UserName: form.UserName,
+			EncPassword: encryptPassword(form.EncPassword)
+		};
 		const resp: any = await doLogin({ body, params: { LoginType: LoginType.basic } });
 		if (!resp.error) navigate("/");
 	};
