@@ -1,15 +1,16 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { DashboardContainer } from '~/features/dashboard';
-import AppLayout from '~/layouts/app';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { DashboardContainer } from "~/features/dashboard";
+import AppLayout from "~/layouts/app";
 import {
 	AuthLayout,
 	ForgotPasswordContainer,
 	LoginContainer,
 	SignUpContainer,
 	SsoLoginContainer
-} from '~/features/auth';
-import ProtectedRoutes from '~/router/ProtectedRoute';
-import ResetPasswordContainer from '~/features/account/reset-password/container';
+} from "~/features/auth";
+import ProtectedRoutes from "~/router/ProtectedRoute";
+import ResetPasswordContainer from "~/features/account/reset-password/container";
+import { LinkedInCallback } from "react-linkedin-login-oauth2";
 
 function AppRouter() {
 	return (
@@ -30,7 +31,7 @@ function AppRouter() {
 					<Route path="sso-login" element={<SsoLoginContainer />} />
 					<Route path="*" element="page not found" />
 				</Route>
-
+				<Route path="/linkedin" element={<LinkedInCallback />} />
 				<Route path="account">
 					<Route path="reset-password" element={<ResetPasswordContainer />} />
 				</Route>

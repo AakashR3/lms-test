@@ -9,6 +9,17 @@ interface IAuthState {
 	isAuthenticated: boolean;
 }
 
+enum Status {
+	S,
+	F
+}
+
+interface Response {
+	Data?: any;
+	Message?: string;
+	Status?: Status;
+}
+
 const initialState: IAuthState = {
 	user: null,
 	token: null,
@@ -33,11 +44,12 @@ const authSlice = createSlice({
 	extraReducers(builder) {
 		builder
 			.addMatcher(auth.doLogin.matchFulfilled, (state, action: any) => {
-				console.log("fulfilled", action.payload.Data[0]);
-				// state.user = action.payload.user;
-				// state.token = action.payload;
+				const payload: Response = action.payload;
+				state.user = payload.Data[0];
+				state.token = payload.Data[0].TokenId;
 				localStorage.setItem("isLogged", "true");
-				localStorage.setItem("user", JSON.stringify(action.payload.Data[0]));
+				localStorage.setItem("token", payload.Data[0].TokenId);
+				localStorage.setItem("user", JSON.stringify(payload.Data[0]));
 				state.isAuthenticated = true;
 			})
 			.addMatcher(auth.doSignUp.matchFulfilled, (state, action: any) => {

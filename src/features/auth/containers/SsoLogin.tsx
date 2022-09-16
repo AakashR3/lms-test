@@ -1,12 +1,15 @@
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useSsoRequestMutation } from "~/services/auth";
+import { toast } from "react-hot-toast";
 
 interface ISsoLoginFormInput {
 	domain: string;
 }
 
 function SsoLoginContainer() {
+	const [ssoRequest, option] = useSsoRequestMutation();
 	const {
 		register,
 		handleSubmit,
@@ -15,7 +18,17 @@ function SsoLoginContainer() {
 
 	const onSubmit: SubmitHandler<ISsoLoginFormInput> = data => {
 		console.log("login form data", data);
+		ssoRequest({ DomainName: data.domain }).then((res: any) => {
+			if (res.error) {
+				toast.error(res.error.data.Message);
+				return;
+			}
+			// console.log(res.data.Data[0].ssoLoginUrl);
+			// console.log(res);
+			window.location.href = res.data.Data[0].ssoLoginUrl;
+		});
 	};
+
 	return (
 		<div className="animate-opacity flex justify-center flex-col max-w-md mx-auto w-full h-full">
 			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">Single Sign On</h1>
@@ -25,11 +38,11 @@ function SsoLoginContainer() {
 			</p>
 			<FloatingLabelInput register={register("domain", { required: true })} />
 			<button
-				disabled={!isDirty || !isValid}
+				disabled={!isDirty || !isValid || option.isLoading}
 				onClick={handleSubmit(onSubmit)}
 				className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] py-4 font-bold mt-4 rounded-md text-white mb-2"
 			>
-				Proceed
+				{!option.isLoading ? "Proceed" : "Signing..."}
 			</button>
 			<Link
 				to="/auth"

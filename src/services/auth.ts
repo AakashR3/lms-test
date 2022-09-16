@@ -1,14 +1,15 @@
-import { api } from '~/config/api';
-import { endPoints } from '~/config/api/endPoints';
+import { api } from "~/config/api";
+import { endPoints } from "~/config/api/endPoints";
 
 export const authApi = api.injectEndpoints({
-	endpoints: (build) => ({
+	endpoints: build => ({
 		doLogin: build.mutation({
-			async queryFn(credentials, api, extraOptions, baseQuery) {
+			async queryFn({ body, params }, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: 'Users/UserAuthentication',
-					method: 'POST',
-					body: credentials
+					url: "Users/UserAuthentication",
+					method: "POST",
+					body,
+					params
 				});
 
 				if (result.error) {
@@ -22,7 +23,7 @@ export const authApi = api.injectEndpoints({
 		forgotPassword: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: 'Users/ForgotPassword',
+					url: "Users/ForgotPassword",
 					params
 				});
 
@@ -44,8 +45,8 @@ export const authApi = api.injectEndpoints({
 		sendVerifyEmail: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: 'Users/SendOTP',
-					method: 'POST',
+					url: "Users/SendOTP",
+					method: "POST",
 					params,
 					body: {}
 				});
@@ -61,8 +62,8 @@ export const authApi = api.injectEndpoints({
 		verifyOtp: build.mutation({
 			async queryFn(body, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: 'Users/VerifyOTP',
-					method: 'POST',
+					url: "Users/VerifyOTP",
+					method: "POST",
 					body
 				});
 
@@ -84,8 +85,8 @@ export const authApi = api.injectEndpoints({
 		doSignUp: build.mutation({
 			async queryFn(user, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
-					url: 'Users/UserRegistration',
-					method: 'POST',
+					url: "Users/UserRegistration",
+					method: "POST",
 					body: {
 						...user,
 						PreferredSoftwareID: 0,
@@ -106,7 +107,22 @@ export const authApi = api.injectEndpoints({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
 					url: endPoints.account.resetPassword,
-					method: 'POST',
+					method: "POST",
+					params
+				});
+
+				if (result.error) {
+					// but refetch on another error
+					return { error: result.error };
+				}
+
+				return { data: result.data };
+			}
+		}),
+		ssoRequest: build.mutation({
+			async queryFn(params, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: endPoints.auth.ssoRequest,
 					params
 				});
 
@@ -127,5 +143,6 @@ export const {
 	useForgotPasswordMutation,
 	useSendVerifyEmailMutation,
 	useVerifyOtpMutation,
-	useResetPasswordMutation
+	useResetPasswordMutation,
+	useSsoRequestMutation
 } = authApi;

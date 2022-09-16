@@ -67,7 +67,7 @@ export function Slider() {
 	);
 	return (
 		<section
-			className="flex w-1/2 justify-around bg-no-repeat bg-cover px-8"
+			className="sm:(hidden) md:flex w-1/2 justify-around bg-no-repeat bg-cover px-8"
 			style={{ backgroundImage: "url(/assets/images/login.png)" }}
 		>
 			<div className="relative w-full max-w-lg mx-auto py-16 lg:px-8 xl:px-0 tracking-wide flex flex-col">

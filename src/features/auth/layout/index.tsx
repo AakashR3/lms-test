@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import { Slider } from './../components/Slider';
-import { useEffect } from 'react';
+import { Outlet } from "react-router-dom";
+import { Slider } from "./../components/Slider";
+import { useEffect } from "react";
 
 function AuthLayout() {
 	useEffect(() => {
@@ -9,7 +9,7 @@ function AuthLayout() {
 	return (
 		<section className="h-full w-full flex">
 			<Slider />
-			<main className="animate-opacity w-1/2 flex flex-col overflow-auto h-full py-5">
+			<main className="animate-opacity w-1/2 sm:(w-full) md:flex flex-col overflow-auto h-full py-5">
 				<div className="flex-1 h-full">
 					<Outlet />
 				</div>

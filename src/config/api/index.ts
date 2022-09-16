@@ -1,13 +1,14 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { endPoints } from "./endPoints";
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
-	baseUrl: import.meta.env.VITE_API_URL,
+	baseUrl: endPoints.baseUrl,
 	prepareHeaders: (headers, { getState }) => {
 		// By default, if we have a token in the store, let's use that for authenticated requests
-		const token = '';
+		const token = "";
 		if (token) {
-			headers.set('auth', `Bearer ${token}`);
+			headers.set("auth", `Bearer ${token}`);
 		}
 		return headers;
 	}
@@ -23,13 +24,13 @@ const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 });
  */
 
 export const api = createApi({
-	reducerPath: 'LmsApi',
+	reducerPath: "LmsApi",
 	baseQuery: baseQueryWithRetry,
 	/**
 	 * Tag types must be defined in the original API definition
 	 * for any tags that would be provided by injected endpoints
 	 */
-	tagTypes: ['auth'],
+	tagTypes: ["auth"],
 	/**
 	 * This api has endpoints injected in adjacent files,
 	 * which is why no endpoints are shown below.

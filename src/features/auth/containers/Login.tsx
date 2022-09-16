@@ -1,16 +1,17 @@
-import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import * as Yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useDoLoginMutation } from '~/services/auth';
-import { ILoginFormInput } from '~/features/auth/type';
-import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { SocialLogin } from '~/features/auth/components/SocialLogin';
+import { useDoLoginMutation } from "~/services/auth";
+import { ILoginFormInput } from "~/features/auth/type";
+import { FloatingLabelInput } from "~/components/FloatingLabelInput";
+import { SocialLogin } from "~/features/auth/components/SocialLogin";
+import { LoginType } from "~/config/api/endPoints";
 
 const validationSchema = Yup.object().shape({
-	UserName: Yup.string().required('Email is required'),
-	EncPassword: Yup.string().required('Password is required')
+	UserName: Yup.string().required("Email is required"),
+	EncPassword: Yup.string().required("Password is required")
 });
 const formOptions = { resolver: yupResolver(validationSchema) };
 
@@ -19,12 +20,12 @@ function LoginContainer() {
 	const [doLogin, option] = useDoLoginMutation();
 
 	// get functions to build form with useForm() hook
-	const { register, handleSubmit, formState } = useForm<ILoginFormInput>({ ...formOptions, mode: 'onChange' });
+	const { register, handleSubmit, formState } = useForm<ILoginFormInput>({ ...formOptions, mode: "onChange" });
 	const { errors, isDirty, isValid } = formState;
 
-	const onSubmit: SubmitHandler<ILoginFormInput> = async (data) => {
-		const resp: any = await doLogin(data);
-		if (!resp.error) navigate('/');
+	const onSubmit: SubmitHandler<ILoginFormInput> = async body => {
+		const resp: any = await doLogin({ body, params: { LoginType: LoginType.basic } });
+		if (!resp.error) navigate("/");
 	};
 
 	return (
@@ -38,14 +39,14 @@ function LoginContainer() {
 			</p>
 			<div className="flex flex-col space-y-3">
 				<div>
-					<FloatingLabelInput name="Email" register={register('UserName')} />
+					<FloatingLabelInput name="Email" register={register("UserName")} />
 					{errors.UserName && <span className="text-red-500 text-xs ml-2">{errors.UserName?.message}</span>}
 				</div>
 				<div>
 					<FloatingLabelInput
 						type="password"
 						name="Password"
-						register={register('EncPassword', { required: 'Passeord is required' })}
+						register={register("EncPassword", { required: "Passeord is required" })}
 					/>
 					{errors.EncPassword && (
 						<span className="text-red-500 text-xs ml-2">{errors.EncPassword?.message}</span>
