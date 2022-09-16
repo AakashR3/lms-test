@@ -28,7 +28,7 @@ function ForgotPasswordContainer() {
 	};
 
 	return (
-		<div className="animate-opacity flex justify-center flex-col px-8 max-w-md mx-auto w-full h-full">
+		<div className="animate-opacity flex md:(justify-center max-w-md mx-auto) flex-col px-8 w-full h-full">
 			<Link to="/auth" className="no-underline space-x-2 flex cursor-pointer text-[#00000099]">
 				<Icon width={20} icon="mingcute:arrow-left-line" className="fill-current" />
 				<span className="text-sm">Login</span>
@@ -58,7 +58,7 @@ function ForgotPasswordContainer() {
 				Send Instructions
 			</button>
 
-			<p>
+			<p className="space-x-1 text-[#00000099]">
 				<span>If you are still having trouble this</span>
 				<span className="text-[#1869B3] underline cursor-pointer">article</span>
 				<span>might help</span>

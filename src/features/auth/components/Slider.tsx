@@ -67,14 +67,14 @@ export function Slider() {
 	);
 	return (
 		<section
-			className="sm:(hidden) md:flex w-1/2 justify-around bg-no-repeat bg-cover px-8"
+			className="hidden md:(flex w-1/2) xl:(w-2/5) justify-around bg-no-repeat bg-cover px-8"
 			style={{ backgroundImage: "url(/assets/images/login.png)" }}
 		>
 			<div className="relative w-full max-w-lg mx-auto py-16 lg:px-8 xl:px-0 tracking-wide flex flex-col">
 				<img alt="logo_w" className="mb-10" width={87} height={31} src="/assets/images/logo_w.png" />
 				<div ref={sliderRef} className="keen-slider">
 					{dataSlider.map(slide => (
-						<div key={slide.id} className="keen-slider__slide number-slide1">
+						<div key={slide.id} className="keen-slider__slide number-slide1 w-full">
 							<h1 className="text-white font-semibold text-2xl leading-7">
 								Start learning now {slide.id}
 							</h1>

@@ -29,12 +29,11 @@ function LoginContainer() {
 	};
 
 	return (
-		<div className="animate-opacity flex justify-center px-8 flex-col max-w-md mx-auto w-full h-full">
-			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Login</h1>
+		<div className="animate-opacity flex md:(justify-center max-w-md mx-auto) px-8 flex-col w-full h-full">
+			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Log In</h1>
 			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">
-				<span>Have Organization login? </span>
 				<Link to="/auth/sso-login" className="text-[#1869B3] underline">
-					use single sign on
+					Log in with your organization
 				</Link>
 			</p>
 			<div className="flex flex-col space-y-3">
@@ -75,7 +74,7 @@ function LoginContainer() {
 				onClick={handleSubmit(onSubmit)}
 				className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
 			>
-				Log in
+				Log In
 			</button>
 
 			<SocialLogin isLoginPage />
@@ -83,7 +82,7 @@ function LoginContainer() {
 			<p className="mt-5 tracking-wide text-[#00000099] text-sm pt-1 mb-0 space-x-2">
 				<span>Don't have an account?</span>
 				<Link to="/auth/signup" className="text-[#1869B3] underline">
-					Signup
+					Sign up
 				</Link>
 			</p>
 		</div>

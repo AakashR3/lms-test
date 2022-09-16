@@ -8,7 +8,6 @@ export function AppHeader() {
 
 	const signOut = () => {
 		const auth2 = gapi.auth2.getAuthInstance();
-		console.log(auth2);
 		auth2.signOut().then(() => {
 			console.log("User signed out.");
 			navigate(navigateLink.auth.login, { replace: true });

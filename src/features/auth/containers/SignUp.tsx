@@ -66,12 +66,12 @@ function SignUpContainer() {
 	};
 	return (
 		<>
-			<section className="animate-opacity flex justify-center flex-col max-w-md mx-auto px-4 w-full h-full">
+			<section className="animate-opacity flex md:(justify-center max-w-md mx-auto) px-8 flex-col px-4 w-full h-full">
 				<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Sign Up</h1>
 				<p className="tracking-wide text-sm font-normal text-[rgba(0,0,0,0.6)] mb-7">
-					<span>Already a user? </span>
+					<span>Already have a account? </span>
 					<Link to="/auth" className="text-[#1869B3] underline">
-						Login
+						Log in
 					</Link>
 				</p>
 				<div className="flex flex-col space-y-5">
@@ -133,8 +133,8 @@ function SignUpContainer() {
 							register={register("Password", {
 								required: "Passeord is required",
 								pattern: {
-									value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
-									message: "Use 8 or more characters with a mix of letters, numbers & symbols"
+									value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
+									message: "Use 12 or more characters with a mix of letters, numbers & symbols"
 								}
 							})}
 						/>
@@ -159,15 +159,15 @@ function SignUpContainer() {
 					onClick={handleSubmit(onSubmit)}
 					className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
 				>
-					Create account
+					Create Account
 				</button>
 
-				<div className="flex select-none mt-4 text-[#0000008A]">
+				{/* <div className="flex select-none mt-4 text-[#0000008A]">
 					<Icon icon="mingcute:information-line" width={25} className="fill-current" />
 					<label htmlFor="agree" className="relative top-0.5 cursor-pointer ml-1.5 block text-sm">
 						Send me Marketing Emails about Tata Technologies Products and Services
 					</label>
-				</div>
+				</div> */}
 				<SocialLogin />
 			</section>
 			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={handleOtp} />}

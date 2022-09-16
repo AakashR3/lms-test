@@ -1,14 +1,20 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { gapi, loadAuth2 } from "gapi-script";
 import { useNavigate } from "react-router";
 import { navigateLink } from "~/config/api/links";
+import { useDoLoginMutation } from "~/services/auth";
+import { LoginType } from "~/config/api/endPoints";
 
 export const gAuth2 = async () => await loadAuth2(gapi, import.meta.env.VITE_G_CLIENT_ID, "");
 
-export const GoogleLogin = () => {
+type GoogleType = {
+	isLoginPage: boolean;
+};
+export const GoogleLogin = (props: GoogleType) => {
+	const { isLoginPage } = props;
 	const [user, setUser] = useState<any>(null);
+	const [doLogin] = useDoLoginMutation();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -25,7 +31,7 @@ export const GoogleLogin = () => {
 		setAuth2();
 	}, []);
 
-	const updateUser = (currentUser: any) => {
+	const updateUser = async (currentUser: any) => {
 		const name = currentUser.getBasicProfile().getName();
 		const profileImg = currentUser.getBasicProfile().getImageUrl();
 		console.log({

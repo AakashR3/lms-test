@@ -30,7 +30,7 @@ function SsoLoginContainer() {
 	};
 
 	return (
-		<div className="animate-opacity flex justify-center flex-col max-w-md mx-auto w-full h-full">
+		<div className="animate-opacity flex md:(justify-center max-w-md mx-auto) flex-col w-full h-full px-8">
 			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">Single Sign On</h1>
 			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">
 				If your company has single sign-on set-up with i GET IT, enter your company's web address to access your

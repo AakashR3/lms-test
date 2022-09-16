@@ -1,16 +1,18 @@
 import { Icon } from "@iconify/react";
-import { useCallback } from "react";
-import { LoginSocialLinkedin } from "reactjs-social-login";
-import { GoogleLogin } from "./GoogleLogin";
 import { LinkedInLogin } from "./LinkedInLogin";
-
-const REDIRECT_URI = "/auth/sl-callback";
+import SocialButton from "./FBLogin";
+import { navigateLink } from "~/config/api/links";
+import { useNavigate } from "react-router-dom";
 
 export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
-	const onLoginStart = useCallback(() => {
-		console.log("login start");
-	}, []);
+	const navigate = useNavigate();
 
+	const onLoginSuccess = (user: any) => {
+		console.log(user.profile);
+		localStorage.setItem("loginType", user.provider);
+		localStorage.setItem("user", JSON.stringify(user.profile));
+		navigate(navigateLink.dashboard, { replace: true });
+	};
 	return (
 		<section className="flex-col mt-10 space-y-5">
 			<div className="relative">
@@ -20,24 +22,25 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 				</span>
 			</div>
 			<div className="flex space-x-3">
-				<GoogleLogin />
+				<SocialButton
+					appId={import.meta.env.VITE_G_CLIENT_ID}
+					provider="google"
+					onLoginSuccess={onLoginSuccess}
+					onLoginFailure={res => console.log("onLoginFailure", res)}
+				>
+					<Icon width={22} icon="flat-color-icons:google" />
+				</SocialButton>
+
 				<LinkedInLogin />
 
-				{/* <LoginSocialFacebook
-					appId={'431451242017946'}
-					onLoginStart={onLoginStart}
-					onResolve={({ provider, data }: any) => {
-						console.log(data, 'data');
-						console.log(provider, 'provider');
-					}}
-					onReject={(err: any) => {
-						console.log(err);
-					}}
-				> */}
-				<button className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
+				<SocialButton
+					appId={import.meta.env.VITE_FB_APP_ID}
+					onLoginSuccess={onLoginSuccess}
+					onLoginFailure={res => console.log("onLoginFailure", res)}
+					provider="facebook"
+				>
 					<Icon width={22} icon="akar-icons:facebook-fill" color="#3b5998" />
-				</button>
-				{/* </LoginSocialFacebook> */}
+				</SocialButton>
 			</div>
 		</section>
 	);
