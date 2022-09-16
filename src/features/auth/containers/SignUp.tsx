@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDoSignUpMutation, useSendVerifyEmailMutation } from "~/services/auth";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { encryptPassword } from "~/helpers";
 
 interface ISingUpFormInput {
 	FirstName: string;
@@ -34,7 +35,7 @@ function SignUpContainer() {
 	const onSubmit: SubmitHandler<ISingUpFormInput> = async user => {
 		delete user.optVerified;
 		const MarketingEmail = user.MarketingEmail ? "Yes" : "No";
-		const resp: any = await doLogin({ ...user, MarketingEmail });
+		const resp: any = await doLogin({ ...user, Password: encryptPassword(user.Password), MarketingEmail });
 		if (!resp.error) navigate("/auth");
 	};
 

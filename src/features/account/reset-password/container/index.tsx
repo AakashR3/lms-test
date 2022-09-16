@@ -1,11 +1,12 @@
-import * as Yup from 'yup';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FloatingLabelInput } from '~/components/FloatingLabelInput';
-import { useResetPasswordMutation } from '~/services/auth';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { navigateLink } from '~/config/api/links';
-import { toast } from 'react-hot-toast';
+import * as Yup from "yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FloatingLabelInput } from "~/components/FloatingLabelInput";
+import { useResetPasswordMutation } from "~/services/auth";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { navigateLink } from "~/config/api/links";
+import { toast } from "react-hot-toast";
+import { encryptPassword } from "~/helpers";
 
 interface IResetPasswordFormInput {
 	password?: String | null;
@@ -19,32 +20,33 @@ function ResetPasswordContainer() {
 	// form validation rules
 	const validationSchema = Yup.object().shape({
 		password: Yup.string()
-			.required('password is required')
+			.required("password is required")
 			.matches(
-				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
-				'Use 8 or more characters with a mix of letters, numbers & symbols'
+				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
+				"Use 12 or more characters with a mix of letters, numbers & symbols"
 			),
 		cpassword: Yup.string()
-			.required('Confirm Password is required')
+			.required("Confirm Password is required")
 			.matches(
-				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
-				'Use 8 or more characters with a mix of letters, numbers & symbols'
+				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
+				"Use 12 or more characters with a mix of letters, numbers & symbols"
 			)
-			.oneOf([Yup.ref('password'), null], 'Password must match')
+			.oneOf([Yup.ref("password"), null], "Password must match")
 	});
 
 	// get functions to build form with useForm() hook
 	const { register, handleSubmit, formState } = useForm<IResetPasswordFormInput>({
 		resolver: yupResolver(validationSchema),
-		mode: 'onChange'
+		mode: "onChange"
 	});
 	const { errors, isDirty, isValid } = formState;
 
 	const [resetPassoword, option] = useResetPasswordMutation();
 
-	const onSubmit: SubmitHandler<IResetPasswordFormInput> = (user) => {
-		resetPassoword({ username: params.get('tokenID'), password: user.cpassword }).then((resp: any) => {
-			if (resp.data.Status === 'S') {
+	const onSubmit: SubmitHandler<IResetPasswordFormInput> = user => {
+		const password = encryptPassword(user?.cpassword);
+		resetPassoword({ username: params.get("tokenID"), password }).then((resp: any) => {
+			if (resp.data.Status === "S") {
 				toast.success(resp.data.Message);
 				navigate(navigateLink.auth.login, { replace: true });
 			}
@@ -62,20 +64,20 @@ function ResetPasswordContainer() {
 					</div>
 				</section>
 			</header>
-			<div className="flex-1 flex items-center justify-center flex-col px-8 max-w-md mx-auto w-full h-full">
+			<div className="flex-1 flex items-center md:(justify-center max-w-md mx-auto mt-0) mt-10 flex-col px-8 w-full h-full">
 				<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5 capitalize">Reset password</h1>
 				<p className="tracking-wide text-center text-sm font-normal text-[#00000099] mb-7">
 					Enter your email and we'll send you instructions on how to reset your password.
 				</p>
 				<div className="w-full space-y-3">
 					<div className="w-full">
-						<FloatingLabelInput name="password" type="password" register={register('password')} />
+						<FloatingLabelInput name="password" type="password" register={register("password")} />
 						{errors.password && (
 							<span className="text-red-500 text-xs ml-2">{errors.password?.message}</span>
 						)}
 					</div>
 					<div className="w-full">
-						<FloatingLabelInput name="Confirm password" type="password" register={register('cpassword')} />
+						<FloatingLabelInput name="Confirm password" type="password" register={register("cpassword")} />
 						{errors.cpassword && (
 							<span className="text-red-500 text-xs ml-2">{errors.cpassword?.message}</span>
 						)}

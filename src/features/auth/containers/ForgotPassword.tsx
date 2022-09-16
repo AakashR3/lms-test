@@ -19,7 +19,6 @@ function ForgotPasswordContainer() {
 
 	const onSubmit: SubmitHandler<IForgotPasswordFormInput> = ({ UserName }) => {
 		ForgotPassword({ UserName }).then((res: any) => {
-			console.log(res.data);
 			if (res.data.Status === "S") {
 				navigate("/auth");
 			}
