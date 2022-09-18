@@ -39,17 +39,23 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
+		login: payload => {
+			localStorage.setItem("isLogged", "true");
+			// localStorage.setItem("token", payload.Data.TokenId);
+			// localStorage.setItem("user", JSON.stringify(payload.Data));
+		},
 		logout: () => initialState
 	},
 	extraReducers(builder) {
 		builder
 			.addMatcher(auth.doLogin.matchFulfilled, (state, action: any) => {
 				const payload: Response = action.payload;
-				state.user = payload.Data[0];
-				state.token = payload.Data[0].TokenId;
+				console.log(payload);
+				state.user = payload.Data;
+				state.token = payload.Data.TokenId;
 				localStorage.setItem("isLogged", "true");
-				localStorage.setItem("token", payload.Data[0].TokenId);
-				localStorage.setItem("user", JSON.stringify(payload.Data[0]));
+				localStorage.setItem("token", payload.Data.TokenId);
+				localStorage.setItem("user", JSON.stringify(payload.Data));
 				state.isAuthenticated = true;
 			})
 			.addMatcher(auth.doSignUp.matchFulfilled, (state, action: any) => {
@@ -64,7 +70,7 @@ const authSlice = createSlice({
 
 export const selectIsAuthenticated = (state: StoreState) => state.auth.isAuthenticated;
 
-export const { logout } = authSlice.actions;
+export const { logout, login } = authSlice.actions;
 
 const reducer = { auth: authSlice.reducer };
 

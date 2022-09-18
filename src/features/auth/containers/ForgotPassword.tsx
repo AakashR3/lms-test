@@ -32,7 +32,7 @@ function ForgotPasswordContainer() {
 				<Icon width={20} icon="mingcute:arrow-left-line" className="fill-current" />
 				<span className="text-sm">Login</span>
 			</Link>
-			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">Reset password</h1>
+			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">Forgot password</h1>
 			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">
 				Enter your email and we'll send you instructions on how to reset your password.
 			</p>

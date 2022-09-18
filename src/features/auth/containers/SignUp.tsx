@@ -1,3 +1,4 @@
+import * as Yup from "yup";
 import React, { useCallback, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
@@ -8,34 +9,68 @@ import { useDoSignUpMutation, useSendVerifyEmailMutation } from "~/services/auth
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { encryptPassword } from "~/helpers";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface ISingUpFormInput {
 	FirstName: string;
 	LastName: string;
 	Email: string;
 	Password: string;
+	CPassword: string;
 	MarketingEmail: boolean;
 	optVerified?: boolean;
 }
 
+const validationSchema = Yup.object().shape({
+	FirstName: Yup.string().required("First Name is required"),
+	LastName: Yup.string().required("Last Name is required"),
+	Email: Yup.string()
+		.required("Email is required")
+		.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Invalid email address"),
+	Password: Yup.string()
+		.required("password is required")
+		.matches(
+			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
+			"Use 12 or more characters with a mix of letters, numbers & symbols"
+		),
+	CPassword: Yup.string()
+		.required("Confirm Password is required")
+		.matches(
+			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
+			"Use 12 or more characters with a mix of letters, numbers & symbols"
+		)
+		.oneOf([Yup.ref("Password"), null], "Password must match"),
+	MarketingEmail: Yup.boolean(),
+	optVerified: Yup.boolean().required("Email not verified")
+});
+
 function SignUpContainer() {
 	const [isVerified, setIsVerified] = React.useState<boolean>(false);
-	const [doLogin, option] = useDoSignUpMutation();
+	const [doSignup, option] = useDoSignUpMutation();
 	const [verifyEmail, verifyEmailOption] = useSendVerifyEmailMutation();
 
 	const navigate = useNavigate();
-	const {
-		register,
-		handleSubmit,
-		setValue,
-		getValues,
-		formState: { errors, isDirty, isValid }
-	} = useForm<ISingUpFormInput>({ mode: "onChange" });
+	const { register, handleSubmit, setValue, getValues, formState } = useForm<ISingUpFormInput>({
+		resolver: yupResolver(validationSchema),
+		mode: "onChange"
+	});
 
-	const onSubmit: SubmitHandler<ISingUpFormInput> = async user => {
-		delete user.optVerified;
-		const MarketingEmail = user.MarketingEmail ? "Yes" : "No";
-		const resp: any = await doLogin({ ...user, Password: encryptPassword(user.Password), MarketingEmail });
+	const { errors, isDirty, isValid } = formState;
+
+	const onSubmit: SubmitHandler<ISingUpFormInput> = async form => {
+		delete form.optVerified;
+		const MarketingEmail = form.MarketingEmail ? "Yes" : "No";
+		const userFormInputs = {
+			FirstName: form.FirstName,
+			LastName: form.LastName,
+			Email: form.Email,
+			Password: encryptPassword(form.CPassword),
+			MarketingEmail,
+			PreferredSoftwareID: 0,
+			FavouriteSoftware: 0,
+			EmailPref: 0
+		};
+		const resp: any = await doSignup(userFormInputs);
 		if (!resp.error) navigate("/auth");
 	};
 
@@ -77,24 +112,14 @@ function SignUpContainer() {
 				</p>
 				<div className="flex flex-col space-y-5">
 					<div className="flex space-x-5">
-						<div>
-							<FloatingLabelInput
-								register={register("FirstName", {
-									required: "First Name is Required",
-									pattern: /^[A-Za-z]+$/i
-								})}
-							/>
+						<div className="w-full">
+							<FloatingLabelInput register={register("FirstName")} />
 							{errors.FirstName && (
 								<span className="text-red-500 text-xs ml-2">{errors.FirstName?.message}</span>
 							)}
 						</div>
-						<div>
-							<FloatingLabelInput
-								register={register("LastName", {
-									required: "Last Name is Required",
-									pattern: /^[A-Za-z]+$/i
-								})}
-							/>
+						<div className="w-full">
+							<FloatingLabelInput register={register("LastName")} />
 							{errors.LastName && (
 								<span className="text-red-500 text-xs ml-2">{errors.LastName?.message}</span>
 							)}
@@ -102,13 +127,7 @@ function SignUpContainer() {
 					</div>
 					<div className="relative">
 						<FloatingLabelInput
-							register={register("Email", {
-								required: "Email Address is required",
-								pattern: {
-									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-									message: "invalid email address"
-								}
-							})}
+							register={register("Email")}
 							isVerify={!!getValues("Email") && !errors.Email}
 							handleVerify={() => {
 								handleVerifyEmail();
@@ -125,22 +144,19 @@ function SignUpContainer() {
 								<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
 							</span>
 						)}
-
 						{errors.Email && <span className="text-red-500 text-xs ml-2">{errors.Email?.message}</span>}
 					</div>
 					<div>
-						<FloatingLabelInput
-							type="password"
-							register={register("Password", {
-								required: "Passeord is required",
-								pattern: {
-									value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
-									message: "Use 12 or more characters with a mix of letters, numbers & symbols"
-								}
-							})}
-						/>
+						<FloatingLabelInput type="password" register={register("Password")} />
 						{errors.Password && (
 							<span className="text-red-500 text-xs pl-2">{errors.Password?.message}</span>
+						)}
+					</div>
+
+					<div>
+						<FloatingLabelInput type="password" name="Confirm Password" register={register("CPassword")} />
+						{errors.CPassword && (
+							<span className="text-red-500 text-xs pl-2">{errors.CPassword?.message}</span>
 						)}
 					</div>
 				</div>

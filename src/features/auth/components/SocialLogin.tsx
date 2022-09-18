@@ -3,15 +3,41 @@ import { LinkedInLogin } from "./LinkedInLogin";
 import SocialButton from "./FBLogin";
 import { navigateLink } from "~/config/api/links";
 import { useNavigate } from "react-router-dom";
+import { useDoSocialSignUpMutation } from "~/services/auth";
+import { toast } from "react-hot-toast";
+import { dispatch } from "~/config/store";
+import { login } from "../state/authSlice";
 
 export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 	const navigate = useNavigate();
+	const [doSignup, option] = useDoSocialSignUpMutation();
 
-	const onLoginSuccess = (user: any) => {
-		console.log(user.profile);
-		localStorage.setItem("loginType", user.provider);
-		localStorage.setItem("user", JSON.stringify(user.profile));
-		navigate(navigateLink.dashboard, { replace: true });
+	const onLoginSuccess = async ({ profile, provider }: any) => {
+		const SocialType: any = {
+			facebook: "FacebookID",
+			google: "GoogleID"
+		};
+		console.log(profile);
+		const user = {
+			FirstName: profile.firstName,
+			LastName: profile.lastName,
+			Email: profile.email,
+			SocialID: profile.id,
+			SocialType: SocialType[provider]
+		};
+
+		const resp: any = await doSignup(user);
+
+		if (resp.data.Status === "F") {
+			toast.error(resp.data.Message);
+			return;
+		} else {
+			dispatch(login);
+			localStorage.setItem("loginType", provider);
+			localStorage.setItem("user", JSON.stringify(resp.data.Data));
+
+			navigate(navigateLink.dashboard, { replace: true });
+		}
 	};
 	return (
 		<section className="flex-col mt-10 space-y-5">

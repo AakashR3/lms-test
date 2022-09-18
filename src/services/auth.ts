@@ -83,16 +83,27 @@ export const authApi = api.injectEndpoints({
 			}
 		}),
 		doSignUp: build.mutation({
-			async queryFn(user, api, extraOptions, baseQuery) {
+			async queryFn(body, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
 					url: endPoints.account.create,
 					method: "POST",
-					body: {
-						...user,
-						PreferredSoftwareID: 0,
-						FavouriteSoftware: 0,
-						EmailPref: 0
-					}
+					body
+				});
+
+				if (result.error) {
+					// but refetch on another error
+					return { error: result.error };
+				}
+
+				return { data: result.data };
+			}
+		}),
+		doSocialSignUp: build.mutation({
+			async queryFn(body, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: endPoints.auth.socialLogin,
+					method: "POST",
+					body
 				});
 
 				if (result.error) {
@@ -144,5 +155,6 @@ export const {
 	useSendVerifyEmailMutation,
 	useVerifyOtpMutation,
 	useResetPasswordMutation,
-	useSsoRequestMutation
+	useSsoRequestMutation,
+	useDoSocialSignUpMutation
 } = authApi;

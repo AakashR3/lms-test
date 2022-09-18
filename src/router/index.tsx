@@ -31,7 +31,7 @@ function AppRouter() {
 					<Route path="sso-login" element={<SsoLoginContainer />} />
 					<Route path="*" element="page not found" />
 				</Route>
-				<Route path="/linkedin" element={<LinkedInCallback />} />
+				<Route path="linkedin" element={<LinkedInCallback />} />
 				<Route path="account">
 					<Route path="reset-password" element={<ResetPasswordContainer />} />
 				</Route>

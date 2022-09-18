@@ -5,7 +5,8 @@ export const endPoints = {
 		forgotPassword: "Users/ForgotPassword",
 		sendOtp: "Users/SendOTP",
 		verifyOtp: "Users/VerifyOTP",
-		ssoRequest: "/SSO/SSORequest"
+		ssoRequest: "SSO/SSORequest",
+		socialLogin: "Users/SocialValidation"
 	},
 	account: {
 		create: "Users/UserRegistration",
