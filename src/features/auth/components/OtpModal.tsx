@@ -14,7 +14,7 @@ const timing = 30;
 const numInputs = 4;
 
 export function OtpModal({ Email, handleVerify }: TOtpModal) {
-	const [verifyOtp] = useVerifyOtpMutation();
+	const [verifyOtp, options] = useVerifyOtpMutation();
 	const [sendOtp] = useSendVerifyEmailMutation();
 	const [otp, setOtp] = useState("");
 	const [timer, setTimer] = useState(timing);
@@ -80,7 +80,7 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 						</button>
 					</div>
 					<button
-						disabled={otp.length < numInputs}
+						disabled={otp.length < numInputs || options.isLoading}
 						onClick={() => handleSubmit()}
 						className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1868B3] tracking-wide py-3 mt-6 rounded-md text-white mb-2"
 					>
