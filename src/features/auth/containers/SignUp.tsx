@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SocialLogin } from "~/features/auth/components/SocialLogin";
@@ -74,12 +74,11 @@ function SignUpContainer() {
 		if (!resp.error) navigate("/auth");
 	};
 
-	const handleOtp = useCallback((otp: string) => {
-		console.log("login start", otp);
+	const handleOtp = (otp: string | undefined) => {
 		if (otp) setValue("optVerified", true, { shouldValidate: true });
 		setIsVerified(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	};
 
 	useEffect(() => {
 		register("optVerified", { required: true });
@@ -93,7 +92,6 @@ function SignUpContainer() {
 			return;
 		}
 		verifyEmail({ Email }).then((resp: any) => {
-			console.log(resp);
 			if (resp.data) {
 				setIsVerified(true);
 				toast.success(resp.data.Message);
@@ -187,7 +185,7 @@ function SignUpContainer() {
 				</div> */}
 				<SocialLogin />
 			</section>
-			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={handleOtp} />}
+			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={otp => handleOtp(otp)} />}
 		</>
 	);
 }

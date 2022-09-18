@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ICountdown {
 	hours: number;
@@ -7,7 +7,6 @@ interface ICountdown {
 }
 
 const CountDownTimer = ({ hours = 0, minutes = 0, seconds = 30, onTimeUp }: ICountdown & { onTimeUp?: () => void }) => {
-	console.log(seconds);
 	const [time, setTime] = React.useState<ICountdown>({ hours, minutes, seconds });
 
 	const tick = () => {
@@ -37,7 +36,7 @@ const CountDownTimer = ({ hours = 0, minutes = 0, seconds = 30, onTimeUp }: ICou
 	// if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) return null;
 	return (
 		<time className="text-[#00000099]">
-			{time.minutes.toString().padStart(2, '0')}:{time.seconds.toString().padStart(2, '0')}
+			{time.minutes.toString().padStart(2, "0")}:{time.seconds.toString().padStart(2, "0")}
 		</time>
 	);
 };

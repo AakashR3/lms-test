@@ -1,60 +1,35 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useSendVerifyEmailMutation, useVerifyOtpMutation } from "~/services/auth";
-import { toast } from "react-hot-toast";
 import { useState } from "react";
+import { Icon } from "@iconify/react";
+import OtpInput from "react-otp-input";
+import { toast } from "react-hot-toast";
 import CountDownTimer from "./CountDownTimer";
-
-interface OtpValues {
-	value_1: string;
-	value_2: string;
-	value_3: string;
-	value_4: string;
-}
+import { useSendVerifyEmailMutation, useVerifyOtpMutation } from "~/services/auth";
 
 type TOtpModal = {
 	Email: String;
-	handleVerify: (otp: string) => void;
+	handleVerify: (otp?: string) => void;
 };
 
 const timing = 30;
+const numInputs = 4;
 
 export function OtpModal({ Email, handleVerify }: TOtpModal) {
 	const [verifyOtp] = useVerifyOtpMutation();
 	const [sendOtp] = useSendVerifyEmailMutation();
+	const [otp, setOtp] = useState("");
 	const [timer, setTimer] = useState(timing);
-	const {
-		register,
-		handleSubmit,
-		formState: { isDirty, isValid }
-	} = useForm<OtpValues>({ mode: "onChange" });
 
-	const onSubmit: SubmitHandler<OtpValues> = data => {
-		const Otp = `${data.value_1}${data.value_2}${data.value_3}${data.value_4}`;
-		console.log("login form data", { Email, Otp });
+	const handleChange = (otp: any) => setOtp(otp);
 
-		verifyOtp({ Email, Otp }).then((resp: any) => {
+	const handleSubmit = () => {
+		verifyOtp({ Email, otp }).then((resp: any) => {
 			if (resp.data.Status === "F") {
 				toast.error(resp.data.Message);
 				return;
 			}
-			handleVerify(Otp);
+			handleVerify(otp);
 			toast.success(resp.data.Message);
 		});
-	};
-
-	const renderInput = (name: keyof OtpValues) => {
-		return (
-			<input
-				key={name}
-				id={name}
-				type="tel"
-				className="m-2 border h-12 w-12 text-center form-control rounded"
-				{...register(name, {
-					required: true
-				})}
-				maxLength={1}
-			/>
-		);
 	};
 
 	return (
@@ -66,10 +41,19 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 		>
 			<div className="relative p-4 w-full max-w-sm h-full md:h-auto">
 				<div className="relative bg-white rounded-lg shadow p-10">
+					<button className="border-none p-3 absolute top-3 right-3" onClick={() => handleVerify()}>
+						<Icon icon="ic:baseline-close" width={18} color="text-[#C7CFD761]" />
+					</button>
 					<h3 className="text-xl font-semibold text-gray-900 text-center">OTP Verification</h3>
-					<div id="otp" className="flex flex-row justify-between mt-5">
-						{["value_1", "value_2", "value_3", "value_4"].map((val: any) => renderInput(val))}
-					</div>
+					<OtpInput
+						containerStyle="flex flex-row justify-between mt-5"
+						inputStyle="border h-12 !w-12 text-center form-control rounded text-lg font-semibold"
+						value={otp}
+						isInputNum
+						shouldAutoFocus
+						onChange={(otp: any) => handleChange(otp)}
+					/>
+
 					<div className="flex items-center space-x-3 my-5 items-center justify-center text-xs">
 						<CountDownTimer
 							hours={0}
@@ -96,8 +80,8 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 						</button>
 					</div>
 					<button
-						disabled={!isDirty || !isValid}
-						onClick={handleSubmit(onSubmit)}
+						disabled={otp.length < numInputs}
+						onClick={() => handleSubmit()}
 						className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1868B3] tracking-wide py-3 mt-6 rounded-md text-white mb-2"
 					>
 						Verify
