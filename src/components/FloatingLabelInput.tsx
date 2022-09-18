@@ -22,7 +22,7 @@ export function FloatingLabelInput({ type, name, isVerify = true, handleVerify, 
 			<input
 				autoComplete="off"
 				className={[
-					"h-12 leading-8 outline-none cursor-text w-full rounded-md bg-transparent text-sm transition-all duration-200 ease-in-out py-2 px-3",
+					"autofill:(bg-white text-[rgba(0,0,0,0.6)]) h-12 leading-8 outline-none cursor-text w-full rounded-md bg-transparent text-sm transition-all duration-200 ease-in-out py-2 px-3",
 					active ? "pt-6" : "",
 					type === "password" ? "pr-11" : "",
 					handleVerify ? "pr-24" : ""
