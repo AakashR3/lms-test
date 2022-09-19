@@ -4,16 +4,30 @@ import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useNavigate } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
 
+const redirect_uri = `${window.location.origin}/linkedin`;
+
 export function LinkedInLogin() {
 	const navigate = useNavigate();
 	const { linkedInLogin } = useLinkedIn({
-		clientId: import.meta.env.VITE_L_CLIENT_ID,
-		redirectUri: `${window.location.origin}/linkedin`,
+		clientId: "86vbqap7bbg5ak",
+		redirectUri: redirect_uri,
+		state: "test@123",
 		onSuccess: code => {
 			console.log(code);
-			localStorage.setItem("loginType", "linkedin");
-			localStorage.setItem("user", JSON.stringify({}));
-			navigate(navigateLink.dashboard, { replace: true });
+			// fetch("https://www.linkedin.com/oauth/v2/accessToken", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/x-www-form-urlencoded"
+			// 	},
+			// 	body: JSON.stringify({
+			// 		grant_type: "client_credentials",
+			// 		client_id: "86vbqap7bbg5ak",
+			// 		client_secret: "485UFR4WwSpWBWhX"
+			// 	})
+			// });
+			// localStorage.setItem("loginType", "linkedin");
+			// localStorage.setItem("user", JSON.stringify({}));
+			// navigate(navigateLink.dashboard, { replace: true });
 		},
 		scope: "r_emailaddress",
 		onError: error => {

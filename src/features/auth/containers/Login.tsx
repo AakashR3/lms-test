@@ -11,7 +11,9 @@ import { LoginType } from "~/config/api/endPoints";
 import { encryptPassword } from "~/helpers";
 
 const validationSchema = Yup.object().shape({
-	UserName: Yup.string().required("Email is required"),
+	UserName: Yup.string()
+		.required("Email is required")
+		.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Invalid email address"),
 	EncPassword: Yup.string().required("Password is required")
 });
 const formOptions = { resolver: yupResolver(validationSchema) };

@@ -5,11 +5,11 @@ import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SocialLogin } from "~/features/auth/components/SocialLogin";
 import { OtpModal } from "~/features/auth/components/OtpModal";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDoSignUpMutation, useSendVerifyEmailMutation } from "~/services/auth";
-import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { encryptPassword } from "~/helpers";
+import { toast } from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDoSignUpMutation, useSendVerifyEmailMutation } from "~/services/auth";
 
 interface ISingUpFormInput {
 	FirstName: string;

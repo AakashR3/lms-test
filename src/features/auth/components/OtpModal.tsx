@@ -32,6 +32,16 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 		});
 	};
 
+	const handleOtpSend = () => {
+		setOtp("");
+		sendOtp({ Email }).then((resp: any) => {
+			if (resp.data) {
+				setTimer(timing);
+				toast.success(resp.data.Message);
+			}
+		});
+	};
+
 	return (
 		<div
 			id="defaultModal"
@@ -55,26 +65,12 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 					/>
 
 					<div className="flex items-center space-x-3 my-5 items-center justify-center text-xs">
-						<CountDownTimer
-							hours={0}
-							minutes={0}
-							seconds={timer}
-							onTimeUp={() => {
-								setTimer(0);
-							}}
-						/>
+						<CountDownTimer hours={0} minutes={0} seconds={timer} onTimeUp={() => setTimer(0)} />
 						<button
 							className={`${
 								timer === 0 ? "cursor-pointer text-blue-500" : "text-[#C7CFD761] pointer-events-none"
 							}`}
-							onClick={() => {
-								sendOtp({ Email }).then((resp: any) => {
-									if (resp.data) {
-										setTimer(timing);
-										toast.success(resp.data.Message);
-									}
-								});
-							}}
+							onClick={() => handleOtpSend()}
 						>
 							Resend OTP
 						</button>
