@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import React, { useEffect } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SocialLogin } from "~/features/auth/components/SocialLogin";
@@ -46,15 +46,16 @@ const validationSchema = Yup.object().shape({
 
 function SignUpContainer() {
 	const [isVerified, setIsVerified] = React.useState<boolean>(false);
+	const [tempEmail, setTempEmail] = React.useState<string | undefined>(undefined);
 	const [doSignup, option] = useDoSignUpMutation();
 	const [verifyEmail, verifyEmailOption] = useSendVerifyEmailMutation();
 
 	const navigate = useNavigate();
-	const { register, handleSubmit, setValue, getValues, formState } = useForm<ISingUpFormInput>({
+	const { register, handleSubmit, setValue, getValues, watch, formState } = useForm<ISingUpFormInput>({
 		resolver: yupResolver(validationSchema),
 		mode: "onChange"
 	});
-
+	const watchEmail = watch("Email");
 	const { errors, isDirty, isValid } = formState;
 
 	const onSubmit: SubmitHandler<ISingUpFormInput> = async form => {
@@ -77,13 +78,17 @@ function SignUpContainer() {
 	const handleOtp = (otp: string | undefined) => {
 		if (otp) setValue("optVerified", true, { shouldValidate: true });
 		setIsVerified(false);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		register("optVerified", { required: true });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	React.useEffect(() => {
+		console.log(tempEmail === watchEmail);
+		setValue("optVerified", tempEmail === watchEmail, { shouldValidate: true });
+	}, [watchEmail]);
 
 	const handleVerifyEmail = () => {
 		const { Email } = getValues();
@@ -91,6 +96,7 @@ function SignUpContainer() {
 			toast.error("Invalid Email Address");
 			return;
 		}
+		setTempEmail(Email);
 		verifyEmail({ Email }).then((resp: any) => {
 			if (resp.data) {
 				setIsVerified(true);
@@ -136,7 +142,6 @@ function SignUpContainer() {
 								<Icon width={22} icon="tabler:loader-2" color="#666" className="animate-spin" />
 							</span>
 						)}
-
 						{getValues("optVerified") && (
 							<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
 								<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
@@ -177,12 +182,6 @@ function SignUpContainer() {
 					Create Account
 				</button>
 
-				{/* <div className="flex select-none mt-4 text-[#0000008A]">
-					<Icon icon="mingcute:information-line" width={25} className="fill-current" />
-					<label htmlFor="agree" className="relative top-0.5 cursor-pointer ml-1.5 block text-sm">
-						Send me Marketing Emails about Tata Technologies Products and Services
-					</label>
-				</div> */}
 				<SocialLogin />
 			</section>
 			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={otp => handleOtp(otp)} />}
