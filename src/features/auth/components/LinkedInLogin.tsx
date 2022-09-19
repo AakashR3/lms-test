@@ -25,9 +25,9 @@ export function LinkedInLogin() {
 			// 		client_secret: "485UFR4WwSpWBWhX"
 			// 	})
 			// });
-			// localStorage.setItem("loginType", "linkedin");
-			// localStorage.setItem("user", JSON.stringify({}));
-			// navigate(navigateLink.dashboard, { replace: true });
+			localStorage.setItem("loginType", "linkedin");
+			localStorage.setItem("user", JSON.stringify({}));
+			navigate(navigateLink.dashboard, { replace: true });
 		},
 		scope: "r_emailaddress",
 		onError: error => {
