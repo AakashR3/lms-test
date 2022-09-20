@@ -7,6 +7,7 @@ import { useDoSocialSignUpMutation } from "~/services/auth";
 import { toast } from "react-hot-toast";
 import { dispatch } from "~/config/store";
 import { login } from "../state/authSlice";
+import { GoogleLogin } from "~/features/auth/components/GoogleLogin";
 
 export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 	const navigate = useNavigate();
@@ -57,6 +58,7 @@ export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 					<Icon width={22} icon="flat-color-icons:google" />
 				</SocialButton>
 
+				<GoogleLogin />
 				<LinkedInLogin />
 
 				<SocialButton

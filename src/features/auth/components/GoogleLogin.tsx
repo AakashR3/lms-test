@@ -9,7 +9,7 @@ import { LoginType } from "~/config/api/endPoints";
 export const gAuth2 = async () => await loadAuth2(gapi, import.meta.env.VITE_G_CLIENT_ID, "");
 
 type GoogleType = {
-	isLoginPage: boolean;
+	isLoginPage?: boolean;
 };
 export const GoogleLogin = (props: GoogleType) => {
 	const { isLoginPage } = props;
@@ -60,7 +60,7 @@ export const GoogleLogin = (props: GoogleType) => {
 	return (
 		<button
 			id="gLogin"
-			className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]"
+			className="hidden inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]"
 		>
 			<Icon width={22} icon="flat-color-icons:google" />
 		</button>
