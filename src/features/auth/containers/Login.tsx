@@ -9,26 +9,20 @@ import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SocialLogin } from "~/features/auth/components/SocialLogin";
 import { LoginType } from "~/config/api/endPoints";
 import { encryptPassword } from "~/helpers";
-
-const validationSchema = Yup.object().shape({
-	UserName: Yup.string()
-		.required("Email is required")
-		.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Invalid email address"),
-	EncPassword: Yup.string().required("Password is required")
-});
-const formOptions = { resolver: yupResolver(validationSchema) };
+import { loginSchema } from "~/features/auth/validation";
 
 function LoginContainer() {
 	const navigate = useNavigate();
 	const [doLogin, option] = useDoLoginMutation();
-
-	// get functions to build form with useForm() hook
-	const { register, handleSubmit, formState } = useForm<ILoginFormInput>({ ...formOptions, mode: "onChange" });
+	const { register, handleSubmit, formState } = useForm<ILoginFormInput>({
+		resolver: yupResolver(loginSchema),
+		mode: "onChange"
+	});
 	const { errors, isDirty, isValid } = formState;
 
 	const onSubmit: SubmitHandler<ILoginFormInput> = async form => {
 		const body = {
-			UserName: form.UserName,
+			UserName: form.Email,
 			EncPassword: encryptPassword(form.EncPassword)
 		};
 		const resp: any = await doLogin({ body, params: { LoginType: LoginType.basic } });
@@ -45,15 +39,11 @@ function LoginContainer() {
 			</p>
 			<div className="flex flex-col space-y-3">
 				<div>
-					<FloatingLabelInput name="Email" register={register("UserName")} />
-					{errors.UserName && <span className="text-red-500 text-xs ml-2">{errors.UserName?.message}</span>}
+					<FloatingLabelInput name="Email" register={register("Email")} />
+					{errors.Email && <span className="text-red-500 text-xs ml-2">{errors.Email?.message}</span>}
 				</div>
 				<div>
-					<FloatingLabelInput
-						type="password"
-						name="Password"
-						register={register("EncPassword", { required: "Passeord is required" })}
-					/>
+					<FloatingLabelInput type="password" name="Password" register={register("EncPassword")} />
 					{errors.EncPassword && (
 						<span className="text-red-500 text-xs ml-2">{errors.EncPassword?.message}</span>
 					)}

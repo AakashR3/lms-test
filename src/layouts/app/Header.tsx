@@ -31,7 +31,8 @@ export function AppHeader() {
 						<Icon
 							onClick={() => {
 								localStorage.clear();
-								navigate("/auth");
+								signOut();
+								// navigate("/auth");
 							}}
 							width={20}
 							icon="ant-design:logout-outlined"
@@ -42,7 +43,7 @@ export function AppHeader() {
 							<span className="font-medium uppercase tracking-wider text-lg text-gray-600">RA</span>
 						</div>
 						<div className="font-medium leading-5">
-							<div>First Name </div>
+							<div>First Name</div>
 							<div className="text-sm text-gray-500">Joined in August 2014</div>
 						</div>
 					</div>

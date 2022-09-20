@@ -15,7 +15,7 @@ const numInputs = 4;
 
 export function OtpModal({ Email, handleVerify }: TOtpModal) {
 	const [verifyOtp, options] = useVerifyOtpMutation();
-	const [sendOtp] = useSendVerifyEmailMutation();
+	const [sendOtp, sendOtpOption] = useSendVerifyEmailMutation();
 	const [otp, setOtp] = useState("");
 	const [timer, setTimer] = useState(timing);
 
@@ -23,6 +23,10 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 
 	const handleSubmit = () => {
 		verifyOtp({ Email, otp }).then((resp: any) => {
+			if (resp.error) {
+				toast.error(resp.error.Message);
+				return;
+			}
 			if (resp.data.Status === "F") {
 				toast.error(resp.data.Message);
 				return;
@@ -33,10 +37,10 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 	};
 
 	const handleOtpSend = () => {
+		setTimer(timing);
 		setOtp("");
 		sendOtp({ Email }).then((resp: any) => {
 			if (resp.data) {
-				setTimer(timing);
 				toast.success(resp.data.Message);
 			}
 		});
@@ -67,16 +71,15 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 					<div className="flex items-center space-x-3 my-5 items-center justify-center text-xs">
 						<CountDownTimer hours={0} minutes={0} seconds={timer} onTimeUp={() => setTimer(0)} />
 						<button
-							className={`${
-								timer === 0 ? "cursor-pointer text-blue-500" : "text-[#C7CFD761] pointer-events-none"
-							}`}
+							disabled={timer !== 0 || sendOtpOption.isLoading}
+							className="disabled:(text-[#C7CFD761] pointer-events-none) cursor-pointer text-blue-500"
 							onClick={() => handleOtpSend()}
 						>
 							Resend OTP
 						</button>
 					</div>
 					<button
-						disabled={otp.length < numInputs || options.isLoading}
+						disabled={otp.length < numInputs || options.isLoading || timer === 0}
 						onClick={() => handleSubmit()}
 						className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1868B3] tracking-wide py-3 mt-6 rounded-md text-white mb-2"
 					>

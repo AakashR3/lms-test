@@ -29,11 +29,6 @@ export const authApi = api.injectEndpoints({
 
 				console.log(result);
 
-				if (result.error?.status === 400) {
-					// don't refetch on 404
-					return { data: result.data };
-				}
-
 				if (result.error) {
 					// but refetch on another error
 					return { error: result.error };
@@ -68,11 +63,6 @@ export const authApi = api.injectEndpoints({
 				});
 
 				console.log(result);
-
-				if (result.error?.status === 400) {
-					// don't refetch on 404
-					return { data: result.data };
-				}
 
 				if (result.error) {
 					// but refetch on another error

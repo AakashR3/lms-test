@@ -1,4 +1,4 @@
 export interface ILoginFormInput {
-	UserName: string;
+	Email: string;
 	EncPassword: string;
 }

@@ -5,7 +5,7 @@ const regex = {
 	password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/
 };
 
-const message = {
+export const message = {
 	email: {
 		required: "Email is required",
 		regex: "Invalid email address"
@@ -13,41 +13,40 @@ const message = {
 	password: {
 		required: "Password is required",
 		regex: "Use 12 or more characters with a mix of letters, numbers & symbols",
-		cpassword: "Password must match"
-	}
+		cpassword: "Password are not match"
+	},
+	firstName: {
+		required: "First Name is required"
+	},
+	lastName: {
+		required: "Last Name is required"
+	},
+	otpVerified: { required: "Email not verified" }
 };
 
 const emailSchema = Yup.object().shape({
 	Email: Yup.string().required(message.email.required).matches(regex.email, message.email.regex)
 });
+const passwordSchema = Yup.string().required(message.password.required);
 
-const passwordSchema = Yup.object().shape({
-	Password: Yup.string().required(message.password.required).matches(regex.password, message.password.regex),
+const passwordsSchema = Yup.object().shape({
+	Password: passwordSchema.matches(regex.password, message.password.regex),
 	CPassword: Yup.string()
-		.required(`Confirm ${message.password.required}`)
-		.matches(regex.password, "Use 12 or more characters with a mix of letters, numbers & symbols")
-		.oneOf([Yup.ref("Password"), null], "Password must match")
+		.required(message.password.required)
+		.matches(regex.password, message.password.regex)
+		.oneOf([Yup.ref("Password"), null], message.password.cpassword)
 });
 
-const loginSchema = emailSchema.concat(
-	Yup.object().shape({
-		EncPassword: Yup.string().required("Password is required")
+export const loginSchema = Yup.object().concat(emailSchema).shape({ EncPassword: passwordSchema });
+
+export const forgotPasswordSchema = Yup.object().shape({}).concat(emailSchema);
+
+export const signUpSchema = Yup.object()
+	.shape({
+		FirstName: Yup.string().required(message.firstName.required),
+		LastName: Yup.string().required(message.lastName.required),
+		MarketingEmail: Yup.boolean(),
+		optVerified: Yup.boolean().required(message.otpVerified.required)
 	})
-);
-
-const forgotPasswordSchema = emailSchema.concat(Yup.object().shape({}));
-
-const signUpSchema = Yup.object().shape({
-	FirstName: Yup.string().required("First Name is required"),
-	LastName: Yup.string().required("Last Name is required"),
-	Email: Yup.string().required("Email is required").matches(regex.email, "Invalid email address"),
-	Password: Yup.string()
-		.required("password is required")
-		.matches(regex.password, "Use 12 or more characters with a mix of letters, numbers & symbols"),
-	CPassword: Yup.string()
-		.required("Confirm Password is required")
-		.matches(regex.password, "Use 12 or more characters with a mix of letters, numbers & symbols")
-		.oneOf([Yup.ref("Password"), null], "Password must match"),
-	MarketingEmail: Yup.boolean(),
-	optVerified: Yup.boolean().required("Email not verified")
-});
+	.concat(emailSchema)
+	.concat(passwordsSchema);

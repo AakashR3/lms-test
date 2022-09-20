@@ -38,10 +38,9 @@ const validationSchema = Yup.object().shape({
 		.matches(
 			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
 			"Use 12 or more characters with a mix of letters, numbers & symbols"
-		)
-		.oneOf([Yup.ref("Password"), null], "Password must match"),
+		),
 	MarketingEmail: Yup.boolean(),
-	optVerified: Yup.boolean().required("Email not verified")
+	optVerified: Yup.boolean().required().required("Email not verified")
 });
 
 function SignUpContainer() {
@@ -56,6 +55,8 @@ function SignUpContainer() {
 		mode: "onChange"
 	});
 	const watchEmail = watch("Email");
+	const watchPassword = watch("Password");
+	const watchCPassword = watch("CPassword");
 	const { errors, isDirty, isValid } = formState;
 
 	const onSubmit: SubmitHandler<ISingUpFormInput> = async form => {
@@ -158,8 +159,8 @@ function SignUpContainer() {
 
 					<div>
 						<FloatingLabelInput type="password" name="Confirm Password" register={register("CPassword")} />
-						{errors.CPassword && (
-							<span className="text-red-500 text-xs pl-2">{errors.CPassword?.message}</span>
+						{!errors.Password && !errors.CPassword && watchPassword !== watchCPassword && (
+							<span className="text-red-500 text-xs ml-2">Password are not match</span>
 						)}
 					</div>
 				</div>
@@ -175,13 +176,31 @@ function SignUpContainer() {
 					</label>
 				</div>
 				<button
-					disabled={!isDirty || !isValid || option.isLoading}
+					disabled={
+						!isDirty ||
+						!isValid ||
+						!getValues("optVerified") ||
+						option.isLoading ||
+						watchPassword !== watchCPassword
+					}
 					onClick={handleSubmit(onSubmit)}
 					className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
 				>
 					Create Account
 				</button>
-
+				<div className="flex select-none mt-4 text-[#0000008A]">
+					<Icon icon="mingcute:information-line" width={25} className="fill-current" />
+					<label htmlFor="agree" className="relative top-0.5 cursor-pointer ml-1.5 block text-sm">
+						By Clicking on "Create account", you agree to the{" "}
+						<a href="https://myigetit.com/terms" className="text-[#1869B3]">
+							Terms of Use
+						</a>
+						and
+						<a href="https://myigetit.com/privacy" className="text-[#1869B3]">
+							Privacy Policy
+						</a>
+					</label>
+				</div>
 				<SocialLogin />
 			</section>
 			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={otp => handleOtp(otp)} />}

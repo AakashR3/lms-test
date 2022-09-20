@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useForgotPasswordMutation } from "~/services/auth";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+
 interface IForgotPasswordFormInput {
 	UserName?: String | null;
 }
@@ -65,4 +66,5 @@ function ForgotPasswordContainer() {
 		</div>
 	);
 }
+
 export default ForgotPasswordContainer;
