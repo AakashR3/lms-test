@@ -3,13 +3,13 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 import { navigateLink } from "~/config/api/links";
 import { toast } from "react-hot-toast";
 import { dispatch } from "~/config/store";
-import { login } from "~/features/auth/state/authSlice";
+import { authAction } from "~/features/auth/state/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useDoSocialSignUpMutation } from "~/services/auth";
 
 export function FBLogin() {
 	const navigate = useNavigate();
-	const [doSignup, option] = useDoSocialSignUpMutation();
+	const [doSignup] = useDoSocialSignUpMutation();
 	const onLoginSuccess = async (profile: any) => {
 		const SocialType = "FacebookID";
 		const user = {
@@ -24,7 +24,7 @@ export function FBLogin() {
 			toast.error(resp.data.Message);
 			return;
 		} else {
-			dispatch(login);
+			dispatch(authAction.login);
 			localStorage.setItem("loginType", SocialType);
 			localStorage.setItem("user", JSON.stringify(resp.data.Data));
 			navigate(navigateLink.dashboard, { replace: true });

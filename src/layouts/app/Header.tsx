@@ -5,14 +5,13 @@ import { navigateLink } from "~/config/api/links";
 
 export function AppHeader() {
 	const navigate = useNavigate();
-	const loginType = localStorage.getItem("loginType");
 
-	const signOut = () => {
-		const auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(() => {
+	const signOut = async () => {
+		const gAuth = await gapi?.auth2?.getAuthInstance();
+		gAuth.signOut().then(() => {
 			console.log("User signed out.");
+			navigate(navigateLink.auth.login, { replace: true });
 		});
-		navigate(navigateLink.auth.login, { replace: true });
 	};
 
 	return (

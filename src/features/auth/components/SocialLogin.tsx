@@ -1,6 +1,6 @@
+import { FBLogin } from "./FBLogin";
 import { LinkedInLogin } from "./LinkedInLogin";
 import { GoogleLogin } from "~/features/auth/components/GoogleLogin";
-import { FBLogin } from "./FBLogin";
 
 export function SocialLogin({ isLoginPage }: { isLoginPage?: boolean }) {
 	return (

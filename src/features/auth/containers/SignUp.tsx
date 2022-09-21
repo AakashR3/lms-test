@@ -87,8 +87,8 @@ function SignUpContainer() {
 	}, []);
 
 	React.useEffect(() => {
-		console.log(tempEmail === watchEmail);
 		setValue("optVerified", tempEmail === watchEmail, { shouldValidate: true });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [watchEmail]);
 
 	const handleVerifyEmail = () => {
