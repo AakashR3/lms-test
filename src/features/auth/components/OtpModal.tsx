@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import OtpInput from "react18-input-otp";
+import OtpInput from "react-otp-input";
 import { toast } from "react-hot-toast";
 import CountDownTimer from "./CountDownTimer";
 import { useSendVerifyEmailMutation, useVerifyOtpMutation } from "~/services/auth";

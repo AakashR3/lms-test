@@ -107,7 +107,7 @@ function SignUpContainer() {
 	};
 	return (
 		<>
-			<section className="animate-opacity flex md:(justify-center max-w-md mx-auto) px-8 flex-col px-4 w-full h-full">
+			<section className="animate-opacity flex md:(mt-15 max-w-md mx-auto) px-8 flex-col px-4 w-full h-full">
 				<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Sign Up</h1>
 				<p className="tracking-wide text-sm font-normal text-[rgba(0,0,0,0.6)] mb-7">
 					<span>Already have a account? </span>

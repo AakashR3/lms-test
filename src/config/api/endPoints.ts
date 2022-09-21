@@ -7,6 +7,7 @@ export const endPoints = {
 		verifyOtp: "Users/VerifyOTP",
 		ssoRequest: "SSO/SSORequest",
 		socialLogin: "Users/SocialValidation",
+		linkedInLogin: "Users/LinkedinValidation",
 		logout: "Users/UserLogout"
 	},
 	account: {

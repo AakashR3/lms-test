@@ -29,7 +29,7 @@ function LoginContainer() {
 	};
 
 	return (
-		<div className="animate-opacity flex md:(justify-center max-w-md mx-auto) px-8 flex-col w-full h-full">
+		<div className="animate-opacity flex md:(mt-20 max-w-md mx-auto) px-8 flex-col w-full h-full">
 			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Log In</h1>
 			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">
 				<Link to="/auth/sso-login" className="text-[#1869B3] underline">

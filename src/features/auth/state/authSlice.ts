@@ -27,13 +27,14 @@ const initialState: IAuthState = {
 };
 
 const auth = authApi.endpoints;
-const matchsRejected = isAnyOf(
+const matchesRejected = isAnyOf(
 	auth.doSignUp.matchRejected,
 	auth.doLogin.matchRejected,
 	auth.forgotPassword.matchRejected,
 	auth.sendVerifyEmail.matchRejected,
 	auth.resetPassword.matchRejected,
-	auth.verifyOtp.matchRejected
+	auth.verifyOtp.matchRejected,
+	auth.linkedInLogin.matchRejected
 );
 
 const authSlice = createSlice({
@@ -66,7 +67,7 @@ const authSlice = createSlice({
 				toast.success(action.payload?.Message);
 				// state.user = action.payload.user;
 			})
-			.addMatcher(matchsRejected, (state, action: any) => {
+			.addMatcher(matchesRejected, (state, action: any) => {
 				toast.error(action.payload?.data?.Message || "Something Went Wrong. Try Again");
 			});
 	}

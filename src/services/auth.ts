@@ -132,6 +132,22 @@ export const authApi = api.injectEndpoints({
 
 				return { data: result.data };
 			}
+		}),
+		linkedInLogin: build.mutation({
+			async queryFn(params, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: endPoints.auth.linkedInLogin,
+					method: "POST",
+					params
+				});
+
+				if (result.error) {
+					// but refetch on another error
+					return { error: result.error };
+				}
+
+				return { data: result.data };
+			}
 		})
 	})
 });
@@ -144,5 +160,6 @@ export const {
 	useVerifyOtpMutation,
 	useResetPasswordMutation,
 	useSsoRequestMutation,
-	useDoSocialSignUpMutation
+	useDoSocialSignUpMutation,
+	useLinkedInLoginMutation
 } = authApi;
