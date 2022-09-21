@@ -62,8 +62,6 @@ export const authApi = api.injectEndpoints({
 					body
 				});
 
-				console.log(result);
-
 				if (result.error) {
 					// but refetch on another error
 					return { error: result.error };

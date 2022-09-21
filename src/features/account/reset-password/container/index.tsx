@@ -87,7 +87,7 @@ function ResetPasswordContainer() {
 						)}
 					</div>
 					{!errors.password && !errors.cpassword && watchPassword !== watchCPassword && (
-						<span className="text-red-500 text-xs ml-2">Password are not match</span>
+						<span className="text-red-500 text-xs ml-2">Password do not match</span>
 					)}
 				</div>
 				<button

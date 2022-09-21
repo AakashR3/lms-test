@@ -32,7 +32,8 @@ const matchsRejected = isAnyOf(
 	auth.doLogin.matchRejected,
 	auth.forgotPassword.matchRejected,
 	auth.sendVerifyEmail.matchRejected,
-	auth.resetPassword.matchRejected
+	auth.resetPassword.matchRejected,
+	auth.verifyOtp.matchRejected
 );
 
 const authSlice = createSlice({

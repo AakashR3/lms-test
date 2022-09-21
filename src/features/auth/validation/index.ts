@@ -13,7 +13,7 @@ export const message = {
 	password: {
 		required: "Password is required",
 		regex: "Use 12 or more characters with a mix of letters, numbers & symbols",
-		cpassword: "Password are not match"
+		cpassword: "Password do not match"
 	},
 	firstName: {
 		required: "First Name is required"

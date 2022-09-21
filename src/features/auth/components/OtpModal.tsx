@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import OtpInput from "react-otp-input";
+import OtpInput from "react18-input-otp";
 import { toast } from "react-hot-toast";
 import CountDownTimer from "./CountDownTimer";
 import { useSendVerifyEmailMutation, useVerifyOtpMutation } from "~/services/auth";
@@ -23,10 +23,6 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 
 	const handleSubmit = () => {
 		verifyOtp({ Email, otp }).then((resp: any) => {
-			if (resp.error) {
-				toast.error(resp.error.Message);
-				return;
-			}
 			if (resp.data.Status === "F") {
 				toast.error(resp.data.Message);
 				return;

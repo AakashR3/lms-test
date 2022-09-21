@@ -159,7 +159,10 @@ function SignUpContainer() {
 
 					<div>
 						<FloatingLabelInput type="password" name="Confirm Password" register={register("CPassword")} />
-						{!errors.Password && !errors.CPassword && watchPassword !== watchCPassword && (
+						{errors.CPassword && (
+							<span className="text-red-500 text-xs pl-2">{errors.CPassword?.message}</span>
+						)}
+						{!errors.CPassword && !errors.CPassword && watchPassword !== watchCPassword && (
 							<span className="text-red-500 text-xs ml-2">Password are not match</span>
 						)}
 					</div>
@@ -194,8 +197,8 @@ function SignUpContainer() {
 						By Clicking on "Create account", you agree to the{" "}
 						<a href="https://myigetit.com/terms" className="text-[#1869B3]">
 							Terms of Use
-						</a>
-						and
+						</a>{" "}
+						and{" "}
 						<a href="https://myigetit.com/privacy" className="text-[#1869B3]">
 							Privacy Policy
 						</a>
