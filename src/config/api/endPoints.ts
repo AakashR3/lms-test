@@ -5,6 +5,7 @@ export const endPoints = {
 		forgotPassword: "Users/ForgotPassword",
 		sendOtp: "Users/SendOTP",
 		verifyOtp: "Users/VerifyOTP",
+		VerifyEmailLink: "Users/VerifyEmailLink",
 		ssoRequest: "SSO/SSORequest",
 		socialLogin: "Users/SocialValidation",
 		linkedInLogin: "Users/LinkedinValidation",
