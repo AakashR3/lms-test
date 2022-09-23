@@ -4,7 +4,7 @@ const menus = ["Dashboard", "Library", "Account", "Objectives", "Reports", "More
 
 export function TopNavigation() {
 	return (
-		<section className="bg-white py-2 border-t">
+		<section className="bg-white py-2 border-b sticky top-0 z-10 ">
 			<div className="container mx-auto px-4 flex items-center justify-between">
 				<nav className="flex items-center space-x-8 ml-5px">
 					{menus.map(menu => (

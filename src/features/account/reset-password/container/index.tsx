@@ -31,16 +31,16 @@ function ResetPasswordContainer() {
 				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
 				"Use 12 or more characters with a mix of letters, numbers & symbols"
 			)
-			.oneOf([Yup.ref("password"), null], "Password must match")
 	});
 
 	// get functions to build form with useForm() hook
-	const { register, handleSubmit, formState } = useForm<IResetPasswordFormInput>({
+	const { register, handleSubmit, formState, watch } = useForm<IResetPasswordFormInput>({
 		resolver: yupResolver(validationSchema),
 		mode: "onChange"
 	});
 	const { errors, isDirty, isValid } = formState;
-
+	const watchPassword = watch("password");
+	const watchCPassword = watch("cpassword");
 	const [resetPassoword, option] = useResetPasswordMutation();
 
 	const onSubmit: SubmitHandler<IResetPasswordFormInput> = user => {
@@ -71,20 +71,27 @@ function ResetPasswordContainer() {
 				</p>
 				<div className="w-full space-y-3">
 					<div className="w-full">
-						<FloatingLabelInput name="password" type="password" register={register("password")} />
+						<FloatingLabelInput name="New Password" type="password" register={register("password")} />
 						{errors.password && (
 							<span className="text-red-500 text-xs ml-2">{errors.password?.message}</span>
 						)}
 					</div>
 					<div className="w-full">
-						<FloatingLabelInput name="Confirm password" type="password" register={register("cpassword")} />
+						<FloatingLabelInput
+							name="Confirm new password"
+							type="password"
+							register={register("cpassword")}
+						/>
 						{errors.cpassword && (
 							<span className="text-red-500 text-xs ml-2">{errors.cpassword?.message}</span>
 						)}
 					</div>
+					{!errors.password && !errors.cpassword && watchPassword !== watchCPassword && (
+						<span className="text-red-500 text-xs ml-2">Password do not match</span>
+					)}
 				</div>
 				<button
-					disabled={!isDirty || !isValid || option.isLoading}
+					disabled={!isDirty || !isValid || option.isLoading || watchPassword !== watchCPassword}
 					onClick={handleSubmit(onSubmit)}
 					className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] py-4 font-bold mt-4 rounded-md text-white mb-2"
 				>

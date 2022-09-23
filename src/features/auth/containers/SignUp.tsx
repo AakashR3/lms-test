@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import React, { useEffect } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { SocialLogin } from "~/features/auth/components/SocialLogin";
@@ -38,23 +38,25 @@ const validationSchema = Yup.object().shape({
 		.matches(
 			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
 			"Use 12 or more characters with a mix of letters, numbers & symbols"
-		)
-		.oneOf([Yup.ref("Password"), null], "Password must match"),
+		),
 	MarketingEmail: Yup.boolean(),
-	optVerified: Yup.boolean().required("Email not verified")
+	optVerified: Yup.boolean().required().required("Email not verified")
 });
 
 function SignUpContainer() {
 	const [isVerified, setIsVerified] = React.useState<boolean>(false);
+	const [tempEmail, setTempEmail] = React.useState<string | undefined>(undefined);
 	const [doSignup, option] = useDoSignUpMutation();
 	const [verifyEmail, verifyEmailOption] = useSendVerifyEmailMutation();
 
 	const navigate = useNavigate();
-	const { register, handleSubmit, setValue, getValues, formState } = useForm<ISingUpFormInput>({
+	const { register, handleSubmit, setValue, getValues, watch, formState } = useForm<ISingUpFormInput>({
 		resolver: yupResolver(validationSchema),
 		mode: "onChange"
 	});
-
+	const watchEmail = watch("Email");
+	const watchPassword = watch("Password");
+	const watchCPassword = watch("CPassword");
 	const { errors, isDirty, isValid } = formState;
 
 	const onSubmit: SubmitHandler<ISingUpFormInput> = async form => {
@@ -77,13 +79,17 @@ function SignUpContainer() {
 	const handleOtp = (otp: string | undefined) => {
 		if (otp) setValue("optVerified", true, { shouldValidate: true });
 		setIsVerified(false);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		register("optVerified", { required: true });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	React.useEffect(() => {
+		setValue("optVerified", tempEmail === watchEmail, { shouldValidate: true });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [watchEmail]);
 
 	const handleVerifyEmail = () => {
 		const { Email } = getValues();
@@ -91,6 +97,7 @@ function SignUpContainer() {
 			toast.error("Invalid Email Address");
 			return;
 		}
+		setTempEmail(Email);
 		verifyEmail({ Email }).then((resp: any) => {
 			if (resp.data) {
 				setIsVerified(true);
@@ -100,7 +107,7 @@ function SignUpContainer() {
 	};
 	return (
 		<>
-			<section className="animate-opacity flex md:(justify-center max-w-md mx-auto) px-8 flex-col px-4 w-full h-full">
+			<section className="animate-opacity flex md:(mt-15 max-w-md mx-auto) px-8 flex-col px-4 w-full h-full">
 				<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Sign Up</h1>
 				<p className="tracking-wide text-sm font-normal text-[rgba(0,0,0,0.6)] mb-7">
 					<span>Already have a account? </span>
@@ -136,7 +143,6 @@ function SignUpContainer() {
 								<Icon width={22} icon="tabler:loader-2" color="#666" className="animate-spin" />
 							</span>
 						)}
-
 						{getValues("optVerified") && (
 							<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
 								<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
@@ -156,6 +162,9 @@ function SignUpContainer() {
 						{errors.CPassword && (
 							<span className="text-red-500 text-xs pl-2">{errors.CPassword?.message}</span>
 						)}
+						{!errors.CPassword && !errors.CPassword && watchPassword !== watchCPassword && (
+							<span className="text-red-500 text-xs ml-2">Password are not match</span>
+						)}
 					</div>
 				</div>
 				<div className="flex select-none mt-7 text-[#0000008A]">
@@ -170,19 +179,31 @@ function SignUpContainer() {
 					</label>
 				</div>
 				<button
-					disabled={!isDirty || !isValid || option.isLoading}
+					disabled={
+						!isDirty ||
+						!isValid ||
+						!getValues("optVerified") ||
+						option.isLoading ||
+						watchPassword !== watchCPassword
+					}
 					onClick={handleSubmit(onSubmit)}
 					className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] tracking-wide py-4 mt-6 rounded-md text-white font-bold mb-2"
 				>
 					Create Account
 				</button>
-
-				{/* <div className="flex select-none mt-4 text-[#0000008A]">
+				<div className="flex select-none mt-4 text-[#0000008A]">
 					<Icon icon="mingcute:information-line" width={25} className="fill-current" />
 					<label htmlFor="agree" className="relative top-0.5 cursor-pointer ml-1.5 block text-sm">
-						Send me Marketing Emails about Tata Technologies Products and Services
+						By Clicking on "Create account", you agree to the{" "}
+						<a href="https://myigetit.com/terms" className="text-[#1869B3]">
+							Terms of Use
+						</a>{" "}
+						and{" "}
+						<a href="https://myigetit.com/privacy" className="text-[#1869B3]">
+							Privacy Policy
+						</a>
 					</label>
-				</div> */}
+				</div>
 				<SocialLogin />
 			</section>
 			{isVerified && <OtpModal Email={getValues("Email")} handleVerify={otp => handleOtp(otp)} />}

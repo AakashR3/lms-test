@@ -8,16 +8,16 @@ import headerPoints from "../../../public/assets/images/header-points-icon.svg";
 export function AppHeader() {
 	const navigate = useNavigate();
 
-	const signOut = () => {
-		const auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(() => {
+	const signOut = async () => {
+		const gAuth = await gapi?.auth2?.getAuthInstance();
+		gAuth.signOut().then(() => {
 			console.log("User signed out.");
 			navigate(navigateLink.auth.login, { replace: true });
 		});
 	};
 
 	return (
-		<header className="bg-white">
+		<header className="bg-white border-b box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;">
 			<section className="container mx-auto px-4 flex justify-between py-2 w-full font-bold text-[#6A7681]">
 				<div className="flex items-center">
 					<Link to="#!">
@@ -34,11 +34,21 @@ export function AppHeader() {
 						<Icon className="mr-2" width={20} icon="ci:heart-outline" />
 						<div>
 							<Icon className="relative mr-2" width={20} icon="ant-design:shopping-cart-outlined" />
-							<span className="absolute right-11rem top-10px rounded-full bg-[#1268B3] w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+							<span className="absolute right-13rem top-10px rounded-full bg-[#1268B3] w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
 								5
 							</span>
 						</div>
+
 						<Icon className="mr-2" width={20} icon="carbon:notification" />
+						<Icon
+							onClick={() => {
+								localStorage.clear();
+								signOut();
+								// navigate("/auth");
+							}}
+							width={20}
+							icon="ant-design:logout-outlined"
+						/>
 					</div>
 					{/* <button onClick={() => signOut()}>lo</button> */}
 					<div className="flex items-center space-x-2">

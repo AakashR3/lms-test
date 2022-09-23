@@ -1,4 +1,4 @@
-/** @type {import('vite').UserConfig} */
+/** @type {import("vite").UserConfig} */
 
 import { resolve } from "path";
 import react from "@vitejs/plugin-react";
@@ -28,6 +28,7 @@ export default defineConfig(option => ({
 		}
 	},
 	server: { port: 3001 },
+	preview: { port: 3001 },
 	build: {
 		cssCodeSplit: false,
 		sourcemap: option.mode === "development",
