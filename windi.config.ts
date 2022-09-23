@@ -1,7 +1,7 @@
-import { defineConfig } from 'windicss/helpers';
+import { defineConfig } from "windicss/helpers";
 
 export default defineConfig({
-	darkMode: 'class',
+	darkMode: "class",
 	preflight: true,
 	theme: {
 		extend: {
@@ -10,9 +10,12 @@ export default defineConfig({
 				blue: "url('/assets/images/blue_bg.png')"
 			},
 			fontFamily: {
-				inter: ['Inter', 'sans-serif']
+				inter: ["Inter", "sans-serif"]
 			}
 		}
+	},
+	shortcuts: {
+		"profile-section": "text-[12px] font-semibold leading-5 text-[#020a12] opacity-60 py-1"
 	},
 	plugins: []
 });
