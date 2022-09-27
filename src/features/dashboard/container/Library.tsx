@@ -47,14 +47,14 @@ const Library = () => {
 			<section className="flex flex-col">
 				<div className="my-6 flex">
 					{actions.map(item => (
-						<div
+						<button
 							onClick={() => setActive(item)}
 							className={`flex px-3 cursor-pointer items-center mr-6 h-8 text-[rgba(0,0,0,0.6)] font-medium border rounded-[4px] border-color[rgba(0, 0, 0, 0.08)] ${
 								active === item && "bg-[#1869B3] text-white"
 							}`}
 						>
 							{item}
-						</div>
+						</button>
 					))}
 				</div>
 				<div className="grid grid-cols-4 gap-6">

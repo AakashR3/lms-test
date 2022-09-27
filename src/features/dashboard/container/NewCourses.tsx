@@ -10,26 +10,20 @@ const NewCourses = () => {
 			<div className="flex justify-between">
 				<span className="text-[#232D42] text-xl font-bold leading-7">New Courses</span>
 				<div className="flex">
-					<div className={`${slideDetails.current === 0 && "opacity-[.5] pointer-events-none"}`}>
-						<img
-							src="/assets/images/prev-btn.png"
-							onClick={() => setPrevTrigger(prevTrigger + 1)}
-							className="mx-2.3 cursor-pointer"
-							alt="prev-btn"
-						/>
-					</div>
-					<div
-						className={`${
-							slideDetails.current === slideDetails.total - 1 && "opacity-[.5] pointer-events-none"
+					<button
+						style={{ backgroundImage: `url(/assets/images/prev-btn.png)` }}
+						onClick={() => setPrevTrigger(prevTrigger + 1)}
+						className={`mx-2.3 w-8 h-8 cursor-pointer ${
+							slideDetails.current === 0 ? "opacity-[.5] pointer-events-none" : ""
 						}`}
-					>
-						<img
-							src="/assets/images/next-btn.png"
-							onClick={() => setNextTrigger(prevTrigger - 1)}
-							className="mx-2.3 cursor-pointer"
-							alt="next-btn"
-						/>
-					</div>
+					/>
+					<button
+						style={{ backgroundImage: `url(/assets/images/next-btn.png)` }}
+						onClick={() => setNextTrigger(prevTrigger - 1)}
+						className={`mx-2.3 w-8 h-8 cursor-pointer  ${
+							slideDetails.current === slideDetails.total - 1 ? "opacity-[.5] pointer-events-none" : ""
+						}`}
+					/>
 				</div>
 			</div>
 			<section className="flex">
