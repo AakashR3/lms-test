@@ -103,11 +103,11 @@ export const authApi = api.injectEndpoints({
 			}
 		}),
 		resetPassword: build.mutation({
-			async queryFn(params, api, extraOptions, baseQuery) {
+			async queryFn(body, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
 					url: endPoints.account.resetPassword,
 					method: "POST",
-					params
+					body
 				});
 
 				if (result.error) {
@@ -148,6 +148,18 @@ export const authApi = api.injectEndpoints({
 
 				return { data: result.data };
 			}
+		}),
+		VerifyEmailLink: build.mutation({
+			async queryFn(params, api, extraOptions, baseQuery) {
+				const result = await baseQuery({
+					url: endPoints.auth.VerifyEmailLink,
+					params
+				});
+				if (result.error) {
+					return { error: result.error };
+				}
+				return { data: result.data };
+			}
 		})
 	})
 });
@@ -161,5 +173,6 @@ export const {
 	useResetPasswordMutation,
 	useSsoRequestMutation,
 	useDoSocialSignUpMutation,
-	useLinkedInLoginMutation
+	useLinkedInLoginMutation,
+	useVerifyEmailLinkMutation
 } = authApi;

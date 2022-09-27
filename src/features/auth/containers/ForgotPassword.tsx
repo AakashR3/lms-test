@@ -57,12 +57,6 @@ function ForgotPasswordContainer() {
 			>
 				Send Instructions
 			</button>
-
-			<p className="space-x-1 text-[#00000099]">
-				<span>If you are still having trouble this</span>
-				<span className="text-[#1869B3] underline cursor-pointer">article</span>
-				<span>might help</span>
-			</p>
 		</div>
 	);
 }

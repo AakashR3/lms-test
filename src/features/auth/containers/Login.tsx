@@ -48,19 +48,7 @@ function LoginContainer() {
 					)}
 				</div>
 			</div>
-			<div className="flex items-center justify-between mt-6">
-				<div className="flex items-center select-none">
-					<input
-						id="remember-me"
-						name="remember-me"
-						type="checkbox"
-						className="h-4 w-4 cursor-pointer rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-					/>
-					<label htmlFor="remember-me" className="text-[rgba(0,0,0,0.6)] cursor-pointer ml-2 block text-sm">
-						Remember me
-					</label>
-				</div>
-
+			<div className="flex items-center justify-end mt-6">
 				<Link to="/auth/forgot-password" className="text-sm text-[rgba(0,0,0,0.6)] no-underline">
 					Forgot your password?
 				</Link>
