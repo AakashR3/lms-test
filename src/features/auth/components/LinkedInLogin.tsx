@@ -13,7 +13,7 @@ export function LinkedInLogin() {
 	const [errorMessage, setErrorMessage] = React.useState("");
 	const [doLinkedInLogin, option] = useLinkedInLoginMutation();
 	const { linkedInLogin } = useLinkedIn({
-		clientId: "86vbqap7bbg5ak",
+		clientId: "78iomah66rh7xz",
 		redirectUri: redirect_uri,
 		state: "iget2OlinkidenState",
 		onSuccess: code => {
