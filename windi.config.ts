@@ -17,5 +17,5 @@ export default defineConfig({
 	shortcuts: {
 		"profile-section": "text-[12px] font-semibold leading-5 text-[#020a12] opacity-60 py-1"
 	},
-	plugins: []
+	plugins: [require("windicss/plugin/line-clamp")]
 });
