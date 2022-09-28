@@ -30,7 +30,6 @@ const auth = authApi.endpoints;
 const matchesRejected = isAnyOf(
 	auth.doSignUp.matchRejected,
 	auth.doLogin.matchRejected,
-	auth.forgotPassword.matchRejected,
 	auth.sendVerifyEmail.matchRejected,
 	auth.resetPassword.matchRejected,
 	auth.verifyOtp.matchRejected,

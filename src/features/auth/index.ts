@@ -1,6 +1,6 @@
-export { default as AuthLayout } from './layout';
+export { default as AuthLayout } from "./layout";
 
-export { default as LoginContainer } from './containers/Login';
-export { default as SsoLoginContainer } from './containers/SsoLogin';
-export { default as ForgotPasswordContainer } from './containers/ForgotPassword';
-export { default as SignUpContainer } from './containers/SignUp';
+export { default as LoginPage } from "./login";
+export { default as SignUpPage } from "./sign-up";
+export { default as ForgotPasswordPage } from "./forgot-password";
+export { default as SsoLoginPage } from "./sso-login";

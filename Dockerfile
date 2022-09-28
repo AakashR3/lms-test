@@ -1,14 +1,31 @@
-FROM node:16.15.0
+FROM node:latest
 
+RUN apt-get -y update
+RUN apt-get install -y xsel
+
+# set working directory
 WORKDIR /app
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Copies package.json and package-lock.json to Docker environment
+COPY package*.json ./
 
-ADD . .
-
+# Installs all node packages
 RUN npm install --force
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Copies everything over to Docker environment
+COPY . .
 
-CMD ["npm", "run", "dev"]
+# Build for production.
+RUN npm run build --production
+
+# Install `serve` to run the application.
+RUN npm install -g serve
+
+RUN rm -rf node_modules
+RUN rm -rf src
+
+# Uses port which is used by the actual application
+EXPOSE 3000
+
+CMD serve -s dist/
+

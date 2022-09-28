@@ -1,11 +1,11 @@
 import React from "react";
 import { Provider } from "react-redux";
-import ReactDOM from "react-dom/client";
-import { configureStore } from "@reduxjs/toolkit";
 import { Toaster } from "react-hot-toast";
+import { createRoot } from "react-dom/client";
+import { configureStore } from "@reduxjs/toolkit";
 
-import { api } from "~/config/api";
 import AppRouter from "~/router";
+import { api } from "~/config/api";
 import { setStore, store, StoreState } from "~/config/store";
 import { createRootReducer } from "~/config/store/reducers";
 
@@ -18,9 +18,8 @@ export class LmsApp {
 			console.log("App Initialization...");
 			// configure redux store
 			this.configureStore();
-
 			const ElementRef = document.getElementById("root") as HTMLElement;
-			ReactDOM.createRoot(ElementRef).render(this.render());
+			createRoot(ElementRef).render(this.render());
 		} catch (error: any) {
 			console.error("Failed to start App", error);
 		}

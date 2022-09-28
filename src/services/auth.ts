@@ -20,23 +20,6 @@ export const authApi = api.injectEndpoints({
 				return { data: result.data };
 			}
 		}),
-		forgotPassword: build.mutation({
-			async queryFn(params, api, extraOptions, baseQuery) {
-				const result = await baseQuery({
-					url: endPoints.auth.forgotPassword,
-					params
-				});
-
-				console.log(result);
-
-				if (result.error) {
-					// but refetch on another error
-					return { error: result.error };
-				}
-
-				return { data: result.data };
-			}
-		}),
 		sendVerifyEmail: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
@@ -167,7 +150,6 @@ export const authApi = api.injectEndpoints({
 export const {
 	useDoLoginMutation,
 	useDoSignUpMutation,
-	useForgotPasswordMutation,
 	useSendVerifyEmailMutation,
 	useVerifyOtpMutation,
 	useResetPasswordMutation,

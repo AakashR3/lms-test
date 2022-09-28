@@ -1,7 +1,6 @@
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { Icon } from "@iconify/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useForgotPasswordMutation } from "~/services/auth";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,21 +10,13 @@ interface IForgotPasswordFormInput {
 
 function ForgotPasswordContainer() {
 	const navigate = useNavigate();
-	const [ForgotPassword, { isLoading }] = useForgotPasswordMutation();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isDirty, isValid }
 	} = useForm<IForgotPasswordFormInput>({ mode: "onChange" });
 
-	const onSubmit: SubmitHandler<IForgotPasswordFormInput> = ({ UserName }) => {
-		ForgotPassword({ UserName }).then((res: any) => {
-			if (res.data.Status === "S") {
-				navigate("/auth");
-			}
-			toast.success(res.data.Message);
-		});
-	};
+	const onSubmit: SubmitHandler<IForgotPasswordFormInput> = ({ UserName }) => {};
 
 	return (
 		<div className="animate-opacity flex md:(justify-center max-w-md mx-auto) flex-col px-8 w-full h-full">
@@ -51,7 +42,7 @@ function ForgotPasswordContainer() {
 				{errors.UserName && <span className="text-red-500 text-xs ml-2">{errors.UserName?.message}</span>}
 			</div>
 			<button
-				disabled={!isDirty || !isValid || isLoading}
+				disabled={!isDirty || !isValid}
 				onClick={handleSubmit(onSubmit)}
 				className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1869B3] py-4 font-bold mt-4 rounded-md text-white mb-2"
 			>
