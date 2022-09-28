@@ -99,8 +99,9 @@ function SignUpContainer() {
 		}
 		setTempEmail(Email);
 		verifyEmail({ Email }).then((resp: any) => {
-			if (resp.error.data.Status === "F") navigate(navigateLink.auth.login);
-			if (resp.data) {
+			console.log(resp);
+			if (resp.error?.data?.Status === "F") navigate(navigateLink.auth.login);
+			else {
 				setIsVerified(true);
 				toast.success(resp.data.Message);
 			}
