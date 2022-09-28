@@ -58,14 +58,14 @@ function ResetPasswordContainer() {
 	};
 
 	useEffect(() => {
-		// if (EmailSessionId) {
-		// 	checkToken({ EmailSessionId }).then((resp: any) => {
-		// 		if (resp.error) {
-		// 			setValid(resp.error.data.Message);
-		// 			navigate(navigateLink.auth.forgotPassword);
-		// 		} else setValid(undefined);
-		// 	});
-		// } else navigate(navigateLink.auth.forgotPassword);
+		if (EmailSessionId) {
+			checkToken({ EmailSessionId }).then((resp: any) => {
+				if (resp.error) {
+					setValid(resp.error.data.Message);
+					navigate(navigateLink.auth.forgotPassword);
+				} else setValid(undefined);
+			});
+		} else navigate(navigateLink.auth.forgotPassword);
 	}, []);
 
 	return (
