@@ -4,7 +4,7 @@ export const login = {
 	forgotPasswordText: "Forgot your password?",
 	ssoLinkText: "Log in with your organization",
 	connectWithText: "You can also continue with",
-	createAccountText: "Don't have an account?",
+	createAccountText: "Don't have an account yet?",
 	createAccountBtnLink: "Sign up",
 	form: {
 		email: {
