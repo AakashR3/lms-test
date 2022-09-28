@@ -58,14 +58,14 @@ function ResetPasswordContainer() {
 	};
 
 	useEffect(() => {
-		if (EmailSessionId) {
-			checkToken({ EmailSessionId }).then((resp: any) => {
-				if (resp.error) {
-					setValid(resp.error.data.Message);
-					navigate(navigateLink.auth.forgotPassword);
-				} else setValid(undefined);
-			});
-		} else navigate(navigateLink.auth.forgotPassword);
+		// if (EmailSessionId) {
+		// 	checkToken({ EmailSessionId }).then((resp: any) => {
+		// 		if (resp.error) {
+		// 			setValid(resp.error.data.Message);
+		// 			navigate(navigateLink.auth.forgotPassword);
+		// 		} else setValid(undefined);
+		// 	});
+		// } else navigate(navigateLink.auth.forgotPassword);
 	}, []);
 
 	return (
@@ -89,8 +89,8 @@ function ResetPasswordContainer() {
 			)}
 			{!valid && (
 				<div className="flex-1 flex items-center md:(justify-center max-w-md mx-auto mt-0) mt-10 flex-col px-8 w-full h-full">
-					<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5 capitalize">Reset password</h1>
-					<p className="tracking-wide text-center text-sm font-normal text-[#00000099] mb-7">
+					<h1 className="tracking-wide font-bold text-2xl leading-7 mb-7 mt-5 capitalize">Reset password</h1>
+					<p className="hidden tracking-wide text-center text-sm font-normal text-[#00000099] mb-7">
 						Enter your email and we'll send you instructions on how to reset your password.
 					</p>
 					<div className="w-full space-y-3">
@@ -122,7 +122,7 @@ function ResetPasswordContainer() {
 						Set Password
 					</button>
 
-					<p className="space-x-1 tracking-wide text-sm font-normal text-[#00000099] mt-5">
+					<p className="hidden space-x-1 tracking-wide text-sm font-normal text-[#00000099] mt-5">
 						<span>If you are still having trouble this</span>
 						<span className="text-[#1869B3] underline cursor-pointer">article</span>
 						<span>might help</span>

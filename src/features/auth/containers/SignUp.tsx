@@ -10,6 +10,7 @@ import { encryptPassword } from "~/helpers";
 import { toast } from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDoSignUpMutation, useSendVerifyEmailMutation } from "~/services/auth";
+import { navigateLink } from "~/config/api/links";
 
 interface ISingUpFormInput {
 	FirstName: string;
@@ -28,16 +29,16 @@ const validationSchema = Yup.object().shape({
 		.required("Email is required")
 		.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, "Invalid email address"),
 	Password: Yup.string()
-		.required("password is required")
+		.required("Use 8 or more characters with a mix of letters, numbers & symbols")
 		.matches(
-			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
-			"Use 12 or more characters with a mix of letters, numbers & symbols"
+			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
+			"Use 8 or more characters with a mix of letters, numbers & symbols"
 		),
 	CPassword: Yup.string()
-		.required("Confirm Password is required")
+		.required("Use 8 or more characters with a mix of letters, numbers & symbols")
 		.matches(
-			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
-			"Use 12 or more characters with a mix of letters, numbers & symbols"
+			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
+			"Use 8 or more characters with a mix of letters, numbers & symbols"
 		),
 	MarketingEmail: Yup.boolean(),
 	optVerified: Yup.boolean().required().required("Email not verified")
@@ -95,10 +96,10 @@ function SignUpContainer() {
 		const { Email } = getValues();
 		if (!Email) {
 			toast.error("Invalid Email Address");
-			return;
 		}
 		setTempEmail(Email);
 		verifyEmail({ Email }).then((resp: any) => {
+			if (resp.error.data.Status === "F") navigate(navigateLink.auth.login);
 			if (resp.data) {
 				setIsVerified(true);
 				toast.success(resp.data.Message);
@@ -110,7 +111,7 @@ function SignUpContainer() {
 			<section className="animate-opacity flex md:(mt-15 max-w-md mx-auto) px-8 flex-col px-4 w-full h-full">
 				<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">Sign Up</h1>
 				<p className="tracking-wide text-sm font-normal text-[rgba(0,0,0,0.6)] mb-7">
-					<span>Already have a account? </span>
+					<span>Already have an account? </span>
 					<Link to="/auth" className="text-[#1869B3] underline">
 						Log in
 					</Link>
@@ -153,18 +154,21 @@ function SignUpContainer() {
 					<div>
 						<FloatingLabelInput type="password" register={register("Password")} />
 						{errors.Password && (
-							<span className="text-red-500 text-xs pl-2">{errors.Password?.message}</span>
+							<span className="text-red-500 text-xs pl-[5px]">{errors.Password?.message}</span>
 						)}
 					</div>
 
 					<div>
 						<FloatingLabelInput type="password" name="Confirm Password" register={register("CPassword")} />
 						{errors.CPassword && (
-							<span className="text-red-500 text-xs pl-2">{errors.CPassword?.message}</span>
+							<span className="text-red-500 text-xs pl-[5px]">{errors.CPassword?.message}</span>
 						)}
-						{!errors.CPassword && !errors.CPassword && watchPassword !== watchCPassword && (
-							<span className="text-red-500 text-xs ml-2">Password are not match</span>
-						)}
+						{getValues("CPassword") !== "" &&
+							!errors.CPassword &&
+							!errors.CPassword &&
+							watchPassword !== watchCPassword && (
+								<span className="text-red-500 text-xs ml-2">Password do not match</span>
+							)}
 					</div>
 				</div>
 				<div className="flex select-none mt-7 text-[#0000008A]">

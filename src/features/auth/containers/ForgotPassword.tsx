@@ -31,7 +31,7 @@ function ForgotPasswordContainer() {
 		<div className="animate-opacity flex md:(justify-center max-w-md mx-auto) flex-col px-8 w-full h-full">
 			<Link to="/auth" className="no-underline space-x-2 flex cursor-pointer text-[#00000099]">
 				<Icon width={20} icon="mingcute:arrow-left-line" className="fill-current" />
-				<span className="text-sm">Login</span>
+				<span className="text-sm">Log in</span>
 			</Link>
 			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">Forgot password</h1>
 			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">

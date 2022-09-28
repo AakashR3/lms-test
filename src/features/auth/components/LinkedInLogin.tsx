@@ -13,9 +13,9 @@ export function LinkedInLogin() {
 	const [errorMessage, setErrorMessage] = React.useState("");
 	const [doLinkedInLogin, option] = useLinkedInLoginMutation();
 	const { linkedInLogin } = useLinkedIn({
-		clientId: "78iomah66rh7xz",
+		clientId: import.meta.env.VITE_L_CLIENT_ID,
 		redirectUri: redirect_uri,
-		state: "iget2OlinkidenState",
+		state: import.meta.env.VITE_L_STATE_KEY,
 		onSuccess: code => {
 			setCode(code);
 			setErrorMessage("");
