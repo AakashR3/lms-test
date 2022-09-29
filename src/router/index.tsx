@@ -19,7 +19,7 @@ function AppRouter() {
 				<Route path="/" element={<ProtectedRoutes />}>
 					<Route path="/" element={<AppLayout />}>
 						<Route index element={<DashboardContainer />} />
-						<Route path="dashboard" element={<RoleDashboardContainer />} />
+						<Route path="role" element={<RoleDashboardContainer />} />
 						<Route path="*" element="page not found" />
 					</Route>
 				</Route>
