@@ -40,7 +40,7 @@ const Library = () => {
 	const actions = ["Dassault Systems", "Siemens PLM", "Engineering Topics", "Autodesk", "PTC Training"];
 	return (
 		<div className="w-full  flex flex-col px-6 py-6 rounded-lg bg-[#FFFFFF]  mb-6 xl:col-span-2 xl:mx-auto">
-			<span className="text-[#232D42] text-2xl font-bold leading-7">Library</span>
+			<span className="text-[#232D42] text-2xl font-bold leading-7">Catalog</span>
 			<span className="font-medium text-base text-[#020A12] opacity-[.6] mt-2">
 				Select a software or domain category to see the courses offered.
 			</span>

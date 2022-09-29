@@ -4,7 +4,7 @@ import { useKeenSlider } from "keen-slider/react";
 const dataSlider = [
 	{
 		id: 1,
-		img: "/assets/images/Placeholder-1.png",
+		img: "/assets/images/Placeholder-2.png",
 		title: "Advanced Assemblies Design",
 		tags: "CATIA V5",
 		desc: "The Advanced Assembly Design course continues where 103 - Assembly Design with packs",
@@ -116,7 +116,7 @@ export function NewCourseSlider({ prevTrigger, nextTrigger, disableSlideNavigati
 	}, [nextTrigger]);
 
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-		initial: 1,
+		initial: 0,
 		loop: false,
 		slides: {
 			perView: 3
@@ -133,10 +133,10 @@ export function NewCourseSlider({ prevTrigger, nextTrigger, disableSlideNavigati
 	});
 	return (
 		<>
-			<div ref={sliderRef} className="keen-slider">
+			<div ref={sliderRef} className="keen-slider  " style={{ width: "100%" }}>
 				{dataSlider.map((slide, index) => (
 					<div key={slide.id} className={`my-6 flex keen-slider__slide number-slide${index}`}>
-						<div className="flex flex-col w-82 h-95 rounded-lg border border-solid border-[#D7DBE0] ">
+						<div className="flex flex-col w-91 h-95 rounded-lg border border-solid border-[#D7DBE0] ">
 							<div className="mb-6">
 								<img className="object-cover  " src={`${slide.img}`} alt="Placeholder" />
 							</div>
