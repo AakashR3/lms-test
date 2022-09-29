@@ -103,7 +103,7 @@ const dataSlider = [
 	}
 ];
 
-export function Slider({ prevTrigger, nextTrigger, disableSlideNavigation }: any) {
+export function NewCourseSlider({ prevTrigger, nextTrigger, disableSlideNavigation }: any) {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
 
@@ -115,54 +115,22 @@ export function Slider({ prevTrigger, nextTrigger, disableSlideNavigation }: any
 		instanceRef?.current?.next();
 	}, [nextTrigger]);
 
-	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
-		{
-			initial: 1,
-			loop: false,
-			slides: {
-				perView: 3
-			},
-			slideChanged(slider) {
-				disableSlideNavigation({
-					current: slider.track.details.rel,
-					total: instanceRef?.current?.track.details.slides.length
-				});
-			},
-			created() {
-				setLoaded(true);
-			}
+	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+		initial: 1,
+		loop: false,
+		slides: {
+			perView: 3
+		},
+		slideChanged(slider) {
+			disableSlideNavigation({
+				current: slider.track.details.rel,
+				total: instanceRef?.current?.track.details.slides.length
+			});
+		},
+		created() {
+			setLoaded(true);
 		}
-		// [
-		// 	slider => {
-		// 		let timeout: ReturnType<typeof setTimeout>;
-		// 		let mouseOver = false;
-		// 		function clearNextTimeout() {
-		// 			clearTimeout(timeout);
-		// 		}
-		// 		function nextTimeout() {
-		// 			clearTimeout(timeout);
-		// 			if (mouseOver) return;
-		// 			timeout = setTimeout(() => {
-		// 				slider.next();
-		// 			}, 3000);
-		// 		}
-		// 		slider.on("created", () => {
-		// 			slider.container.addEventListener("mouseover", () => {
-		// 				mouseOver = true;
-		// 				clearNextTimeout();
-		// 			});
-		// 			slider.container.addEventListener("mouseout", () => {
-		// 				mouseOver = false;
-		// 				nextTimeout();
-		// 			});
-		// 			nextTimeout();
-		// 		});
-		// 		slider.on("dragStarted", clearNextTimeout);
-		// 		slider.on("animationEnded", nextTimeout);
-		// 		slider.on("updated", nextTimeout);
-		// 	}
-		// ]
-	);
+	});
 	return (
 		<>
 			<div ref={sliderRef} className="keen-slider">
@@ -207,29 +175,8 @@ export function Slider({ prevTrigger, nextTrigger, disableSlideNavigation }: any
 					</div>
 				))}
 			</div>
-			{/* {loaded && instanceRef.current && (
-					<>
-                    <Arrow
-                      left
-                      onClick={(e: any) =>
-                        e.stopPropagation() || instanceRef.current?.prev()
-                      }
-                      disabled={currentSlide === 0}
-                    />
-        
-                    <Arrow
-                      onClick={(e: any) =>
-                        e.stopPropagation() || instanceRef.current?.next()
-                      }
-                      disabled={
-                        currentSlide ===
-                        instanceRef.current.track.details.slides.length - 1
-                      }
-                    />
-                  </>
-				)} */}
 		</>
 	);
 }
 
-export default Slider;
+export default NewCourseSlider;

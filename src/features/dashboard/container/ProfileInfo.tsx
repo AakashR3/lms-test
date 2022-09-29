@@ -2,7 +2,7 @@ import CircularProgress from "../components/CircleProgressBar";
 
 const ProfileInfo = (props: any) => {
 	return (
-		<div className="h-[112px] absolute w-[98.5%] top-57 bg-[#1268B3] rounded-lg flex items-center px-6 justify-between">
+		<>
 			<div className="flex">
 				<div className="w-16 h-16">
 					<CircularProgress />
@@ -18,7 +18,7 @@ const ProfileInfo = (props: any) => {
 				<span className="px-4 text-[14px] text-[#1268B3] font-semibold leading-4">Go to profile</span>{" "}
 				<img className="object-cover pr-4" src="/assets/images/left-arrow.png" alt="Left arrow" />
 			</button>
-		</div>
+		</>
 	);
 };
 

@@ -1,7 +1,7 @@
 const TrendingSubscriptions = () => {
 	return (
 		<div className="w-full  flex flex-col px-6 py-6 rounded-lg bg-[#FFFFFF]  mb-6 xl:col-span-2 xl:mx-auto">
-			<span className="text-[#232D42] text-xl font-bold leading-7">Trending subscriptions</span>
+			<span className="text-[#232D42] text-2xl font-bold leading-7">Trending subscriptions</span>
 			<section className="flex">
 				<div className="my-6 flex mx-6 ml-0">
 					<div className="flex flex-col w-66 rounded-lg border border-solid border-[#D7DBE0] ">

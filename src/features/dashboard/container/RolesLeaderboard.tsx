@@ -208,7 +208,7 @@ const RolesLeaderboad = () => {
 					</section>
 					<section className="w-full h-[47px] bg-[#e6f7e9] rounded-[4px] flex items-center justify-between px-4">
 						<span className="flex items-center">
-							<img className="object-cover  " src="/assets/images/triange.png" alt="Profile Logo" />{" "}
+							<img className="object-cover  " src="/assets/images/pass.png" alt="Profile Logo" />{" "}
 							<span className="profile-section px-[4px] font-semibold text-[14px]">80</span>
 						</span>
 						<span className="flex items-center">

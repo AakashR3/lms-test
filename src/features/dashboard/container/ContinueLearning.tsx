@@ -1,6 +1,6 @@
 import { useState } from "react";
-import NewCourseSlider from "../components/NewCourseSlider";
-const NewCourses = () => {
+import ContinueLearningSlider from "../components/ContinueLearningSlider";
+const ContinueLearning = () => {
 	const [prevTrigger, setPrevTrigger] = useState(0);
 	const [nextTrigger, setNextTrigger] = useState(0);
 	const [slideDetails, setSlideDetails] = useState<any>({});
@@ -8,7 +8,7 @@ const NewCourses = () => {
 	return (
 		<div className="w-full  flex flex-col px-6 py-6 rounded-lg bg-[#FFFFFF]  mb-6  xl:col-span-2 xl:mx-auto">
 			<div className="flex justify-between">
-				<span className="text-[#232D42] text-2xl font-bold leading-7">New Courses</span>
+				<span className="text-[#232D42] text-2xl font-bold leading-7">Continue learning</span>
 				<div className="flex">
 					<button
 						style={{ backgroundImage: `url(/assets/images/prev-btn.png)` }}
@@ -27,7 +27,7 @@ const NewCourses = () => {
 				</div>
 			</div>
 			<section className="flex">
-				<NewCourseSlider
+				<ContinueLearningSlider
 					prevTrigger={prevTrigger}
 					nextTrigger={nextTrigger}
 					disableSlideNavigation={(data: any) => setSlideDetails(data)}
@@ -37,4 +37,4 @@ const NewCourses = () => {
 	);
 };
 
-export default NewCourses;
+export default ContinueLearning;

@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { DashboardContainer } from "~/features/dashboard";
+import { DashboardContainer, RoleDashboardContainer } from "~/features/dashboard";
 import AppLayout from "~/layouts/app";
 import {
 	AuthLayout,
@@ -19,6 +19,7 @@ function AppRouter() {
 				<Route path="/" element={<ProtectedRoutes />}>
 					<Route path="/" element={<AppLayout />}>
 						<Route index element={<DashboardContainer />} />
+						<Route path="dashboard" element={<RoleDashboardContainer />} />
 						<Route path="*" element="page not found" />
 					</Route>
 				</Route>

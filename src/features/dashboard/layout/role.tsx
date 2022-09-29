@@ -1,8 +1,8 @@
-import BasicDashboard from "./BasicDashboard";
-const DashboardContainer = () => {
+import RoleDashboard from "./RoleDashboard";
+const RoleDashboardContainer = () => {
 	return (
 		<section className="container mx-auto flex flex-col px-4 h-auto   ">
-			<BasicDashboard />
+			<RoleDashboard />
 			<div className="w-full flex  justify-between px-6 py-6 rounded-lg bg-[#FFFFFF]  mb-6 xl:col-span-2 xl:mx-auto">
 				<div className="flex items-center">
 					<img src="/assets/images/mobile-logo-banner.png" className="w-10" alt="mobile-logo-banner" />
@@ -19,4 +19,4 @@ const DashboardContainer = () => {
 	);
 };
 
-export default DashboardContainer;
+export default RoleDashboardContainer;
