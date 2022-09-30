@@ -1,5 +1,4 @@
 import { endPoints } from "./endPoints";
-import { StoreState } from "~/config/store";
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 
 // Create our baseQuery instance

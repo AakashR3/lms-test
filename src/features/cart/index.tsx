@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { EmptyCart } from "~/features/cart/components";
 import { Icon } from "@iconify/react";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";

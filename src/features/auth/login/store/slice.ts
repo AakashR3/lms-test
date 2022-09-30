@@ -14,7 +14,7 @@ const slice = createSlice({
 	extraReducers(builder) {
 		builder
 			.addMatcher(login.matchFulfilled, (state, action: any) => {
-				const { Status, Message, Data } = action.payload;
+				const { Data } = action.payload;
 				auth.login(Data.SessionId);
 			})
 			.addMatcher(login.matchRejected, (state, action: any) => {

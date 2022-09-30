@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-import { regex } from "~/helpers";
 import { sso } from "./../constants";
 
 const { form } = sso;

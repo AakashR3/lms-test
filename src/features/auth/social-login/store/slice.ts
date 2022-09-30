@@ -15,7 +15,7 @@ const socialLoginSlice = createSlice({
 	extraReducers(builder) {
 		builder
 			.addMatcher(fulFilledMatches, (state, action: any) => {
-				const { Status, Message, Data } = action.payload;
+				const { Data } = action.payload;
 				auth.login(Data.SessionId);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {

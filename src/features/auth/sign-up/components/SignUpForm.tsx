@@ -28,6 +28,7 @@ export const SignUpForm = React.memo(() => {
 	};
 	const handleVerifyEmail = React.useCallback(async () => {
 		await verifyEmail({ Email: getValues("Email") }).unwrap();
+		//eslint-disable-next-line
 	}, []);
 	return (
 		<section className="space-y-4">

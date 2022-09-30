@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import React from "react";
 import { Facebook, Google, LinkedIn } from "~/features/auth/social-login/components";
 

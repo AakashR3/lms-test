@@ -26,10 +26,12 @@ export const LinkedIn = React.memo(() => {
 
 	return (
 		<button
+			disabled={option.isLoading}
 			onClick={linkedInLogin}
-			className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]"
+			className="disabled:cursor-not-allowed inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]"
 		>
-			<Icon width={22} icon="akar-icons:linkedin-box-fill" color="#0e76a8" />
+			{option.isLoading && <Icon width={22} className="animate-spin" icon="bx:loader-alt" />}
+			{!option.isLoading && <Icon width={22} icon="akar-icons:linkedin-box-fill" color="#0e76a8" />}
 		</button>
 	);
 });

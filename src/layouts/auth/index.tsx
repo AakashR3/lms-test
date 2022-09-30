@@ -10,6 +10,7 @@ function AuthLayout() {
 		const sId = localStorage.getItem("sessionId");
 		console.log(!!sId);
 		if (!!sId) navigate(navigateLink.dashboard, { replace: true });
+		//eslint-disable-next-line
 	}, []);
 	return (
 		<section className="h-full w-full flex">

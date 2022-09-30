@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import SocialLogin from "~/features/auth/social-login";
 import { signUp } from "~/features/auth/sign-up/constants";
 import { BackToLogin, SignUpForm } from "~/features/auth/sign-up/components";
-import { StoreState, useAppSelector } from "~/config/store";
+import { useAppSelector } from "~/config/store";
 import { VerifyOtp } from "~/features/auth/sign-up/components/VerifyOtp";
 
 function SignUpPage() {

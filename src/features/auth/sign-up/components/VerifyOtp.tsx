@@ -4,7 +4,6 @@ import OtpInput from "react-otp-input";
 import CountDownTimer from "./CountDownTimer";
 import { dispatch, useAppSelector } from "~/config/store";
 import { signUpAction, useSendOtpMutation, useVerifyOtpMutation } from "~/features/auth/sign-up/store";
-import { toast } from "react-hot-toast";
 
 const timing = 30;
 const numInputs = 4;

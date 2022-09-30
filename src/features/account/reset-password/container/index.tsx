@@ -7,7 +7,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
 import { toast } from "react-hot-toast";
 import { encryptPassword } from "~/helpers";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface IResetPasswordFormInput {
 	password?: String | null;
@@ -64,6 +64,7 @@ function ResetPasswordContainer() {
 				}
 			});
 		} else navigate(navigateLink.auth.forgotPassword);
+		//eslint-disable-next-line
 	}, []);
 
 	return (
