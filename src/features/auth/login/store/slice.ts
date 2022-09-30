@@ -1,21 +1,23 @@
 import toast from "react-hot-toast";
 import { createSlice } from "@reduxjs/toolkit";
+
+import * as auth from "~/helpers/auth";
 import { LoginApi } from "~/features/auth/login/store";
 import { addRootReducer } from "~/config/store/reducers";
 
-const auth = LoginApi.endpoints;
+const { login } = LoginApi.endpoints;
 
-const loginSlice = createSlice({
+const slice = createSlice({
 	name: "auth_login",
 	initialState: {},
 	reducers: {},
 	extraReducers(builder) {
 		builder
-			.addMatcher(auth.login.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				console.log(payload);
+			.addMatcher(login.matchFulfilled, (state, action: any) => {
+				const { Status, Message, Data } = action.payload;
+				auth.login(Data.SessionId);
 			})
-			.addMatcher(auth.login.matchRejected, (state, action: any) => {
+			.addMatcher(login.matchRejected, (state, action: any) => {
 				const { data } = action.payload;
 				const message = data?.Message || data?.title || "Something Went Wrong. Try Again";
 				console.warn("We got a rejected action!");
@@ -26,7 +28,7 @@ const loginSlice = createSlice({
 	}
 });
 
-export const loginAction = loginSlice.actions;
-const reducer = { authLogin: loginSlice.reducer };
+export const loginAction = slice.actions;
+const reducer = { authLogin: slice.reducer };
 
 addRootReducer(reducer);

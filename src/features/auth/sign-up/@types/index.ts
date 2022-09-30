@@ -5,5 +5,7 @@ export interface SingUpRequest {
 	Password: string;
 	CPassword: string;
 	MarketingEmail: boolean;
-	optVerified?: boolean;
+	// optVerified?: boolean;
 }
+
+export interface SingUpResponse {}

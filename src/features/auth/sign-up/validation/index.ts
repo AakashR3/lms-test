@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+
 import { regex } from "~/helpers";
 import { signUp } from "./../constants";
 
@@ -17,7 +18,7 @@ export const signupFormValidationSchema = Yup.object()
 		LastName: Yup.string().required(form.lastName.error.required),
 		Email: Yup.string().required(form.email.error.required).matches(regex.email, form.email.error.regex),
 
-		MarketingEmail: Yup.boolean(),
-		optVerified: Yup.boolean().required(form.otpVerified.required)
+		MarketingEmail: Yup.boolean()
+		// optVerified: Yup.boolean().required(form.otpVerified.required)
 	})
 	.concat(passwordsSchema);

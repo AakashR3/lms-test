@@ -1,2 +1,2 @@
-export * from "./login.query";
-export * from "./login.slice";
+export * from "./query";
+export * from "./slice";

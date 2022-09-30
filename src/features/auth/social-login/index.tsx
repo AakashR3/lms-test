@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
+import { Facebook, Google, LinkedIn } from "~/features/auth/social-login/components";
 
 function SocialLogin() {
 	return (
@@ -11,15 +12,9 @@ function SocialLogin() {
 				</span>
 			</div>
 			<div className="flex space-x-3">
-				<span className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-					<Icon width={22} icon="flat-color-icons:google" />
-				</span>
-				<span className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-					<Icon width={22} icon="akar-icons:linkedin-box-fill" color="#0e76a8" />
-				</span>
-				<span className="inline-flex w-12 h-12 rounded-md items-center justify-center border bg-white border-color[#eee]">
-					<Icon width={22} icon="akar-icons:facebook-fill" color="#3b5998" />
-				</span>
+				<Google />
+				<LinkedIn />
+				<Facebook />
 			</div>
 		</section>
 	);

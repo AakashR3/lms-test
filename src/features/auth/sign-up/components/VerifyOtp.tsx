@@ -1,45 +1,30 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import OtpInput from "react-otp-input";
-import { toast } from "react-hot-toast";
 import CountDownTimer from "./CountDownTimer";
-import { useSendVerifyEmailMutation, useVerifyOtpMutation } from "~/services/auth";
-
-type TOtpModal = {
-	Email: String;
-	handleVerify: (otp?: string) => void;
-};
+import { dispatch, useAppSelector } from "~/config/store";
+import { signUpAction, useSendOtpMutation, useVerifyOtpMutation } from "~/features/auth/sign-up/store";
+import { toast } from "react-hot-toast";
 
 const timing = 30;
 const numInputs = 4;
 
-export function OtpModal({ Email, handleVerify }: TOtpModal) {
-	const [verifyOtp, options] = useVerifyOtpMutation();
-	const [sendOtp, sendOtpOption] = useSendVerifyEmailMutation();
+export function VerifyOtp() {
 	const [otp, setOtp] = useState("");
 	const [timer, setTimer] = useState(timing);
-
 	const handleChange = (otp: any) => setOtp(otp);
+	const [sendOtp, sendOtpOption] = useSendOtpMutation();
+	const [verifyOtp, verifyOtpOption] = useVerifyOtpMutation();
+	const signup = useAppSelector((state: any) => state.authSignUp);
 
-	const handleSubmit = () => {
-		verifyOtp({ Email, otp }).then((resp: any) => {
-			if (resp.data.Status === "F") {
-				toast.error(resp.data.Message);
-				return;
-			}
-			handleVerify(otp);
-			toast.success(resp.data.Message);
-		});
+	const handleSubmit = async () => {
+		await verifyOtp({ Email: signup.Email, otp }).unwrap();
 	};
 
-	const handleOtpSend = () => {
-		setTimer(timing);
+	const handleOtpSend = async () => {
+		await sendOtp({ Email: signup.Email }).unwrap();
+		setTimer(30);
 		setOtp("");
-		sendOtp({ Email }).then((resp: any) => {
-			if (resp.data) {
-				toast.success(resp.data.Message);
-			}
-		});
 	};
 
 	return (
@@ -51,7 +36,10 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 		>
 			<div className="relative p-4 w-full max-w-sm h-full md:h-auto">
 				<div className="relative bg-white rounded-lg shadow p-10">
-					<button className="border-none p-3 absolute top-3 right-3" onClick={() => handleVerify()}>
+					<button
+						className="border-none p-3 absolute top-3 right-3"
+						onClick={() => dispatch(signUpAction.toggleIsVerified())}
+					>
 						<Icon icon="ic:baseline-close" width={18} color="text-[#C7CFD761]" />
 					</button>
 					<h3 className="text-xl font-semibold text-gray-900 text-center">OTP Verification</h3>
@@ -75,9 +63,9 @@ export function OtpModal({ Email, handleVerify }: TOtpModal) {
 						</button>
 					</div>
 					<button
-						disabled={otp.length < numInputs || options.isLoading || timer === 0}
+						disabled={otp.length < numInputs || timer === 0 || verifyOtpOption.isLoading}
 						onClick={() => handleSubmit()}
-						className="disabled:(opacity-40 cursor-not-allowed) block w-full bg-[#1868B3] tracking-wide py-3 mt-6 rounded-md text-white mb-2"
+						className="btn"
 					>
 						Verify
 					</button>

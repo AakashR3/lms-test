@@ -5,7 +5,7 @@ import { ForgotPasswordApi } from "~/features/auth/forgot-password/store";
 
 const auth = ForgotPasswordApi.endpoints;
 
-const forgotPasswordSlice = createSlice({
+const slice = createSlice({
 	name: "auth_forgot_password",
 	initialState: {},
 	reducers: {},
@@ -26,7 +26,7 @@ const forgotPasswordSlice = createSlice({
 	}
 });
 
-export const forgotPasswordAction = forgotPasswordSlice.actions;
-const reducer = { authForgotPassword: forgotPasswordSlice.reducer };
+export const forgotPasswordAction = slice.actions;
+const reducer = { authForgotPassword: slice.reducer };
 
 addRootReducer(reducer);

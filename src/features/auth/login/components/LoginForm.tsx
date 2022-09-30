@@ -22,7 +22,7 @@ export const LoginForm = React.memo(() => {
 
 	const onSubmit: SubmitHandler<LoginRequest> = async formData => {
 		await doLogin(formData).unwrap();
-		navigate(navigateLink.dashboard);
+		navigate(navigateLink.dashboard, { replace: true });
 	};
 
 	return (

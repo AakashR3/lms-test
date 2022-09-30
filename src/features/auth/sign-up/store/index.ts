@@ -1,2 +1,2 @@
-export * from "./forgot-password.query";
-export * from "./forgot-password.slice";
+export * from "./query";
+export * from "./slice";

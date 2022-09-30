@@ -11,6 +11,7 @@ import { createRootReducer } from "~/config/store/reducers";
 
 import "virtual:windi.css";
 import "keen-slider/keen-slider.min.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export class LmsApp {
 	init() {
@@ -45,12 +46,12 @@ export class LmsApp {
 
 	render() {
 		return (
-			<>
+			<GoogleOAuthProvider clientId={import.meta.env.VITE_G_CLIENT_ID}>
 				<Provider store={store}>
 					<AppRouter />
 					<Toaster position="top-right" toastOptions={{ duration: 5000 }} />
 				</Provider>
-			</>
+			</GoogleOAuthProvider>
 		);
 	}
 }

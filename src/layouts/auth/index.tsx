@@ -1,10 +1,15 @@
-import { Outlet } from "react-router-dom";
-import { Slider } from "./../components/Slider";
 import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+
+import { Slider } from "./components/Slider";
+import { navigateLink } from "~/config/api/links";
 
 function AuthLayout() {
+	const navigate = useNavigate();
 	useEffect(() => {
-		localStorage.clear();
+		const sId = localStorage.getItem("sessionId");
+		console.log(!!sId);
+		if (!!sId) navigate(navigateLink.dashboard, { replace: true });
 	}, []);
 	return (
 		<section className="h-full w-full flex">

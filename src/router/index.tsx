@@ -1,12 +1,13 @@
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import AppLayout from "~/layouts/app";
+import { AuthLayout, AppLayout } from "~/layouts";
 import ProtectedRoutes from "~/router/ProtectedRoute";
 
 import { DashboardContainer } from "~/features/dashboard";
-import { AuthLayout, LoginPage, SignUpPage, SsoLoginPage, ForgotPasswordPage } from "~/features/auth";
+import { LoginPage, SignUpPage, SsoLoginPage, ForgotPasswordPage } from "~/features/auth";
 import ResetPasswordContainer from "~/features/account/reset-password/container";
+import CartPage from "~/features/cart";
 
 function AppRouter() {
 	return (
@@ -15,6 +16,7 @@ function AppRouter() {
 				<Route path="/" element={<ProtectedRoutes />}>
 					<Route path="/" element={<AppLayout />}>
 						<Route index element={<DashboardContainer />} />
+						<Route path="cart" element={<CartPage />} />
 						<Route path="*" element="page not found" />
 					</Route>
 				</Route>
