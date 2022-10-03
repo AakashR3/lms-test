@@ -20,23 +20,6 @@ export const authApi = api.injectEndpoints({
 				return { data: result.data };
 			}
 		}),
-		forgotPassword: build.mutation({
-			async queryFn(params, api, extraOptions, baseQuery) {
-				const result = await baseQuery({
-					url: endPoints.auth.forgotPassword,
-					params
-				});
-
-				console.log(result);
-
-				if (result.error) {
-					// but refetch on another error
-					return { error: result.error };
-				}
-
-				return { data: result.data };
-			}
-		}),
 		sendVerifyEmail: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
@@ -133,22 +116,6 @@ export const authApi = api.injectEndpoints({
 				return { data: result.data };
 			}
 		}),
-		linkedInLogin: build.mutation({
-			async queryFn(params, api, extraOptions, baseQuery) {
-				const result = await baseQuery({
-					url: endPoints.auth.linkedInLogin,
-					method: "POST",
-					params
-				});
-
-				if (result.error) {
-					// but refetch on another error
-					return { error: result.error };
-				}
-
-				return { data: result.data };
-			}
-		}),
 		VerifyEmailLink: build.mutation({
 			async queryFn(params, api, extraOptions, baseQuery) {
 				const result = await baseQuery({
@@ -167,12 +134,10 @@ export const authApi = api.injectEndpoints({
 export const {
 	useDoLoginMutation,
 	useDoSignUpMutation,
-	useForgotPasswordMutation,
 	useSendVerifyEmailMutation,
 	useVerifyOtpMutation,
 	useResetPasswordMutation,
 	useSsoRequestMutation,
 	useDoSocialSignUpMutation,
-	useLinkedInLoginMutation,
 	useVerifyEmailLinkMutation
 } = authApi;

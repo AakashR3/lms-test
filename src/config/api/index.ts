@@ -1,15 +1,15 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { endPoints } from "./endPoints";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
 	baseUrl: endPoints.baseUrl,
 	prepareHeaders: (headers, { getState }) => {
 		// By default, if we have a token in the store, let's use that for authenticated requests
-		const token = "";
-		if (token) {
-			headers.set("auth", `Bearer ${token}`);
-		}
+		// const token = (getState() as StoreState).auth.token;
+		// if (token) {
+		// 	headers.set("authorization", `Bearer ${token}`);
+		// }
 		return headers;
 	}
 });

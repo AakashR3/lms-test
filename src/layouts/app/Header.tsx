@@ -1,5 +1,4 @@
 import { Icon } from "@iconify/react";
-import { gapi } from "gapi-script";
 import { Link, useNavigate } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
 
@@ -7,11 +6,9 @@ export function AppHeader() {
 	const navigate = useNavigate();
 
 	const signOut = async () => {
-		const gAuth = await gapi?.auth2?.getAuthInstance();
-		gAuth.signOut().then(() => {
-			console.log("User signed out.");
-			navigate(navigateLink.auth.login, { replace: true });
-		});
+		console.log("User signed out.");
+		localStorage.clear();
+		navigate(navigateLink.auth.login, { replace: true });
 	};
 
 	return (
@@ -28,15 +25,7 @@ export function AppHeader() {
 						<Icon width={20} icon="ion:help-circle-outline" />
 						<Icon width={20} icon="ci:heart-outline" />
 						<Icon width={20} icon="clarity:shopping-cart-solid" />
-						<Icon
-							onClick={() => {
-								localStorage.clear();
-								signOut();
-								// navigate("/auth");
-							}}
-							width={20}
-							icon="ant-design:logout-outlined"
-						/>
+						<Icon onClick={signOut} width={20} icon="ant-design:logout-outlined" />
 					</div>
 					<div className="flex items-center space-x-2">
 						<div className="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-md">

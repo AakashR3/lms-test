@@ -1,16 +1,17 @@
 import React from "react";
 import { Provider } from "react-redux";
-import ReactDOM from "react-dom/client";
-import { configureStore } from "@reduxjs/toolkit";
 import { Toaster } from "react-hot-toast";
+import { createRoot } from "react-dom/client";
+import { configureStore } from "@reduxjs/toolkit";
 
-import { api } from "~/config/api";
 import AppRouter from "~/router";
+import { api } from "~/config/api";
 import { setStore, store, StoreState } from "~/config/store";
 import { createRootReducer } from "~/config/store/reducers";
 
 import "virtual:windi.css";
 import "keen-slider/keen-slider.min.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export class LmsApp {
 	init() {
@@ -18,9 +19,8 @@ export class LmsApp {
 			console.log("App Initialization...");
 			// configure redux store
 			this.configureStore();
-
 			const ElementRef = document.getElementById("root") as HTMLElement;
-			ReactDOM.createRoot(ElementRef).render(this.render());
+			createRoot(ElementRef).render(this.render());
 		} catch (error: any) {
 			console.error("Failed to start App", error);
 		}
@@ -46,12 +46,12 @@ export class LmsApp {
 
 	render() {
 		return (
-			<>
+			<GoogleOAuthProvider clientId={import.meta.env.VITE_G_CLIENT_ID}>
 				<Provider store={store}>
 					<AppRouter />
 					<Toaster position="top-right" toastOptions={{ duration: 5000 }} />
 				</Provider>
-			</>
+			</GoogleOAuthProvider>
 		);
 	}
 }

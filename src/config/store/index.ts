@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { createRootReducer } from "~/config/store/reducers";
 
 export type StoreState = ReturnType<ReturnType<typeof createRootReducer>>;
-
 export let store: Store<StoreState>;
 
 export function setStore(newStore: Store<StoreState>) {
