@@ -23,6 +23,7 @@ export const SignUpForm = React.memo(() => {
 	});
 	const { errors, isDirty, isValid } = formState;
 	const onSubmit: SubmitHandler<SingUpRequest> = async formData => {
+		console.log(formData);
 		await createAccount(formData).unwrap();
 		navigate(navigateLink.auth.login);
 	};
@@ -82,7 +83,7 @@ export const SignUpForm = React.memo(() => {
 					Use 8 or more characters with a mix of letters, numbers & symbols
 				</p>
 				{errors.Password && <span className="text-red-500 text-xs ml-2">{errors.Password?.message}</span>}
-				{!errors.Password && !getValues("CPassword") && errors.CPassword && (
+				{!errors.Password && getValues("Password") && errors.CPassword && (
 					<span className="text-red-500 text-xs ml-2">{errors.CPassword?.message}</span>
 				)}
 			</div>
@@ -97,7 +98,11 @@ export const SignUpForm = React.memo(() => {
 					{signUp.marketingTxt}
 				</label>
 			</div>
-			<button disabled={!isDirty || !isValid || isLoading} onSubmit={handleSubmit(onSubmit)} className="btn">
+			<button
+				disabled={!isDirty || !isValid || isLoading || !signup.isOtpVerified}
+				onSubmit={handleSubmit(onSubmit)}
+				className="btn"
+			>
 				{signUp.btnTxt}
 			</button>
 		</section>
