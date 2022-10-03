@@ -5,7 +5,7 @@ import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { useResetPasswordMutation, useVerifyEmailLinkMutation } from "~/services/auth";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { encryptPassword } from "~/helpers";
 import { useEffect, useState } from "react";
 
@@ -26,14 +26,14 @@ function ResetPasswordContainer() {
 		password: Yup.string()
 			.required("password is required")
 			.matches(
-				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
-				"Use 12 or more characters with a mix of letters, numbers & symbols"
+				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
+				"Use 8 or more characters with a mix of letters, numbers & symbols"
 			),
 		cpassword: Yup.string()
 			.required("Confirm Password is required")
 			.matches(
-				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{12,}$/,
-				"Use 12 or more characters with a mix of letters, numbers & symbols"
+				/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
+				"Use 8 or more characters with a mix of letters, numbers & symbols"
 			)
 	});
 
@@ -62,6 +62,7 @@ function ResetPasswordContainer() {
 			checkToken({ EmailSessionId }).then((resp: any) => {
 				if (resp.error) {
 					setValid(resp.error.data.Message);
+					toast.error(resp.error.data.Message);
 					navigate(navigateLink.auth.forgotPassword);
 				} else setValid(undefined);
 			});
