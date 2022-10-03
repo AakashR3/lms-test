@@ -14,7 +14,7 @@ LMS Front End
 
     ```bash
     cd LMS_UI
-    npm install
+    npm install --legacy-peer-deps
     ```
 
 3. Available scripts

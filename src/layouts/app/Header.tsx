@@ -1,5 +1,4 @@
 import { Icon } from "@iconify/react";
-import { gapi } from "gapi-script";
 import { Link, useNavigate } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
 import headerIcon from "../../../public/assets/images/header-icon.svg";
@@ -9,11 +8,9 @@ export function AppHeader() {
 	const navigate = useNavigate();
 
 	const signOut = async () => {
-		const gAuth = await gapi?.auth2?.getAuthInstance();
-		gAuth.signOut().then(() => {
-			console.log("User signed out.");
-			navigate(navigateLink.auth.login, { replace: true });
-		});
+		console.log("User signed out.");
+		localStorage.clear();
+		navigate(navigateLink.auth.login, { replace: true });
 	};
 
 	return (
@@ -25,30 +22,12 @@ export function AppHeader() {
 					</Link>
 				</div>
 				<div className="flex space-x-5">
-					<div className="flex items-center space-x-3 font-bold">
-						<div className=" flex items-center">
-							<img className="mr-2" src={headerPoints} alt="#" />
-							<span className="mr-2">60 points</span>
-						</div>
-						<Icon className="mr-2" width={20} icon="ion:help-circle-outline" />
-						<Icon className="mr-2" width={20} icon="ci:heart-outline" />
-						<div>
-							<Icon className="relative mr-2" width={20} icon="ant-design:shopping-cart-outlined" />
-							<span className="absolute right-13rem top-10px rounded-full bg-[#1268B3] w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
-								5
-							</span>
-						</div>
-
-						<Icon className="mr-2" width={20} icon="carbon:notification" />
-						<Icon
-							onClick={() => {
-								localStorage.clear();
-								signOut();
-								// navigate("/auth");
-							}}
-							width={20}
-							icon="ant-design:logout-outlined"
-						/>
+					<div className="flex items-center space-x-3">
+						<span>60 points</span>
+						<Icon width={20} icon="ion:help-circle-outline" />
+						<Icon width={20} icon="ci:heart-outline" />
+						<Icon width={20} icon="clarity:shopping-cart-solid" />
+						<Icon onClick={signOut} width={20} icon="ant-design:logout-outlined" />
 					</div>
 					{/* <button onClick={() => signOut()}>lo</button> */}
 					<div className="flex items-center space-x-2">

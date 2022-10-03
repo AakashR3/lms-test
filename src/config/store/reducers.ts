@@ -1,9 +1,7 @@
-import { AnyAction, combineReducers } from '@reduxjs/toolkit';
-import { api } from '~/config/api';
-import authSlice from '~/features/auth/state/authSlice';
+import { AnyAction, combineReducers } from "@reduxjs/toolkit";
+import { api } from "~/config/api";
 
 const rootReducers = {
-	...authSlice,
 	[api.reducerPath]: api.reducer
 };
 
@@ -14,7 +12,6 @@ export const addReducer = (newReducers: any) => {
 };
 
 export function addRootReducer(reducers: any) {
-	console.log(reducers);
 	// this is ok now because we add reducers before configureStore is called
 	// in the future if we want to add reducers during runtime
 	// we'll have to solve this in a more dynamic way
