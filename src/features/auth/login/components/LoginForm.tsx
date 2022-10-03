@@ -26,7 +26,7 @@ export const LoginForm = React.memo(() => {
 	};
 
 	return (
-		<form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+		<div className="login-form">
 			<div className="group mb-4">
 				<FloatingLabelInput name={login.form.email.placeholder} register={register("Email")} />
 				{errors.Email && <p className="mt-0.5 ml-1.5 text-xs text-red-600">{errors.Email.message}</p>}
@@ -44,9 +44,13 @@ export const LoginForm = React.memo(() => {
 			<div className="flex items-center justify-end">
 				<ForgotPasswordPageLink />
 			</div>
-			<button disabled={!isDirty || !isValid || option.isLoading} type="submit" className="btn btn-green">
+			<button
+				onClick={handleSubmit(onSubmit)}
+				disabled={!isDirty || !isValid || option.isLoading}
+				className="btn btn-green"
+			>
 				{login.btnTxt}
 			</button>
-		</form>
+		</div>
 	);
 });

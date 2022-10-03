@@ -1,17 +1,20 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 
+import { navigateLink } from "~/config/api/links";
 import { useLinkedInMutation } from "~/features/auth/social-login/store";
 
 const redirectUri = `${window.location.origin}/linkedin`;
 
 export const LinkedIn = React.memo(() => {
+	const navigate = useNavigate();
 	const [linkedLogin, option] = useLinkedInMutation();
 	const onSuccess = async (code: string) => {
 		console.log(code);
 		await linkedLogin({ code }).unwrap();
-		console.log("navigation");
+		navigate(navigateLink.dashboard);
 	};
 	const { linkedInLogin } = useLinkedIn({
 		clientId: import.meta.env.VITE_L_CLIENT_ID,

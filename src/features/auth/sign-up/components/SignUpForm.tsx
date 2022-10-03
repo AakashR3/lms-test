@@ -28,7 +28,10 @@ export const SignUpForm = React.memo(() => {
 		navigate(navigateLink.auth.login);
 	};
 	const handleVerifyEmail = React.useCallback(async () => {
-		await verifyEmail({ Email: getValues("Email") }).unwrap();
+		await verifyEmail({ Email: getValues("Email") })
+			.unwrap()
+			.catch(() => navigate(navigateLink.auth.login));
+
 		//eslint-disable-next-line
 	}, []);
 	return (
