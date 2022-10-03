@@ -25,7 +25,7 @@ RUN rm -rf node_modules
 RUN rm -rf src
 
 # Uses port which is used by the actual application
-EXPOSE 3000
+#EXPOSE 3000
 
 CMD serve -s dist/
 
