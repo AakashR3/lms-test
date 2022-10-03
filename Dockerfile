@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installs all node packages
-RUN npm install --force
+RUN npm install --force 
 
 # Copies everything over to Docker environment
 COPY . .
