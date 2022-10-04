@@ -4,6 +4,7 @@ export default defineConfig({
 	darkMode: "class",
 	preflight: true,
 	shortcuts: {
+		"profile-section": "text-[12px] font-semibold leading-5 text-[#020a12] opacity-60 py-1",
 		btn: {
 			color: "white",
 			background: "#1869B3",
@@ -23,9 +24,6 @@ export default defineConfig({
 				inter: ["Inter", "sans-serif"]
 			}
 		}
-	},
-	shortcuts: {
-		"profile-section": "text-[12px] font-semibold leading-5 text-[#020a12] opacity-60 py-1"
 	},
 	plugins: [require("windicss/plugin/line-clamp")]
 });
