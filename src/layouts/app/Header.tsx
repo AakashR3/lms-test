@@ -1,8 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Link, useNavigate } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
-import headerIcon from "../../../public/assets/images/header-icon.svg";
-import headerPoints from "../../../public/assets/images/header-points-icon.svg";
 
 export function AppHeader() {
 	const navigate = useNavigate();
@@ -32,7 +30,7 @@ export function AppHeader() {
 					{/* <button onClick={() => signOut()}>lo</button> */}
 					<div className="flex items-center space-x-2">
 						<div className="inline-flex overflow-hidden relative justify-center items-center">
-							<img src={headerIcon} alt="#" />
+							<img src={"/assets/images/header-icon.svg"} alt="#" />
 						</div>
 						<div className="font-medium leading-5 flex">
 							<div>
