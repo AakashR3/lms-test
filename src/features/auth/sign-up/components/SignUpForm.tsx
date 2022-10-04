@@ -103,7 +103,7 @@ export const SignUpForm = React.memo(() => {
 			</div>
 			<button
 				disabled={!isDirty || !isValid || isLoading || !signup.isOtpVerified}
-				onSubmit={handleSubmit(onSubmit)}
+				onClick={handleSubmit(onSubmit)}
 				className="btn"
 			>
 				{signUp.btnTxt}

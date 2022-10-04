@@ -24,7 +24,10 @@ const slice = createSlice({
 		builder
 			.addMatcher(signUp.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
-				if (payload.Status === "S") toast.success(payload.Message);
+				if (payload.Status === "S") {
+					state.isOtpVerified = false;
+					toast.success(payload.Message);
+				}
 			})
 			.addMatcher(sendOtp.matchFulfilled, (state, action) => {
 				const { Status, Message } = action.payload;
