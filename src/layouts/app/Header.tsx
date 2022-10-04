@@ -12,8 +12,8 @@ export function AppHeader() {
 	};
 
 	return (
-		<header className="bg-white">
-			<section className="container mx-auto px-4 flex justify-between py-2 w-full">
+		<header className="bg-white border-b box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;">
+			<section className="container mx-auto px-4 flex justify-between py-2 w-full font-bold text-[#6A7681]">
 				<div className="flex items-center">
 					<Link to="#!">
 						<img className="object-cover" src="/assets/images/logo.png" alt="Store Logo" />
@@ -27,13 +27,19 @@ export function AppHeader() {
 						<Icon width={20} icon="clarity:shopping-cart-solid" />
 						<Icon onClick={signOut} width={20} icon="ant-design:logout-outlined" />
 					</div>
+					{/* <button onClick={() => signOut()}>lo</button> */}
 					<div className="flex items-center space-x-2">
-						<div className="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-md">
-							<span className="font-medium uppercase tracking-wider text-lg text-gray-600">RA</span>
+						<div className="inline-flex overflow-hidden relative justify-center items-center">
+							<img src={"/assets/images/header-icon.svg"} alt="#" />
 						</div>
-						<div className="font-medium leading-5">
-							<div>First Name</div>
-							<div className="text-sm text-gray-500">Joined in August 2014</div>
+						<div className="font-medium leading-5 flex">
+							<div>
+								<h1 className="flex items-center font-bold mr-2">
+									Steve
+									<Icon className="ml-2" width={15} icon="akar-icons:chevron-down" />
+								</h1>
+							</div>
+							{/* <div className="text-sm text-gray-500">Joined in August 2014</div> */}
 						</div>
 					</div>
 				</div>

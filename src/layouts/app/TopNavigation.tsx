@@ -1,17 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
-const menus = ['Dashboard', 'Library', 'Account', 'Objectives', 'Reports', 'More'];
+const menus = ["Dashboard", "Library", "Account", "Objectives", "Reports", "More"];
 
 export function TopNavigation() {
 	return (
-		<section className="bg-white py-2 border-t">
+		<section className="bg-white py-2 border-b sticky top-0 z-10 ">
 			<div className="container mx-auto px-4 flex items-center justify-between">
-				<nav className="flex items-center space-x-8">
-					{menus.map((menu) => (
+				<nav className="flex items-center space-x-8 ml-5px">
+					{menus.map(menu => (
 						<NavLink
 							to={menu.toLowerCase()}
 							key={menu}
-							className="flex no-underline text-gray-600 hover:text-blue-500 cursor-pointer transition-colors"
+							className="flex no-underline text-[#6A7681] font-semibold hover:text-blue-600 cursor-pointer transition-colors"
 						>
 							{menu}
 						</NavLink>
@@ -36,7 +36,7 @@ export function TopNavigation() {
 					<input
 						type="text"
 						id="search-navbar"
-						className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:none"
+						className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 outline-none rounded-lg focus:none"
 						placeholder="Search..."
 					/>
 				</div>
