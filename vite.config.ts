@@ -3,10 +3,9 @@
 import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import WindiCSS from "vite-plugin-windicss";
 import { dependencies } from "./package.json";
 
-const globalVendorPackages = ["react", "react-dom", "react-router-dom", "keen-slider", "react-hook-form"];
+const globalVendorPackages = Object.keys(dependencies);
 
 function renderChunks(deps: Record<string, string>) {
 	const chunks = {};
@@ -18,7 +17,7 @@ function renderChunks(deps: Record<string, string>) {
 }
 
 export default defineConfig(option => ({
-	plugins: [react(), WindiCSS()],
+	plugins: [react()],
 	json: {
 		stringify: true
 	},
