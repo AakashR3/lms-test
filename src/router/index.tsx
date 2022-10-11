@@ -1,7 +1,7 @@
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { AuthLayout } from "~/layout";
+import { AppLayout, AuthLayout } from "~/layout";
 import CartPage from "~/features/cart";
 import ProtectedRoute from "~/router/ProtectedRoute";
 import { DashboardContainer, RoleDashboardContainer } from "~/features/dashboard";
@@ -12,7 +12,7 @@ function AppRouter() {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<ProtectedRoute />}>
-					<Route path="/">
+					<Route path="/" element={<AppLayout />}>
 						<Route index element={<DashboardContainer />} />
 						<Route path="role" element={<RoleDashboardContainer />} />
 						<Route path="cart" element={<CartPage />} />
