@@ -1,5 +1,4 @@
 import React from "react";
-import { toast } from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -39,6 +38,7 @@ export const ResetForm = React.memo(() => {
 					navigate(navigateLink.auth.forgotPassword);
 				});
 		} else navigate(navigateLink.auth.forgotPassword);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

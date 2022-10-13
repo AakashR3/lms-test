@@ -23,6 +23,7 @@ function SsoLoginAuthorize() {
 				}
 			});
 		} else navigate(navigateLink.auth.login, { replace: true });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchParams]);
 
 	return (
