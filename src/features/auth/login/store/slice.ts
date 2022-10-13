@@ -1,6 +1,6 @@
-import toast from "react-hot-toast";
 import { createSlice } from "@reduxjs/toolkit";
 
+import { notify } from "~/helpers";
 import * as auth from "~/helpers/auth";
 import { LoginApi } from "~/features/auth/login/store";
 import { addRootReducer } from "~/config/store/reducers";
@@ -18,11 +18,7 @@ const slice = createSlice({
 			})
 			.addMatcher(login.matchRejected, (state, action: any) => {
 				const { data } = action.payload;
-				const message = data?.Message || data?.title || "Something Went Wrong. Try Again";
-				console.warn("We got a rejected action!");
-				toast.error(message, {
-					id: "login_error_message"
-				});
+				notify("login_error_message", data);
 			});
 	}
 });

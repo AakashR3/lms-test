@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { addRootReducer } from "~/config/store/reducers";
 import { DomainApi } from "~/features/auth/sso-login/store/query";
 import { notify } from "~/helpers";
@@ -15,7 +15,7 @@ const ssoLoginSlice = createSlice({
 				const { Data } = action.payload;
 				window.location.href = Data[0].ssoLoginUrl;
 			})
-			.addMatcher(ssoRequest.matchRejected, (state, action: any) => {
+			.addMatcher(isAnyOf(ssoRequest.matchRejected, tokenValidation.matchRejected), (state, action: any) => {
 				const { data } = action.payload;
 				notify("sso_error", data);
 			});
