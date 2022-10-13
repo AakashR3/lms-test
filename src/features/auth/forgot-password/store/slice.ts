@@ -13,7 +13,7 @@ const slice = createSlice({
 		builder
 			.addMatcher(auth.forgotPassword.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
-				if (payload.Status === "S") toast.success(payload.Message);
+				toast.success(payload.Message);
 			})
 			.addMatcher(auth.forgotPassword.matchRejected, (state, action: any) => {
 				const { data } = action.payload;

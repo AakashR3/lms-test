@@ -6,10 +6,7 @@ import { signUp } from "./../constants";
 const { form } = signUp;
 
 export const passwordsSchema = Yup.object().shape({
-	Password: Yup.string()
-		.required(form.password.error.required)
-		.matches(regex.password, form.password.error.regex)
-		.oneOf([Yup.ref("CPassword"), null], form.confirm_password.error.mismatch),
+	Password: Yup.string().required(form.password.error.required).matches(regex.password, form.password.error.regex),
 	CPassword: Yup.string()
 		.required(form.confirm_password.error.required)
 		.oneOf([Yup.ref("Password"), null], form.confirm_password.error.mismatch)

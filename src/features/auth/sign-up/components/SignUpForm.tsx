@@ -23,12 +23,11 @@ export const SignUpForm = React.memo(() => {
 	});
 	const { errors, isDirty, isValid } = formState;
 	const onSubmit: SubmitHandler<SingUpRequest> = async formData => {
-		console.log(formData);
 		await createAccount(formData).unwrap();
 		navigate(navigateLink.auth.login);
 	};
 	const handleVerifyEmail = React.useCallback(async () => {
-		await verifyEmail({ Email: getValues("Email") })
+		await verifyEmail({ EmailID: getValues("Email") })
 			.unwrap()
 			.catch(() => navigate(navigateLink.auth.login));
 

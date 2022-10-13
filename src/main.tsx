@@ -10,6 +10,7 @@ import { setStore, store, StoreState } from "~/config/store";
 import { createRootReducer } from "~/config/store/reducers";
 
 import "~/assets/styles/app.css";
+import "keen-slider/keen-slider.min.css";
 
 export class LmsApp {
 	init() {

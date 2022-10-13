@@ -24,27 +24,21 @@ const slice = createSlice({
 		builder
 			.addMatcher(signUp.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
-				if (payload.Status === "S") {
-					state.isOtpVerified = false;
-					toast.success(payload.Message);
-				}
+				state.isOtpVerified = false;
+				toast.success(payload.Message);
 			})
 			.addMatcher(sendOtp.matchFulfilled, (state, action) => {
-				const { Status, Message } = action.payload;
-				if (Status === "S") {
-					toast.success(Message, { id: "verify_email" });
-					state.Email = action.meta.arg.originalArgs.Email;
-					state.isVerified = true;
-				}
+				const { Message } = action.payload;
+				toast.success(Message, { id: "verify_email" });
+				state.Email = action.meta.arg.originalArgs.EmailID;
+				state.isVerified = true;
 			})
 			.addMatcher(verifyOtp.matchFulfilled, (state, action: any) => {
-				const { Status, Message } = action.payload;
-				if (Status === "S") {
-					state.isVerified = false;
-					state.Email = undefined;
-					state.isOtpVerified = true;
-					toast.success(Message, { id: "verify_otp_success" });
-				} else toast.error(Message, { id: "verify_otp_error" });
+				const { Message } = action.payload;
+				state.isVerified = false;
+				state.Email = undefined;
+				state.isOtpVerified = true;
+				toast.success(Message, { id: "verify_otp_success" });
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { data } = action.payload;

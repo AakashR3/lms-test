@@ -7,7 +7,7 @@ export const SocialLoginApi = api.injectEndpoints({
 			query: ({ code }) => ({
 				url: endPoints.auth.linkedInLogin,
 				method: "POST",
-				params: { code }
+				body: { code }
 			})
 		}),
 		socialLogin: builder.mutation({

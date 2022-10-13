@@ -17,11 +17,11 @@ export function VerifyOtp() {
 	const signup = useAppSelector((state: any) => state.authSignUp);
 
 	const handleSubmit = async () => {
-		await verifyOtp({ Email: signup.Email, otp }).unwrap();
+		await verifyOtp({ Email: signup.Email, Otp: otp }).unwrap();
 	};
 
 	const handleOtpSend = async () => {
-		await sendOtp({ Email: signup.Email }).unwrap();
+		await sendOtp({ EmailID: signup.Email }).unwrap();
 		setTimer(30);
 		setOtp("");
 	};

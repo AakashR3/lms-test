@@ -6,7 +6,6 @@ import { LoginApi } from "~/features/auth/login/store";
 import { addRootReducer } from "~/config/store/reducers";
 
 const { login } = LoginApi.endpoints;
-
 const slice = createSlice({
 	name: "auth_login",
 	initialState: {},
@@ -30,5 +29,4 @@ const slice = createSlice({
 
 export const loginAction = slice.actions;
 const reducer = { authLogin: slice.reducer };
-
 addRootReducer(reducer);

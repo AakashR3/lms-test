@@ -22,10 +22,10 @@ export const signUpApi = api.injectEndpoints({
 			})
 		}),
 		sendOtp: builder.mutation({
-			query: params => ({
+			query: body => ({
 				url: endPoints.auth.sendOtp,
 				method: "POST",
-				params
+				body
 			})
 		}),
 		verifyOtp: builder.mutation({

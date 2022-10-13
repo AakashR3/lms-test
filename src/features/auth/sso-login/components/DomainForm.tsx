@@ -17,7 +17,7 @@ export const DomainForm = React.memo(() => {
 	const { errors, isDirty, isValid } = formState;
 	const onSubmit: SubmitHandler<SsoLoginRequest> = async formData => {
 		console.log("formData", formData);
-		await doSsoRequest({ DomainName: formData.domain });
+		await doSsoRequest({ DomainName: formData.domain }).unwrap();
 	};
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
