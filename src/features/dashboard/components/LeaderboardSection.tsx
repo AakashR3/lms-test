@@ -36,7 +36,7 @@ const LeaderboardSection = () => {
 								NAME
 							</th>
 							<th className="whitespace-nowrap   px-4 py-3 font-semibold uppercase   lg:px-5">JOB</th>
-							<th className="whitespace-nowrap  rounded-tr-lg px-3 py-3 font-semibold uppercase   lg:px-5">
+							<th className="whitespace-nowrap  rounded-tr-lg px-3 py-2 font-semibold uppercase   lg:px-5">
 								POSITION
 							</th>
 						</tr>
@@ -56,7 +56,7 @@ const LeaderboardSection = () => {
 										</span>
 									</div>
 								</td>
-								<td className="whitespace-nowrap px-4 py-3 sm:px-5">
+								<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 									<div className="flex items-center">
 										<img src={"/assets/images/batch-coin.png"} alt="batch-coin" />
 										<span className="ml-2 font-bold leading-[18px] text-[14px] text-[#6A7681]">

@@ -14,6 +14,9 @@ export const endPoints = {
 	account: {
 		create: "Users/UserRegistration",
 		resetPassword: "Users/UpdatePassword"
+	},
+	dashboard: {
+		categoryByUserID: "Dashboard/CategoryByUserID/:userId"
 	}
 };
 
