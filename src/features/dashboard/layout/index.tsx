@@ -1,5 +1,6 @@
+import BasicDashboard from "./BasicDashboard";
 const DashboardContainer = () => {
-	return <>Dashboard Container</>;
+	return <BasicDashboard />;
 };
 
 export default DashboardContainer;
