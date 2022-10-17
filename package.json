@@ -15,6 +15,7 @@
 		"@hookform/resolvers": "^2.9.8",
 		"@react-oauth/google": "^0.2.8",
 		"@reduxjs/toolkit": "^1.8.5",
+		"@tippyjs/react": "^4.2.6",
 		"classnames": "^2.3.2",
 		"gapi-script": "^1.2.0",
 		"keen-slider": "^6.7.0",
