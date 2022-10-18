@@ -154,7 +154,10 @@ const Catalog = () => {
 			<div className="mt-5 rounded-lg bg-white flex px-[6px] w-fit">
 				{distinctCatalog.map((catalog: any) => (
 					<button
-						onClick={() => setSelectedCatalog(catalog)}
+						onClick={() => {
+							setCatalogDetails([]);
+							setTimeout(() => setSelectedCatalog(catalog), 10);
+						}}
 						className={`px-[10px] py-[7px] text-[#020a1299] rounded-lg text-[14px] font-bold my-1 ${
 							selectedCatalog === catalog && "bg-[#F1F5F9]"
 						}`}

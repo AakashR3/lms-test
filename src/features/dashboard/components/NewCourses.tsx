@@ -48,7 +48,9 @@ const NewCourses = () => {
 						>
 							<img src={imageUrl + course.InitialGraphic} alt="profile" className="w-12 h-12" />
 							<div className="mt-[14px] px-[6px] bg-[#E2F5FF80]  inline-block rounded-sm">
-								<span className="leading-4 text-xs text-[#1268B3] font-bold">{course.tags}</span>
+								<span className="leading-4 text-xs text-[#1268B3] font-bold">
+									{course.CategoryName}
+								</span>
 							</div>
 							<div className="mt-[6px] line-clamp-1 text-[14px] font-bold leading-[26px] text-[#25313D]">
 								{course.CourseName}
