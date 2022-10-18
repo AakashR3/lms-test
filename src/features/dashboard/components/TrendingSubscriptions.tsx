@@ -1,110 +1,7 @@
+import { useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
-const trendingCourse = [
-	{
-		id: 1,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 2,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 3,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 4,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 5,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 6,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 7,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 8,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 9,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 10,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 11,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 12,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	},
-	{
-		id: 13,
-		image: "assets/images/user-pic.svg",
-		name: "Plastics and injection mold training",
-		course: 44,
-		price: 7150,
-		decimal: "00"
-	}
-];
+import { useAppSelector } from "~/config/store";
+import { useTrendingSubscriptionByCurrencyCodeMutation } from "~/features/dashboard/store";
 const ResizePlugin = (slider: any) => {
 	const observer = new ResizeObserver(function () {
 		slider.update();
@@ -118,6 +15,8 @@ const ResizePlugin = (slider: any) => {
 	});
 };
 const TrendingSubscriptions = () => {
+	const [trendingSubscriptionByCurrencyCode, { isLoading }] = useTrendingSubscriptionByCurrencyCodeMutation();
+	const { trendingSubscription } = useAppSelector((state: any) => state.dashboard);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{
 			initial: 1,
@@ -136,28 +35,32 @@ const TrendingSubscriptions = () => {
 		},
 		[ResizePlugin]
 	);
+	useEffect(() => {
+		trendingSubscriptionByCurrencyCode("INR");
+	}, []);
 	return (
 		<div className="mt-8 w-full">
 			<div className="text-[18px] font-bold text-title mb-4">Trending Subscriptions</div>
 			<div className="relative">
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-					{trendingCourse.map((item, index) => (
+					{trendingSubscription.map((item: any, index: number) => (
 						<div
 							key={item.id}
 							className={`bg-white px-5 py-5   rounded-lg  keen-slider__slide number-slide${index}`}
 						>
-							<img src={item.image} alt="icon" />
-							<div className="mt-3 text-[14px] font-bold leading-5 text-[#25313D] max-w-[240px]">
-								{item.name} {item.id}
+							<img src={"assets/images/user-pic.svg"} alt="icon" />
+							<div className="mt-3 text-[14px] h-10 line-clamp-2 font-bold leading-5 text-[#25313D] max-w-[240px]">
+								{item.SubscriptionName}
 							</div>
 							<div className="mt-4 font-medium text-[13px] leading-[17px] text-[#6A7681]">
-								{item.course} courses
+								{item.CourseCount} courses
 							</div>
-							<div className="mt-18">
-								<span className="text-[18px] text-[#1268B3] font-bold leading-[23px]">
-									&#8377;{item.price}
+							<div className="mt-18 after:content-[\u0BF9]">
+								<span className="text-[18px] text-[#1268B3] font-bold leading-[23px] ">
+									{"\u20B9"}
+									{item.Price}
 								</span>
-								<span className=" font-medium text-[#1268B3]   leading-[23px]">.{item.decimal}</span>
+								{/* <span className=" font-medium text-[#1268B3]   leading-[23px]">.{item.decimal}</span> */}
 								/per user
 							</div>
 						</div>

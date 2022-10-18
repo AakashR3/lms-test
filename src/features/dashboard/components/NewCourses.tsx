@@ -1,123 +1,7 @@
+import { useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
-const trendingCourse = [
-	{
-		id: 1,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 2,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 3,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 4,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 5,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 6,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 7,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 8,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 9,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 10,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 11,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 12,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	},
-	{
-		id: 13,
-		image: "assets/images/user-pic.svg",
-		tags: "CATIA V5",
-		name: "Plastics and injection mold training",
-		course: 44,
-		time: 16,
-		total: 400
-	}
-];
+import { useAppSelector } from "~/config/store";
+import { useGetCourseListMutation } from "~/features/dashboard/store";
 const ResizePlugin = (slider: any) => {
 	const observer = new ResizeObserver(function () {
 		slider.update();
@@ -131,6 +15,9 @@ const ResizePlugin = (slider: any) => {
 	});
 };
 const NewCourses = () => {
+	const imageUrl = import.meta.env.VITE_APP_IMG_URL;
+	const [getCourseList, { isLoading }] = useGetCourseListMutation();
+	const { courseList } = useAppSelector((state: any) => state.dashboard);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{
 			initial: 1,
@@ -146,33 +33,36 @@ const NewCourses = () => {
 		},
 		[ResizePlugin]
 	);
+	useEffect(() => {
+		getCourseList(1);
+	}, []);
 	return (
 		<div className="mt-8 w-full">
 			<div className="text-[18px] font-bold text-title mb-4">New Courses</div>
 			<div className="relative">
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-					{trendingCourse.map((item, index) => (
+					{courseList.map((course: any, index: number) => (
 						<div
-							key={item.id}
+							key={course.id}
 							className={`bg-white px-5 py-6 border-[#1268B3]  rounded-lg border-l-4  keen-slider__slide number-slide${index}`}
 						>
-							<img src={item.image} alt="profile" />
+							<img src={imageUrl + course.InitialGraphic} alt="profile" className="w-12 h-12" />
 							<div className="mt-[14px] px-[6px] bg-[#E2F5FF80]  inline-block rounded-sm">
-								<span className="leading-4 text-xs text-[#1268B3] font-bold">{item.tags}</span>
+								<span className="leading-4 text-xs text-[#1268B3] font-bold">{course.tags}</span>
 							</div>
-							<div className="mt-[6px] text-[14px] font-bold leading-[26px] text-[#25313D]">
-								{item.name} {item.id}
+							<div className="mt-[6px] line-clamp-1 text-[14px] font-bold leading-[26px] text-[#25313D]">
+								{course.CourseName}
 							</div>
 							<div className=" font-medium text-[13px] flex items-center leading-[17px] text-[#6A7681]">
-								<span>{item.course} lessons</span>{" "}
+								<span>{course.TotalLessons} lessons</span>{" "}
 								<div className="w-[8px] h-[8px] bg-[#c7cfd761] rounded-[50%] ml-1 mr-1"></div>
-								<span>{item.time} hrs</span>
+								<span>{course.OnlineHours} hrs</span>
 								<div className="w-[8px] h-[8px] bg-[#c7cfd761] rounded-[50%] ml-1 mr-1"></div>
-								<span>{item.total}+ enrolled</span>
+								<span>{course.Enrolled}+ enrolled</span>
 							</div>
 							<div className="mt-9 flex justify-between">
 								<div className="flex items-center">
-									{[...Array(5)].map(item => (
+									{[...Array(course.Rating)].map(item => (
 										<svg
 											width="14"
 											height="12"

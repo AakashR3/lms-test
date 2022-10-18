@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { useAppSelector } from "~/config/store";
-import { useCategoryByUserIdMutation } from "~/features/dashboard/store";
+import { useGetCatalogListMutation } from "~/features/dashboard/store";
 const items = [
 	{
 		name: "Dassault Systems"
@@ -112,9 +112,12 @@ const ResizePlugin = (slider: any) => {
 	});
 };
 const Catalog = () => {
-	const [categoryByUserId, { isLoading }] = useCategoryByUserIdMutation();
-	const [selectedCatalog, setSelectedCatalog] = useState(items[0].name);
-	const dashboard = useAppSelector((state: any) => state.dashboard);
+	// const imageUrl = import.meta.env.VITE_APP_IMG_URL;
+	const [getCatalogList, { isLoading }] = useGetCatalogListMutation();
+	const [selectedCatalog, setSelectedCatalog] = useState();
+	const { catalogList } = useAppSelector((state: any) => state.dashboard);
+	const [distinctCatalog, setDistinctCatalog] = useState([]);
+	const [catalogDetails, setCatalogDetails] = useState([]);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{
 			initial: 1,
@@ -131,35 +134,48 @@ const Catalog = () => {
 		[ResizePlugin]
 	);
 	useEffect(() => {
-		categoryByUserId(2191);
+		getCatalogList(1);
 	}, []);
+	useEffect(() => {
+		setDistinctCatalog(Array.from(new Set(catalogList.map(({ CatalogCategoryName }: any) => CatalogCategoryName))));
+	}, [catalogList]);
+
+	useEffect(() => {
+		setSelectedCatalog(distinctCatalog[0]);
+	}, [distinctCatalog]);
+
+	useEffect(() => {
+		setCatalogDetails(catalogList.filter((item: any) => item.CatalogCategoryName === selectedCatalog));
+	}, [selectedCatalog]);
+
 	return (
 		<div className="mt-8 w-full">
 			<div className="text-[18px] font-bold text-title mb-4">Catalog</div>
 			<div className="mt-5 rounded-lg bg-white flex px-[6px] w-fit">
-				{items.map(item => (
+				{distinctCatalog.map((catalog: any) => (
 					<button
-						onClick={() => setSelectedCatalog(item.name)}
+						onClick={() => setSelectedCatalog(catalog)}
 						className={`px-[10px] py-[7px] text-[#020a1299] rounded-lg text-[14px] font-bold my-1 ${
-							selectedCatalog === item.name && "bg-[#F1F5F9]"
+							selectedCatalog === catalog && "bg-[#F1F5F9]"
 						}`}
 					>
-						{item.name}
+						{catalog}
 					</button>
 				))}
 			</div>
 			<div className="mt-6">
 				<div className="relative">
 					<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-						{catalogItems.map((item, index) => (
+						{catalogDetails.map((item: any, index: number) => (
 							<div
-								key={item.id}
+								key={index}
 								className={`bg-white px-5 py-5 flex rounded-lg    keen-slider__slide number-slide${index}`}
 							>
-								<img src={item.image} alt="profile" className="w-18 h-18" />
+								<img src={"assets/images/user-pic.svg"} alt="profile" className="w-18 h-18" />
+								{/* <img src={imageUrl+item.CategoryImageFileName} alt="profile" className="w-18 h-18" /> */}
 								<div className="flex flex-col justify-center ml-5 max-w-[180px]">
-									<span className="font-bold text-[#25313D] text-sm">{item.name}</span>
-									<span className="mt-1">{item.course} courses</span>
+									<span className="font-bold text-[#25313D] text-sm">{item.CategoryName}</span>
+									<span className="mt-1">{item.CourseCount} courses</span>
 								</div>
 							</div>
 						))}

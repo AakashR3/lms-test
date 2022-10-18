@@ -16,7 +16,9 @@ export const endPoints = {
 		resetPassword: "Users/UpdatePassword"
 	},
 	dashboard: {
-		categoryByUserID: "Dashboard/CategoryByUserID/:userId"
+		courseList: "Dashboard/NewCoursesList",
+		trendingSubscriptionByCode: "Dashboard/TrendingSubscription/:currencyCode",
+		catalogList: "Dashboard/CatalogList"
 	}
 };
 
