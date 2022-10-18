@@ -1,5 +1,7 @@
 import { toast } from "react-hot-toast";
 import { createSlice } from "@reduxjs/toolkit";
+
+import { notify } from "~/helpers";
 import { addRootReducer } from "~/config/store/reducers";
 import { ForgotPasswordApi } from "~/features/auth/forgot-password/store";
 
@@ -13,15 +15,11 @@ const slice = createSlice({
 		builder
 			.addMatcher(auth.forgotPassword.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
-				if (payload.Status === "S") toast.success(payload.Message);
+				toast.success(payload.Message);
 			})
 			.addMatcher(auth.forgotPassword.matchRejected, (state, action: any) => {
 				const { data } = action.payload;
-				const message = data?.Message || data?.title || "Something Went Wrong. Try Again";
-				console.warn("We got a rejected action!");
-				toast.error(message, {
-					id: "forgot_password_error_message"
-				});
+				notify("forgot_password_error_message", data);
 			});
 	}
 });

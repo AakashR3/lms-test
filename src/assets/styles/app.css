@@ -13,6 +13,13 @@
 		@apply bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility];
 		@apply dark:bg-navy-900 dark:text-navy-200 dark:[color-scheme:dark];
 	}
+	.menu-toggle span {
+		@apply h-[2px] w-5 translate-x-0 bg-current transition-all duration-[.25s] ease-in-out;
+	}
+
+	.menu-toggle span:nth-child(2) {
+		@apply w-3;
+	}
 }
 
 @layer components {
@@ -20,6 +27,18 @@
 		@apply inline-flex cursor-pointer items-center justify-center rounded-lg px-5 py-2
 		text-center tracking-wide outline-none transition-all duration-200
 		focus:outline-none disabled:pointer-events-none;
+	}
+
+	.avatar {
+		@apply relative inline-flex h-10 w-10 shrink-0;
+	}
+
+	.avatar > img {
+		@apply h-full w-full object-cover object-center;
+	}
+
+	.avatar > .is-initial {
+		@apply flex h-full w-full items-center justify-center font-medium;
 	}
 }
 

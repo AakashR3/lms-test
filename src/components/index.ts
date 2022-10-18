@@ -1,1 +1,1 @@
-export {};
+export * from "./40x";

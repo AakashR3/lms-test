@@ -6,8 +6,7 @@ export const ForgotPasswordApi = api.injectEndpoints({
 	endpoints: builder => ({
 		forgotPassword: builder.mutation<{}, ForgotPasswordRequest>({
 			query: ({ Email }) => ({
-				url: endPoints.auth.forgotPassword,
-				params: { UserName: Email }
+				url: `${endPoints.auth.forgotPassword}/${Email}`
 			})
 		})
 	})

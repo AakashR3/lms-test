@@ -1,12 +1,19 @@
-import { Fragment } from "react";
-import { Outlet } from "react-router-dom";
+import { Fragment, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+
+import { navigateLink } from "~/config/api/links";
+import { Slider } from "./components/Slider";
 
 function AuthLayout() {
+	const navigate = useNavigate();
+	useEffect(() => {
+		const sId = localStorage.getItem("sessionId");
+		if (!!sId) navigate(navigateLink.dashboard, { replace: true });
+		//eslint-disable-next-line
+	}, []);
 	return (
 		<Fragment>
-			<div className="hidden w-full place-items-center lg:grid">
-				<div className="w-full max-w-lg p-6"></div>
-			</div>
+			<Slider />
 			<main className="flex w-full flex-col items-center bg-white dark:bg-navy-700 lg:max-w-5xl">
 				<Outlet />
 				<div className="my-5 flex justify-center text-xs text-slate-400 dark:text-navy-300">

@@ -1,15 +1,14 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
+import { Header, Sidebar } from "~/layout/app/components";
 
 function AppLayout() {
 	return (
 		<Fragment>
-			<aside className="w-[54px] border-r bg-white">aside</aside>
-			<main className="flex flex-col h-full w-full overflow-auto">
-				<header className="w-[54px] border-b flex-initial">header</header>
-				<section className="flex-1 flex">
-					<Outlet />
-				</section>
+			<Sidebar />
+			<Header />
+			<main className="mt-[60px] grid grid-cols-1 place-content-start transition-[width,margin-left,margin-right,padding-left,padding-right] duration-[.25s] ease-in print:m-0 md:ml-[var(--main-sidebar-width)] w-full px-[var(--margin-x)] pb-8">
+				<Outlet />
 			</main>
 		</Fragment>
 	);

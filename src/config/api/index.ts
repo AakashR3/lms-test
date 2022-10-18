@@ -6,10 +6,10 @@ const baseQuery = fetchBaseQuery({
 	baseUrl: endPoints.baseUrl,
 	prepareHeaders: (headers, { getState }) => {
 		// By default, if we have a token in the store, let's use that for authenticated requests
-		// const token = (getState() as StoreState).auth.token;
-		// if (token) {
-		// 	headers.set("authorization", `Bearer ${token}`);
-		// }
+		const token = localStorage.getItem("");
+		if (token) {
+			headers.set("authorization", `Bearer ${token}`);
+		}
 		return headers;
 	}
 });
@@ -30,7 +30,7 @@ export const api = createApi({
 	 * Tag types must be defined in the original API definition
 	 * for any tags that would be provided by injected endpoints
 	 */
-	tagTypes: ["auth"],
+	tagTypes: [],
 	/**
 	 * This api has endpoints injected in adjacent files,
 	 * which is why no endpoints are shown below.

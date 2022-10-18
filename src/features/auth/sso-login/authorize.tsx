@@ -1,9 +1,10 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 import { Icon } from "@iconify/react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+
+import { login } from "~/helpers/auth";
 import { navigateLink } from "~/config/api/links";
 import { useTokenValidationMutation } from "~/features/auth/sso-login/store";
-import { useEffect } from "react";
-import { login } from "~/helpers/auth";
 
 function SsoLoginAuthorize() {
 	const [searchParams] = useSearchParams();
@@ -16,12 +17,13 @@ function SsoLoginAuthorize() {
 		const sessionid = searchParams.get("sessionid");
 		if (TokenId) {
 			validateToken({ TokenId }).then((res: any) => {
-				if (res?.data?.Status === "S" && sessionid) {
+				if (sessionid) {
 					login(sessionid);
 					navigate(navigateLink.dashboard, { replace: true });
 				}
 			});
 		} else navigate(navigateLink.auth.login, { replace: true });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchParams]);
 
 	return (

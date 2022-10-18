@@ -26,6 +26,6 @@ const socialLoginSlice = createSlice({
 });
 
 export const socialLoginAction = socialLoginSlice.actions;
-const reducer = { socialLoginSlice: socialLoginSlice.reducer };
+const reducer = { socialLogin: socialLoginSlice.reducer };
 
 addRootReducer(reducer);

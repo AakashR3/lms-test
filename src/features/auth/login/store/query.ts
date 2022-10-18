@@ -1,6 +1,6 @@
 import { api } from "~/config/api";
 import { encryptPassword } from "~/helpers";
-import { endPoints } from "~/config/api/endPoints";
+import { endPoints, LoginType } from "~/config/api/endPoints";
 import { LoginRequest, UserResponse } from "~/features/auth/login/@types";
 
 export const LoginApi = api.injectEndpoints({
@@ -9,10 +9,10 @@ export const LoginApi = api.injectEndpoints({
 			query: ({ Email, EncPassword }) => ({
 				url: endPoints.auth.login,
 				method: "POST",
-				params: { LoginType: "basic" },
 				body: {
 					UserName: Email,
-					EncPassword: encryptPassword(EncPassword)
+					EncPassword: encryptPassword(EncPassword),
+					LoginType: LoginType.basic
 				}
 			})
 		})
