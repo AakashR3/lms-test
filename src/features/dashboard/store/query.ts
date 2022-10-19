@@ -15,9 +15,18 @@ export const dashboardApi = api.injectEndpoints({
 		}),
 		getCatalogList: builder.query({
 			query: () => endPoints.dashboard.catalogList
+		}),
+		getCourseListInProgress: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.CourseListInProgress.replace(":userID", userID)
+			})
 		})
 	})
 });
 
-export const { useGetCourseListQuery, useTrendingSubscriptionByCurrencyCodeQuery, useGetCatalogListQuery } =
-	dashboardApi;
+export const {
+	useGetCourseListQuery,
+	useTrendingSubscriptionByCurrencyCodeQuery,
+	useGetCatalogListQuery,
+	useGetCourseListInProgressQuery
+} = dashboardApi;

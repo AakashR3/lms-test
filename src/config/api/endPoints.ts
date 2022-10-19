@@ -18,7 +18,8 @@ export const endPoints = {
 	dashboard: {
 		courseList: "Dashboard/NewCoursesList",
 		trendingSubscriptionByCode: "Dashboard/TrendingSubscription/:currencyCode",
-		catalogList: "Dashboard/CatalogList"
+		catalogList: "Dashboard/CatalogList",
+		CourseListInProgress: "Dashboard/CourseListInProgress/:userID"
 	}
 };
 

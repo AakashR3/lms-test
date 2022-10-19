@@ -45,7 +45,8 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: ["Poppins", ...defaultTheme.fontFamily.sans],
-				inter: ["Inter", ...defaultTheme.fontFamily.sans]
+				inter: ["Inter", ...defaultTheme.fontFamily.sans],
+				dmsans: ["DM Sans", ...defaultTheme.fontFamily.sans]
 			},
 			fontSize: {
 				tiny: ["0.625rem", "0.8125rem"],
