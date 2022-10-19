@@ -14,6 +14,11 @@ export const endPoints = {
 	account: {
 		create: "User/UserRegistration",
 		resetPassword: "User/UpdatePassword"
+	},
+	dashboard: {
+		courseList: "Dashboard/NewCoursesList",
+		trendingSubscriptionByCode: "Dashboard/TrendingSubscription/:currencyCode",
+		catalogList: "Dashboard/CatalogList"
 	}
 };
 
