@@ -32,8 +32,8 @@ const slice = createSlice({
 				state.catalogList = payload;
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
-				const { data } = action.payload;
-				notify("dashboard_error-messages", data);
+				const { message } = action.error;
+				notify("dashboard_error-messages", message);
 			});
 	}
 });

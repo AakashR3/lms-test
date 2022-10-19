@@ -35,9 +35,7 @@ const customColors = {
 	warning: "#ff9800",
 	"warning-focus": "#e68200",
 	error: "#ff5724",
-	"error-focus": "#f03000",
-	title: "rgba(2, 10, 18, 0.74)",
-	"sub-title": "rgba(2, 10, 18, 0.6)"
+	"error-focus": "#f03000"
 };
 
 module.exports = {

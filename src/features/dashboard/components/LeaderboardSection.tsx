@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 const leaderBoard = [
 	{
 		name: "Eleanor Pena",
@@ -27,16 +28,20 @@ const leaderBoard = [
 const LeaderboardSection = () => {
 	return (
 		<div className="col-span-12 lg:col-span-4">
-			<div className="text-[18px] font-bold text-title mb-4">Leaderboard</div>
+			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
+				Leaderboard
+			</div>
 			<div className="col-span-12 bg-white rounded-lg">
 				<table className="is-hoverable w-full text-left">
 					<thead>
-						<tr className="bg-[#E2E8F0] ">
-							<th className="whitespace-nowrap rounded-tl-lg  px-4 py-3 font-semibold uppercase    lg:px-5">
+						<tr>
+							<th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5   lg:px-5">
 								NAME
 							</th>
-							<th className="whitespace-nowrap   px-4 py-3 font-semibold uppercase   lg:px-5">JOB</th>
-							<th className="whitespace-nowrap  rounded-tr-lg px-3 py-2 font-semibold uppercase   lg:px-5">
+							<th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+								JOB
+							</th>
+							<th className="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
 								POSITION
 							</th>
 						</tr>
@@ -48,8 +53,8 @@ const LeaderboardSection = () => {
 									<div className="flex items-center">
 										<img src={item.icon} alt="icon" />
 										<span
-											className={`ml-3  font-bold leading-[18px] text-[14px] ${
-												item.name === "You" ? "text-[#1268B3]" : "text-sub-title"
+											className={`ml-3  font-bold   text-xs+ ${
+												item.name === "You" ? "text-primary " : "text-slate-500"
 											}`}
 										>
 											{item.name}
@@ -58,21 +63,17 @@ const LeaderboardSection = () => {
 								</td>
 								<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 									<div className="flex items-center">
-										<img src={"/assets/images/batch-coin.png"} alt="batch-coin" />
-										<span className="ml-2 font-bold leading-[18px] text-[14px] text-[#6A7681]">
-											{item.points}
-										</span>
+										<Icon icon="mingcute:copper-coin-line" color="rgba(250, 164, 26, 1)" />
+										<span className="ml-2 font-bold   text-xs+  ">{item.points}</span>
 									</div>
 								</td>
 								<td className="whitespace-nowrap px-3 py-3 sm:px-5">
 									<div className="flex items-center justify-end">
-										<span className="mr-2 font-bold leading-[18px] text-[14px] text-[#6A7681]">
-											{item.position}
-										</span>
+										<span className="mr-2 font-bold   text-xs+  ">{item.position}</span>
 										{item.name === "You" ? (
-											<img src={"/assets/images/down-arrow.svg"} alt="batch-coin" />
+											<Icon icon="akar-icons:arrow-down" color="rgba(79, 198, 102, 1)" />
 										) : (
-											<img src={"/assets/images/up-arrow.svg"} alt="batch-coin" />
+											<Icon icon="akar-icons:arrow-up" color="rgba(216, 92, 87, 1)" />
 										)}
 									</div>
 								</td>

@@ -45,7 +45,7 @@ export function Sidebar() {
 						</Link>
 						<div className="flex">
 							<button className="avatar h-12 w-12">
-								<img className="rounded-full" src="/assets/images/profile-2.png" alt="avatar" />
+								<img className="rounded-full" src="/assets/images/profile-2.svg" alt="avatar" />
 							</button>
 						</div>
 					</div>

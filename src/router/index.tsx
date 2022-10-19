@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AppLayout, AuthLayout } from "~/layout";
 import CartPage from "~/features/cart";
 import ProtectedRoute from "~/router/ProtectedRoute";
-import { DashboardContainer } from "~/features/dashboard";
+import { BasicDashboard } from "~/features/dashboard";
 import { ResetPassword } from "~/features/account";
 import { LoginPage, SignUpPage, ForgotPasswordPage, SsoLoginPage, SsoLoginAuthorize, AppLogout } from "~/features/auth";
 import { PageNotFound } from "~/components";
@@ -15,7 +15,7 @@ function AppRouter() {
 			<Routes>
 				<Route path="/" element={<ProtectedRoute />}>
 					<Route path="/" element={<AppLayout />}>
-						<Route index element={<DashboardContainer />} />
+						<Route index element={<BasicDashboard />} />
 						<Route path="cart" element={<CartPage />} />
 						<Route path="*" element={<PageNotFound />} />
 					</Route>

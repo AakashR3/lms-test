@@ -12,8 +12,8 @@ export const endPoints = {
 		logout: "User/UserLogout"
 	},
 	account: {
-		create: "Users/UserRegistration",
-		resetPassword: "Users/UpdatePassword"
+		create: "User/UserRegistration",
+		resetPassword: "User/UpdatePassword"
 	},
 	dashboard: {
 		courseList: "Dashboard/NewCoursesList",

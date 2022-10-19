@@ -3,23 +3,21 @@ import { endPoints } from "~/config/api/endPoints";
 
 export const dashboardApi = api.injectEndpoints({
 	endpoints: builder => ({
-		getCourseList: builder.mutation({
+		getCourseList: builder.query({
 			query: () => ({
 				url: endPoints.dashboard.courseList
 			})
 		}),
-		trendingSubscriptionByCurrencyCode: builder.mutation({
+		trendingSubscriptionByCurrencyCode: builder.query({
 			query: currencyCode => ({
 				url: endPoints.dashboard.trendingSubscriptionByCode.replace(":currencyCode", currencyCode)
 			})
 		}),
-		getCatalogList: builder.mutation({
-			query: () => ({
-				url: endPoints.dashboard.catalogList
-			})
+		getCatalogList: builder.query({
+			query: () => endPoints.dashboard.catalogList
 		})
 	})
 });
 
-export const { useGetCourseListMutation, useTrendingSubscriptionByCurrencyCodeMutation, useGetCatalogListMutation } =
+export const { useGetCourseListQuery, useTrendingSubscriptionByCurrencyCodeQuery, useGetCatalogListQuery } =
 	dashboardApi;

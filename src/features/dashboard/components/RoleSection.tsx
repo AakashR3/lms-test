@@ -1,22 +1,23 @@
 import Chart from "react-apexcharts";
+import { Icon } from "@iconify/react";
 const roleStats = [
 	{
 		role: "Product Design Engineer",
 		percentage: 98,
 		count: 674,
-		icon: "/assets/images/user-icon-1.svg"
+		color: "#EE6002"
 	},
 	{
 		role: "CEA Analyst",
 		percentage: 79,
 		count: 546,
-		icon: "/assets/images/user-icon-2.svg"
+		color: "#6200EE"
 	},
 	{
 		role: "Manufacturing and Designer engineer",
 		percentage: 98,
 		count: 674,
-		icon: "/assets/images/user-icon-3.svg"
+		color: "#26A69A"
 	}
 ];
 const data = {
@@ -67,19 +68,25 @@ const data = {
 const RoleSection = () => {
 	return (
 		<div className="col-span-12 lg:col-span-8">
-			<div className="text-[18px] font-bold text-title mb-4">Popular Roles</div>
+			<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+				Popular Roles
+			</div>
 			<div className="grid-cols-12 grid bg-white rounded-lg  px-6 py-[26px]">
 				<div className="col-span-4">
-					<div className="border border-[#EEEEEE] rounded-lg   px-4 py-4">
+					<div className="border border-slate-150 rounded-lg   px-4 py-4">
 						{roleStats.map(item => (
 							<div className="flex mb-4 last:mb-0">
-								<img className="self-start mr-[5px] mt-[3px]" src={item.icon} alt="user-icon" />
+								<Icon
+									icon="carbon:user-multiple"
+									color={item.color}
+									className="self-start mr-[5px] mt-1"
+								/>
 								<div>
-									<div className="font-bold text-[14px] leading-[18px] text-title">
+									<div className="text-base font-medium text-slate-600 dark:text-navy-100">
 										<span>{item.percentage}%</span>
 										<span className="ml-1">({item.count})</span>
 									</div>
-									<div className="font-normal text-xs mt-[3px]">{item.role}</div>
+									<div className="text-xs text-slate-400 dark:text-navy-300mt-[3px]">{item.role}</div>
 								</div>
 							</div>
 						))}
