@@ -20,22 +20,22 @@ const navyColor = {
 const customColors = {
 	navy: navyColor,
 	"slate-150": "#E9EEF5",
-	primary: colors.indigo["600"],
-	"primary-focus": colors.indigo["700"],
-	"secondary-light": "#ff57d8",
-	secondary: "#F000B9",
-	"secondary-focus": "#BD0090",
-	"accent-light": colors.indigo["400"],
-	accent: "#5f5af6",
-	"accent-focus": "#4d47f5",
-	info: colors.sky["500"],
-	"info-focus": colors.sky["600"],
-	success: colors.emerald["500"],
-	"success-focus": colors.emerald["600"],
-	warning: "#ff9800",
-	"warning-focus": "#e68200",
-	error: "#ff5724",
-	"error-focus": "#f03000"
+	primary: "#1268B3",
+	// "primary-focus": colors.indigo["700"],
+	// "secondary-light": "#ff57d8",
+	secondary: "#44BFBF",
+	// "secondary-focus": "#BD0090",
+	// "accent-light": colors.indigo["400"],
+	// accent: "#5f5af6",
+	// "accent-focus": "#4d47f5",
+	// info: colors.sky["500"],
+	// "info-focus": colors.sky["600"],
+	success: "#4FC666",
+	// "success-focus": colors.emerald["600"],
+	warning: "#FAA41A",
+	// "warning-focus": "#e68200",
+	error: "#D85C57"
+	// "error-focus": "#f03000"
 };
 
 module.exports = {
@@ -44,8 +44,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Poppins", ...defaultTheme.fontFamily.sans],
-				inter: ["Inter", ...defaultTheme.fontFamily.sans]
+				sans: ["DM Sans", ...defaultTheme.fontFamily.sans]
 			},
 			fontSize: {
 				tiny: ["0.625rem", "0.8125rem"],

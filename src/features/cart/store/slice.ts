@@ -1,29 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
 import { addRootReducer } from "~/config/store/reducers";
+import { notify } from "~/helpers";
+import { CartApi } from "./query";
+
+const { cartList, cartCheckout, cartResponse } = CartApi.endpoints;
+
+const rejectedMatches = isAnyOf(cartList.matchRejected, cartCheckout.matchRejected, cartResponse.matchRejected);
+
+const initialState = {
+	cartItems: [],
+	isCartEmpty: true,
+	isDollarCurrency: false
+};
 
 const cartSlice = createSlice({
 	name: "cart",
-	initialState: {
-		cartItems: [
-			{
-				id: 1,
-				title: "i GET IT Professional Engineer Bundle Annual Subscription",
-				description: "i GET IT Professional Engineer Bundle Annual Subscription",
-				image: "/sample.png",
-				price: 499,
-				discount_price: 0,
-				currency_type: "USD",
-				course_duration: "3 Months",
-				no_of_course: 40,
-				subscribtion: true
-			}
-		]
+	initialState,
+	reducers: {
+		changeCurrencyType: (state, action: PayloadAction<string>) => {
+			state.isDollarCurrency = action.payload === "USD";
+		}
 	},
-	reducers: {}
+	extraReducers(builder) {
+		builder
+			.addMatcher(cartList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.isCartEmpty = !Data.length;
+				state.cartItems = Data;
+			})
+			.addMatcher(rejectedMatches, (state, action: any) => {
+				const { data } = action.payload;
+				notify("cart_error_message", data);
+			});
+	}
 });
 
-export const selectCartItems = (state: any) => state.cartReducer.cartItems;
-
+export const { changeCurrencyType } = cartSlice.actions;
 const cartReducer = { cartReducer: cartSlice.reducer };
 
 addRootReducer(cartReducer);

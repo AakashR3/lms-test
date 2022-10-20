@@ -5,7 +5,7 @@ const useAuth = () => {
 	const isLoggedIn = localStorage.getItem("sessionId");
 	const user = localStorage.getItem("user");
 	return {
-		isLoggedIn,
+		isLoggedIn: isLoggedIn !== "null" || !!isLoggedIn,
 		auth: !!isLoggedIn,
 		role: user ? JSON.parse(user) : null
 	};
@@ -13,7 +13,7 @@ const useAuth = () => {
 
 const ProtectedRoute = () => {
 	const { isLoggedIn } = useAuth();
-	return !!isLoggedIn ? <Outlet /> : <Navigate to={navigateLink.auth.login} />;
+	return isLoggedIn ? <Outlet /> : <Navigate to={navigateLink.auth.login} />;
 };
 
 export default ProtectedRoute;

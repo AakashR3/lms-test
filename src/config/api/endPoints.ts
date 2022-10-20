@@ -19,6 +19,13 @@ export const endPoints = {
 		courseList: "Dashboard/NewCoursesList",
 		trendingSubscriptionByCode: "Dashboard/TrendingSubscription/:currencyCode",
 		catalogList: "Dashboard/CatalogList"
+	},
+	cart: {
+		list: "Cart/CartList/:UserId",
+		payment: {
+			checkout: "Payment/RazorpayCheckout",
+			response: "Payment/RazorpayResponse"
+		}
 	}
 };
 

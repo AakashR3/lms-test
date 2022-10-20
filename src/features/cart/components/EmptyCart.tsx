@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 
 export const EmptyCart = React.memo(() => (
-	<section className="hidden flex flex-col h-full items-center justify-center max-w-sm mx-auto">
+	<section className="flex flex-col h-full items-center justify-center max-w-sm mx-auto">
 		<Icon icon="pajamas:warning-solid" className="text-red-500 mb-3" fontSize={90} />
 		<h1 className="text-[#25313D] text-lg font-semibold">Your cart is empty</h1>
 		<p className="text-[#020A1299] my-2 text-center">

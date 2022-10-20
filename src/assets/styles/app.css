@@ -20,6 +20,22 @@
 	.menu-toggle span:nth-child(2) {
 		@apply w-3;
 	}
+	.card {
+		@apply relative flex  min-w-[1px] flex-col break-words rounded-lg  bg-white text-slate-500 shadow-soft dark:bg-navy-700 dark:text-navy-200 dark:shadow-none  print:border;
+	}
+
+	.form-select {
+		@apply appearance-none tracking-wide outline-none placeholder:font-light focus:outline-none bg-center bg-no-repeat;
+		contain: paint;
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 20 20'%3e%3cpath stroke='%235C6B8A' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+		background-position: right 0.5rem center;
+		background-size: 1.5em 1.5em;
+		print-color-adjust: exact;
+	}
+
+	.recurly-element {
+		@apply m-0 h-10 rounded-md border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400;
+	}
 }
 
 @layer components {

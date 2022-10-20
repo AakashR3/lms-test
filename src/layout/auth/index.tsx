@@ -8,7 +8,7 @@ function AuthLayout() {
 	const navigate = useNavigate();
 	useEffect(() => {
 		const sId = localStorage.getItem("sessionId");
-		if (!!sId) navigate(navigateLink.dashboard, { replace: true });
+		if (sId !== "null" && !!sId) navigate(navigateLink.dashboard, { replace: true });
 		//eslint-disable-next-line
 	}, []);
 	return (

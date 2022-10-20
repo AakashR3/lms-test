@@ -16,7 +16,7 @@ const socialLoginSlice = createSlice({
 		builder
 			.addMatcher(fulFilledMatches, (state, action: any) => {
 				const { Data } = action.payload;
-				auth.login(Data.SessionId);
+				auth.login(Data.TokenId);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { data } = action.payload;
