@@ -75,7 +75,7 @@ function CartPage() {
 	);
 
 	const handleCheckout = () => {
-		const { cartId, purchaseType, subscriptionId, planCode } = cartItems[1];
+		const { cartId, purchaseType, subscriptionId, planCode } = cartItems[0];
 		checkout({
 			planCode,
 			purchaseType,

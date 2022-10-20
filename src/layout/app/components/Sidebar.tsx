@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import Tippy from "@tippyjs/react";
 import { Link } from "react-router-dom";
 import "tippy.js/dist/tippy.css"; // optional
+import { useUserMenuQuery } from "~/config/api";
 
 const menus = [
 	{ name: "Dashboard", icon: "mingcute:home-3-fill", link: "/" },
@@ -12,29 +13,27 @@ const menus = [
 	{ name: "Report", icon: "mingcute:chart-bar-fill", link: "/report" }
 ];
 
-export function Sidebar() {
+export function Sidebar({ menus }: any) {
 	return (
-		<div className="z-40 h-full w-[var(--main-sidebar-width)] shrink-0 -translate-x-full transform-gpu transition-transform duration-200 ease-in md:z-[60] md:translate-x-0">
+		<div className="z-40 h-full w-[var(--main-sidebar-width)] shrink-0">
 			<div className="flex h-full w-full flex-col items-center border-r border-slate-150 bg-white dark:border-navy-700 dark:bg-navy-800">
 				<div className="flex pt-4 px-1.5">
 					<Link to="/">
 						<img src="/assets/images/logo.png" alt="logo" />
 					</Link>
 				</div>
-
 				<div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6">
-					{menus.map(menu => (
-						<Tippy key={menu.link} content={menu.name} animation={""} placement="right">
+					{menus.map((menu: any) => (
+						<Tippy key={menu.Link} content={menu.Name} placement="right">
 							<Link
-								to={menu.link}
+								to={menu.Link}
 								className="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20"
 							>
-								<Icon icon={menu.icon} color="#B1B9C5" className="h-7 w-7 dark:fill-navy-200" />
+								<Icon icon={menu.Icon} color="#B1B9C5" className="h-7 w-7 dark:fill-navy-200" />
 							</Link>
 						</Tippy>
 					))}
 				</div>
-
 				<div className="flex flex-col items-center space-y-3 py-3">
 					<Link
 						to="setting"

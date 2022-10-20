@@ -1,5 +1,6 @@
 import { endPoints } from "./endPoints";
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { getLoggedUser } from "~/helpers/auth";
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
@@ -36,5 +37,27 @@ export const api = createApi({
 	 * which is why no endpoints are shown below.
 	 * If you want all endpoints defined in the same file, they could be included here instead
 	 */
-	endpoints: () => ({})
+	endpoints: builder => ({
+		userMenu: builder.query<any, void>({
+			query: () => {
+				const user = getLoggedUser();
+				return { url: endPoints.common.menu.replace(":UserId", user.UserId) };
+			}
+		}),
+		userPoints: builder.query<any, void>({
+			query: () => {
+				const user = getLoggedUser();
+				return { url: `${endPoints.common.points}/${user.UserId}/${user.SessionId}` };
+			}
+		}),
+		userNotification: builder.query<any, void>({
+			query: () => {
+				const user = getLoggedUser();
+				return { url: `${endPoints.common.nofitication}/${user.UserId}` };
+			},
+			transformResponse: (response: any) => response.Data
+		})
+	})
 });
+
+export const { useUserMenuQuery, useUserPointsQuery, useUserNotificationQuery } = api;

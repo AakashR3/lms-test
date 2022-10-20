@@ -1,5 +1,10 @@
 export const endPoints = {
 	baseUrl: import.meta.env.VITE_API_URL,
+	common: {
+		menu: "HeadersAndMenu/GetMenuItems/:UserId",
+		points: "HeadersAndMenu/GetPoints",
+		nofitication: "HeadersAndMenu/GetUserNotification"
+	},
 	auth: {
 		login: "User/UserAuthentication",
 		forgotPassword: "User/ForgotPassword",

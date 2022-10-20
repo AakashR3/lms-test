@@ -1,13 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
+import { getLoggedUser } from "~/helpers/auth";
 
 const useAuth = () => {
-	const isLoggedIn = localStorage.getItem("sessionId");
-	const user = localStorage.getItem("user");
+	const user = getLoggedUser();
+	const isLoggedIn = user?.SessionId;
 	return {
-		isLoggedIn: isLoggedIn !== "null" || !!isLoggedIn,
-		auth: !!isLoggedIn,
-		role: user ? JSON.parse(user) : null
+		isLoggedIn: !!isLoggedIn
+		// role: user ? JSON.parse(user.Role) : null
 	};
 };
 
