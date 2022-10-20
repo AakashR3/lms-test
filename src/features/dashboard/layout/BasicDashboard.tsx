@@ -13,7 +13,7 @@ const BasicDashboard = () => {
 			<HeroSection />
 			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
 				<RoleSection />
-				<LeaderboardSection />
+				<LeaderboardSection type={"basic"} />
 			</div>
 			<TrendingSubscriptions />
 			<NewCourses />

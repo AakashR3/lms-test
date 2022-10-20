@@ -1,4 +1,5 @@
 import Chart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
 import { Icon } from "@iconify/react";
 const roleStats = [
 	{
@@ -20,43 +21,73 @@ const roleStats = [
 		color: "#26A69A"
 	}
 ];
-const data = {
-	options: {
-		stacked: false,
-
-		chart: {
-			id: "basic-bar",
-			zoom: {
-				enabled: false
-			},
-			toolbar: {
-				show: false
-			}
-		},
-		xaxis: {
-			categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-		},
-		dataLabels: {
+const chartOptions: ApexOptions = {
+	chart: {
+		id: "basic-bar",
+		zoom: {
 			enabled: false
 		},
-		legend: {
+		toolbar: {
 			show: false
-		},
-		markers: {
-			size: 0
 		}
 	},
-	stroke: {
-		curve: "straight"
+	xaxis: {
+		categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		labels: {
+			style: {
+				colors: "rgba(2, 10, 18, 0.54)",
+				fontSize: "12",
+				fontWeight: 400
+			}
+		}
 	},
+	dataLabels: {
+		enabled: false
+	},
+	legend: {
+		show: false
+	},
+	markers: {
+		size: 0
+	},
+	stroke: {
+		show: true,
+		curve: "straight",
+		width: 2
+	},
+	fill: {
+		type: "gradient",
+		gradient: {
+			shadeIntensity: 1,
+			opacityFrom: 0.7,
+			opacityTo: 0.9,
+			stops: [0, 75]
+		}
+	},
+
+	yaxis: {
+		min: 0,
+		tickAmount: 3,
+		labels: {
+			style: {
+				colors: "rgba(2, 10, 18, 0.54)",
+				fontSize: "12",
+				fontWeight: 400
+			}
+		}
+	}
+};
+const data = {
+	options: chartOptions,
+
 	series: [
 		{
 			name: "series-1",
-			data: [49, 55, 47, 63, 52, 40, 88, 45, 68, 42, 97, 48]
+			data: [48, 46, 60, 65, 78, 60, 78, 85, 60, 55, 80, 95]
 		},
 		{
 			name: "series-2",
-			data: [22, 40, 12, 36, 12, 44, 38, 34, 31, 12, 39, 40]
+			data: [52, 80, 12, 36, 12, 44, 38, 34, 31, 12, 39, 40]
 		},
 		{
 			name: "series-3",
@@ -74,8 +105,8 @@ const RoleSection = () => {
 			<div className="grid-cols-12 grid bg-white rounded-lg  px-6 py-[26px]">
 				<div className="col-span-4">
 					<div className="border border-slate-150 rounded-lg   px-4 py-4">
-						{roleStats.map(item => (
-							<div className="flex mb-4 last:mb-0">
+						{roleStats.map((item, index) => (
+							<div className="flex mb-4 last:mb-0" key={index}>
 								<Icon
 									icon="carbon:user-multiple"
 									color={item.color}
@@ -93,7 +124,7 @@ const RoleSection = () => {
 					</div>
 				</div>
 				<div className="col-span-8">
-					<Chart options={data.options} series={data.series} type="area" height={"160px"} />
+					<Chart options={data.options} series={data.series} type="area" height={"200px"} />
 				</div>
 			</div>
 		</div>
