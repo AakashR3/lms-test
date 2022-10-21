@@ -72,26 +72,25 @@ const Catalog = () => {
 			</div>
 			<div className="mt-6">
 				<div className="relative">
-					<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-						{catalogDetails.map((item: any, index: number) => (
-							<div
-								key={index}
-								className={`bg-white px-5 py-5 flex rounded-lg    keen-slider__slide number-slide${index}`}
-							>
-								<img src={"assets/images/user-pic.svg"} alt="profile" className="w-18 h-18" />
-								{/* <img src={imageUrl+item.CategoryImageFileName} alt="profile" className="w-18 h-18" /> */}
-								<div className="flex flex-col justify-center ml-5 max-w-[180px]">
-									<span className="mt-[6px] line-clamp-1 text-base font-medium text-slate-600 dark:text-navy-100">
-										{item.CategoryName}
-									</span>
-									<span className=" mt-1 text-xs text-slate-400 dark:text-navy-300">
-										{item.CourseCount} courses
-									</span>
+					<div className="flex keen-slider overflow-hidden w-full">
+						{catalogDetails
+							.filter((item: any, index: number) => index < 4)
+							.map((item: any, index: number) => (
+								<div key={index} className={`bg-white px-5 py-5 mr-5 flex rounded-lg     `}>
+									<img src={"assets/images/user-pic.svg"} alt="profile" className="w-18 h-18" />
+									{/* <img src={imageUrl+item.CategoryImageFileName} alt="profile" className="w-18 h-18" /> */}
+									<div className="flex flex-col justify-center ml-5 max-w-[180px]">
+										<span className="mt-[6px] line-clamp-1 text-base font-medium text-slate-600 dark:text-navy-100">
+											{item.CategoryName}
+										</span>
+										<span className=" mt-1 text-xs text-slate-400 dark:text-navy-300">
+											{item.CourseCount} courses
+										</span>
+									</div>
 								</div>
-							</div>
-						))}
+							))}
 					</div>
-					<button
+					{/* <button
 						className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
 						onClick={() => instanceRef?.current?.prev()}
 					>
@@ -103,7 +102,7 @@ const Catalog = () => {
 						onClick={() => instanceRef?.current?.next()}
 					>
 						<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
-					</button>
+					</button> */}
 				</div>
 			</div>
 		</div>
