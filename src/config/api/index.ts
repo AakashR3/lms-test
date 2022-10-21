@@ -41,7 +41,7 @@ export const api = createApi({
 		userMenu: builder.query<any, void>({
 			query: () => {
 				const user = getLoggedUser();
-				return { url: endPoints.common.menu.replace(":UserId", user.UserId) };
+				return { url: `${endPoints.common.menu}/${user.UserId}` };
 			}
 		}),
 		userPoints: builder.query<any, void>({

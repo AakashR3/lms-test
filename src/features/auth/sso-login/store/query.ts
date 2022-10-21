@@ -11,7 +11,7 @@ export const DomainApi = api.injectEndpoints({
 		}),
 		tokenValidation: builder.mutation({
 			query: body => ({
-				url: "Users/TokenValidation",
+				url: endPoints.auth.TokenValidation,
 				method: "POST",
 				body
 			})

@@ -1,9 +1,9 @@
 export const endPoints = {
 	baseUrl: import.meta.env.VITE_API_URL,
 	common: {
-		menu: "HeadersAndMenu/GetMenuItems/:UserId",
-		points: "HeadersAndMenu/GetPoints",
-		nofitication: "HeadersAndMenu/GetUserNotification"
+		menu: "HeadersAndMenu/GetMenuItems", //:UserId added on url
+		points: "HeadersAndMenu/GetPoints", //:UserId added on url
+		nofitication: "HeadersAndMenu/GetUserNotification" //:UserId added on url
 	},
 	auth: {
 		login: "User/UserAuthentication",
@@ -12,6 +12,7 @@ export const endPoints = {
 		verifyOtp: "User/VerifyOTP",
 		verifyEmailLink: "User/VerifyEmailLink",
 		ssoRequest: "User/SSORequest",
+		TokenValidation: "User/TokenValidation",
 		socialLogin: "User/SocialValidation",
 		linkedInLogin: "User/LinkedinValidation",
 		logout: "User/UserLogout"
@@ -26,7 +27,7 @@ export const endPoints = {
 		catalogList: "Dashboard/CatalogList"
 	},
 	cart: {
-		list: "Cart/CartList/:UserId",
+		list: "Cart/CartList", //:UserId added on url
 		payment: {
 			checkout: "Payment/RazorpayCheckout",
 			response: "Payment/RazorpayResponse"

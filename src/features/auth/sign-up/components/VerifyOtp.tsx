@@ -53,18 +53,19 @@ export function VerifyOtp() {
 
 					<div className="flex items-center space-x-3 my-5 items-center justify-center text-xs">
 						<CountDownTimer hours={0} minutes={0} seconds={timer} onTimeUp={() => setTimer(0)} />
-						<button
-							disabled={timer !== 0 || sendOtpOption.isLoading}
-							className="disabled:(text-[#C7CFD761] pointer-events-none) cursor-pointer text-blue-500"
-							onClick={() => handleOtpSend()}
-						>
-							Resend OTP
-						</button>
+						{(timer === 0 || sendOtpOption.isLoading) && (
+							<button
+								className="disabled:(text-[#C7CFD761] pointer-events-none) cursor-pointer text-blue-500"
+								onClick={() => handleOtpSend()}
+							>
+								Resend OTP
+							</button>
+						)}
 					</div>
 					<button
 						disabled={otp.length < numInputs || timer === 0 || verifyOtpOption.isLoading}
 						onClick={() => handleSubmit()}
-						className="btn"
+						className="btn w-full h-12 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 disabled:pointer-events-none disabled:select-none disabled:opacity-60 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
 					>
 						Verify
 					</button>

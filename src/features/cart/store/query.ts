@@ -10,34 +10,38 @@ export interface Cart {
 
 type CartResponse = Cart[];
 
-const user = getLoggedUser();
-
 export const CartApi = api.injectEndpoints({
 	endpoints: builder => ({
 		cartList: builder.query<CartResponse, void>({
-			query: () => ({ url: endPoints.cart.list.replace(":UserId", user.UserId) })
+			query: () => {
+				const user = getLoggedUser();
+				return { url: `${endPoints.cart.list}/${user.UserId}` };
+			}
 		}),
 		cartCheckout: builder.mutation({
-			query: body => ({
-				url: endPoints.cart.payment.checkout,
-				method: "POST",
-				body: {
-					userId: user.UserId,
-					accountId: user.AccountId,
-					firstName: user.FirstName,
-					middleName: "",
-					lastName: user.LastName,
-					email: user.Email,
-					contactNumber: "917200183184",
-					address: "hyderabad",
-					quantity: 1,
-					no_of_users: 1,
-					promoCode: "",
-					isTrial: 0,
-					totalCount: 12,
-					...body
-				}
-			})
+			query: body => {
+				const user = getLoggedUser();
+				return {
+					url: endPoints.cart.payment.checkout,
+					method: "POST",
+					body: {
+						userId: user.UserId,
+						accountId: user.AccountId,
+						firstName: user.FirstName,
+						middleName: "",
+						lastName: user.LastName,
+						email: user.Email,
+						contactNumber: "917200183184",
+						address: "hyderabad",
+						quantity: 1,
+						no_of_users: 1,
+						promoCode: "",
+						isTrial: 0,
+						totalCount: 12,
+						...body
+					}
+				};
+			}
 		}),
 		cartResponse: builder.mutation({
 			query: body => ({ url: endPoints.cart.payment.response, method: "POST", body })
