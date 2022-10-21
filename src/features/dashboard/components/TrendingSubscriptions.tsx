@@ -55,7 +55,7 @@ const TrendingSubscriptions = () => {
 							<div className="mt-4 text-xs text-slate-400 dark:text-navy-300">
 								{item.CourseCount} courses
 							</div>
-							<div className="mt-18 after:content-[\u0BF9]">
+							<div className="mt-12 after:content-[\u0BF9]">
 								<span className="text-[18px] text-primary font-bold leading-[23px] ">
 									{"\u20B9"}
 									{item.Price}

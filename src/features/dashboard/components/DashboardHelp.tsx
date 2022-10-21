@@ -1,7 +1,7 @@
 const DashboardHelp = () => {
 	return (
 		<>
-			<div className="col-span-12 lg:col-span-6 pt-7 flex justify-between bg-[#FCE0A9] rounded-lg px-11">
+			<div className="col-span-12 2xl:col-span-6 pt-7 flex justify-between bg-[#FCE0A9] rounded-lg px-11">
 				<div>
 					<div className=" text-xl font-bold text-slate-600 dark:text-navy-100 leading-[26px]">
 						Continue learning on the go
@@ -20,7 +20,7 @@ const DashboardHelp = () => {
 				</div>
 				<img src="/assets/images/cell-help.svg" alt="cell-help" />
 			</div>
-			<div className="col-span-12 lg:col-span-6 pt-7 flex justify-between bg-[#C1D4FB] rounded-lg px-11">
+			<div className="col-span-12 2xl:col-span-6 pt-7 flex justify-between bg-[#C1D4FB] rounded-lg px-11">
 				<div>
 					<div className=" text-xl font-bold text-slate-600 dark:text-navy-100 leading-[26px]">
 						Any queries contact us
