@@ -58,9 +58,11 @@ export function Header(props: any) {
 					</Link>
 					<button className="btn relative h-6 w-6 rounded-md p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
 						<Icon icon="mingcute:notification-line" className="h-6 w-6 text-slate-500 dark:text-navy-100" />
-						<div className="absolute -top-1 -right-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary px-1 text-tiny font-medium leading-none text-white dark:bg-accent">
-							{notification.data?.NotificationsCount}
-						</div>
+						{notification.data?.NotificationsCount && (
+							<div className="absolute -top-1 -right-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary px-1 text-tiny font-medium leading-none text-white dark:bg-accent">
+								{notification.data?.NotificationsCount}
+							</div>
+						)}
 						{notification.data?.NotificationsCount && (
 							<span className="hidden absolute -top-px -right-px flex h-3 w-3 items-center justify-center">
 								<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-80" />

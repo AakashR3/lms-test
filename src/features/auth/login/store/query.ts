@@ -15,8 +15,15 @@ export const LoginApi = api.injectEndpoints({
 					LoginType: LoginType.basic
 				}
 			})
+		}),
+		userLogout: builder.mutation({
+			query: body => ({
+				url: endPoints.auth.logout,
+				method: "POST",
+				body
+			})
 		})
 	})
 });
 
-export const { useLoginMutation } = LoginApi;
+export const { useLoginMutation, useUserLogoutMutation } = LoginApi;

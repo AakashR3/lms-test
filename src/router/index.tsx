@@ -30,6 +30,7 @@ function AppRouter() {
 					<Route path="forgot-password" element={<ForgotPasswordPage />} />
 					<Route path="sso-login" element={<SsoLoginPage />} />
 					<Route path="authorize" element={<SsoLoginAuthorize />} />
+					<Route path="logout" element={<AppLogout />} />
 				</Route>
 				<Route path="linkedin" element={<LinkedInCallback />} />
 				<Route path="account">

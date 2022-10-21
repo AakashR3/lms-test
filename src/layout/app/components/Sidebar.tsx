@@ -3,6 +3,7 @@ import Tippy from "@tippyjs/react";
 import { Link } from "react-router-dom";
 import "tippy.js/dist/tippy.css"; // optional
 import { useUserMenuQuery } from "~/config/api";
+import { navigateLink } from "~/config/api/links";
 
 const menus = [
 	{ name: "Dashboard", icon: "mingcute:home-3-fill", link: "/" },
@@ -36,10 +37,10 @@ export function Sidebar({ menus }: any) {
 				</div>
 				<div className="flex flex-col items-center space-y-3 py-3">
 					<Link
-						to="setting"
+						to={navigateLink.auth.logout}
 						className="flex h-11 w-11 text-slate-500 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
 					>
-						<Icon icon="mingcute:settings-4-fill" className="h-7 w-7" />
+						<Icon icon="humbleicons:logout" className="h-7 w-7" />
 					</Link>
 					<div className="flex">
 						<button className="avatar h-12 w-12">
