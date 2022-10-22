@@ -22,7 +22,7 @@ const courseListInProgressTest = [
 		CourseID: 1969,
 		CourseName: "UG V18 to NX V1 CAD Update",
 		tTime: "000:00",
-		Progress: 0,
+		Progress: 96,
 		EventID: 1081,
 		LessonsCompleted: 0,
 		LessonsTotal: 98
@@ -74,6 +74,29 @@ const ResizePlugin = (slider: any) => {
 		observer.unobserve(slider.container);
 	});
 };
+var widthRange: { [key: string]: string } = {
+	"1-8": "w-1/12",
+	"9-16": "w-2/12",
+	"17-24": "w-3/12",
+	"25-32": "w-4/12",
+	"33-40": "w-5/12",
+	"41-49": "w-6/12",
+	"50-58": "w-7/12",
+	"59-67": "w-8/12",
+	"68-75": "w-9/12",
+	"76-82": "w-10/12",
+	"83-91": "w-11/12",
+	"92-100": "w-12/12"
+};
+function calculateWidth(progress: any): string {
+	for (var key in widthRange) {
+		const range = key.split("-");
+		if (range[0] <= progress && progress <= range[1]) {
+			return widthRange[key];
+		}
+	}
+	return "w-0";
+}
 
 const ContinueLearning = () => {
 	const { data, isLoading } = useGetCourseListInProgressQuery("2092");
@@ -102,7 +125,7 @@ const ContinueLearning = () => {
 				</div>
 				<div className="relative">
 					<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-						{courseListInProgressTest.map((course: any, index: number) => (
+						{courseListInProgress.map((course: any, index: number) => (
 							<div
 								key={course.CourseID}
 								className={`bg-white pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
@@ -113,7 +136,9 @@ const ContinueLearning = () => {
 								</p>
 								<div className="progress mt-10 h-1.5 bg-[#E9EEF5]">
 									<div
-										className={`relative h-1.5 w-${course.Progress} overflow-hidden rounded-full bg-[#1268B3]`}
+										className={`relative h-1.5 ${calculateWidth(
+											course.Progress
+										)} overflow-hidden rounded-full bg-[#1268B3]`}
 									></div>
 								</div>
 								<div className="flex justify-between">
@@ -143,7 +168,7 @@ const ContinueLearning = () => {
 							</div>
 						))}
 					</div>
-					{courseListInProgressTest.length > 4 && (
+					{courseListInProgress.length > 4 && (
 						<>
 							<button
 								className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
