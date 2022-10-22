@@ -17,6 +17,7 @@ function AppRouter() {
 					<Route path="/" element={<AppLayout />}>
 						<Route index element={<BasicDashboard />} />
 						<Route path="cart" element={<CartPage />} />
+						<Route path="cart-success" element={<>Payment Successfully completed</>} />
 						<Route path="*" element={<PageNotFound />} />
 					</Route>
 					<Route path="auth">

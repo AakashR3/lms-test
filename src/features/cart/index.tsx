@@ -65,7 +65,7 @@ function CartPage() {
 						cartId: Data.cartId
 					}).unwrap();
 					refetch();
-					navigate("/cart/success");
+					navigate("/cart-success");
 				}
 			};
 			const rzpay = new Razorpay(options);
