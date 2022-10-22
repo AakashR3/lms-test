@@ -13,7 +13,7 @@ export const MailingAddress = React.memo(() => {
 					</h2>
 					<button
 						onClick={() => setEditAddress(true)}
-						className="btn relative h-8 w-8 rounded-md p-0 hover:bg-slate-300/20"
+						className="hidden btn relative h-8 w-8 rounded-md p-0 hover:bg-slate-300/20"
 					>
 						<Icon className="w-4 h-4 text-primary" icon="mingcute:pencil-line" />
 					</button>
