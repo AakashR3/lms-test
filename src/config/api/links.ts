@@ -7,6 +7,7 @@ export const navigateLink = {
 		logout: "/auth/logout"
 	},
 	dashboard: "/",
+	cart: "/cart",
 	account: {
 		resetPassword: "/account/reset-password"
 	}

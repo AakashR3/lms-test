@@ -18,6 +18,21 @@ export const CartApi = api.injectEndpoints({
 				return { url: `${endPoints.cart.list}/${user.UserId}` };
 			}
 		}),
+		addToCart: builder.mutation({
+			query: form => {
+				const user = getLoggedUser();
+				return {
+					url: endPoints.cart.addToCart,
+					method: "POST",
+					body: {
+						UserID: user.UserId,
+						AccountID: user.AccountId,
+						SubscriptionID: form.subscriptionId,
+						PurchaseType: "Monthly"
+					}
+				};
+			}
+		}),
 		cartCheckout: builder.mutation({
 			query: body => {
 				const user = getLoggedUser();
@@ -49,4 +64,4 @@ export const CartApi = api.injectEndpoints({
 	})
 });
 
-export const { useCartListQuery, useCartCheckoutMutation, useCartResponseMutation } = CartApi;
+export const { useCartListQuery, useCartCheckoutMutation, useCartResponseMutation, useAddToCartMutation } = CartApi;

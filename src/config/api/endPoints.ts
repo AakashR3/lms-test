@@ -28,6 +28,7 @@ export const endPoints = {
 	},
 	cart: {
 		list: "Cart/CartList", //:UserId added on url
+		addToCart: "Cart/AddToCart",
 		payment: {
 			checkout: "Payment/RazorpayCheckout",
 			response: "Payment/RazorpayResponse"
