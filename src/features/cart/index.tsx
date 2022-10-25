@@ -1,20 +1,21 @@
+import React from "react";
+import { Icon } from "@iconify/react";
 import useRazorpay, { RazorpayOptions } from "react-razorpay";
-import { MailingAddress, CartList, AgreePrivacyPolicy, EmptyCart } from "./components";
+
 import { Page, Price } from "~/components";
 import { Spinner } from "~/components/spinner";
 import { dispatch, useAppSelector } from "~/config/store";
+import { MailingAddress, CartList, AgreePrivacyPolicy, EmptyCart, CartSuccess } from "./components";
 import { changeCurrencyType, useCartCheckoutMutation, useCartListQuery, useCartResponseMutation } from "./store";
-import { Icon } from "@iconify/react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 
 type RazorpayOption = RazorpayOptions & { subscription_id?: string };
 
 function CartPage() {
 	const Razorpay = useRazorpay();
+	// const navigate = useNavigate();
 	const { isLoading, refetch } = useCartListQuery();
-	const navigate = useNavigate();
 	const [checkout, checkoutOption] = useCartCheckoutMutation();
+	const [isPaymentSuccess, setIspaymentSuccess] = React.useState<boolean>(false);
 	const [checkoutResponse, checkoutResponseOption] = useCartResponseMutation();
 	const { isCartEmpty, cartItems, isDollarCurrency } = useAppSelector((state: any) => state.cartReducer);
 
@@ -65,7 +66,8 @@ function CartPage() {
 						cartId: Data.cartId
 					}).unwrap();
 					refetch();
-					navigate("/cart-success");
+					setIspaymentSuccess(true);
+					// navigate("/cart-success");
 				}
 			};
 			const rzpay = new Razorpay(options);
@@ -85,6 +87,8 @@ function CartPage() {
 	};
 
 	if (isLoading || isCartEmpty) return isLoading ? <Spinner /> : <EmptyCart />;
+
+	if (isPaymentSuccess) return <CartSuccess />;
 
 	return (
 		<Page title="Cart">
