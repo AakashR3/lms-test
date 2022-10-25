@@ -7,6 +7,9 @@ import NewCourses from "../components/NewCourses";
 import DashboardHelp from "../components/DashboardHelp";
 import TimeSpent from "../components/TimeSpent";
 import ContinueLearning from "../components/ContinueLearning";
+import UpcomingEvents from "../components/UpcomingEvents";
+import Transcript from "../components/Transcript";
+import NewCoursesRecommended from "../components/NewCoursesRecommended";
 const RoleDashboard = () => {
 	return (
 		<>
@@ -19,8 +22,13 @@ const RoleDashboard = () => {
 				</div>
 				<ContinueLearning />
 				<LearningPath />
+				<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
+					<UpcomingEvents />
+					<Transcript />
+				</div>
 				<TimeSpent />
 				<NewCourses />
+				<NewCoursesRecommended />
 				<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
 					<DashboardHelp />
 				</div>
