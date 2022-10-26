@@ -1,10 +1,11 @@
 export const login = {
-	title: "Log In",
-	btnTxt: "Log In",
-	forgotPasswordText: "Forgot your password?",
-	ssoLinkText: "Log in with your organization",
+	title: "Sign In",
+	btnTxt: "Sign in",
+	forgotPasswordText: "Forgot password?",
+	ssoLinkText: "Have organization Sign In? ",
+	ssoLink: "use Single Sign On",
 	connectWithText: "You can also continue with",
-	createAccountText: "Don't have an account yet?",
+	createAccountText: "Don’t have an account? ",
 	createAccountBtnLink: "Sign up",
 	form: {
 		email: {

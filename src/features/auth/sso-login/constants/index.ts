@@ -7,7 +7,7 @@ export const sso = {
 	btnTxt: "Proceed",
 	form: {
 		domain: {
-			placeholder: "Domain",
+			placeholder: "Domain name",
 			error: {
 				required: "Domain is required",
 				regex: "Invalid domain"

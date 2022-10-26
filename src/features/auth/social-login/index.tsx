@@ -1,22 +1,27 @@
-import React from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import classNames from "classnames";
 
 import { Facebook, Google, LinkedIn } from "~/features/auth/social-login/components";
 
-function SocialLogin() {
+function SocialLogin({ signup }: { signup?: boolean }) {
+	const renderDivider = () => (
+		<div className="my-7 flex items-center space-x-3">
+			<div className="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
+			<p>{signup ? "OR SIGN UP WITH EMAIL" : "OR"}</p>
+			<div className="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
+		</div>
+	);
 	return (
-		<section className="flex-col mt-10 space-y-5">
-			<div className="relative">
-				<hr className="h-1 w-full" />
-				<span className="text-sm absolute -top-3 bg-white pr-2">You can also continue with</span>
-			</div>
-			<div className="flex space-x-3">
+		<section className="flex-col mt-6 space-y-5">
+			{!signup && renderDivider()}
+			<div className={classNames("flex space-x-3", { "mb-10": signup })}>
 				<GoogleOAuthProvider clientId={import.meta.env.VITE_G_CLIENT_ID}>
 					<Google />
 				</GoogleOAuthProvider>
-				<LinkedIn />
 				<Facebook />
+				<LinkedIn />
 			</div>
+			{signup && renderDivider()}
 		</section>
 	);
 }

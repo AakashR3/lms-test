@@ -1,8 +1,8 @@
 export const forgotPassword = {
-	title: "Lost your password?",
-	description: "Please enter your email address. You will receive a link to create a new password via email.",
-	loginText: "Back to login",
-	btnTxt: "Reset Password",
+	title: "Forgot password",
+	description: "Enter your email and we'll send you instructions on how to reset your password.",
+	loginText: "Sign In",
+	btnTxt: "Send instructions",
 	form: {
 		email: {
 			placeholder: "Email",

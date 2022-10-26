@@ -4,8 +4,13 @@ import { BackToLogin, DomainForm } from "~/features/auth/sso-login/components";
 function SsoLoginPage() {
 	return (
 		<div className="flex w-full max-w-md grow flex-col justify-center p-5 bg-white">
-			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">{sso.title}</h1>
-			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">{sso.description}</p>
+			<div className="text-center">
+				<img className="mx-auto h-16 w-16 lg:hidden" src="/assets/images/logo.png" alt="logo" />
+				<div className="mt-4">
+					<h2 className="text-3xl font-semibold text-slate-600 dark:text-navy-100">{sso.title}</h2>
+					<p className="text-slate-400 dark:text-navy-300 mt-2 text-sm+">{sso.description}</p>
+				</div>
+			</div>
 			<DomainForm />
 			<BackToLogin />
 		</div>

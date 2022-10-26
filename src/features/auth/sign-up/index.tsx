@@ -1,20 +1,27 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 
 import SocialLogin from "~/features/auth/social-login";
 import { signUp } from "~/features/auth/sign-up/constants";
 import { BackToLogin, SignUpForm } from "~/features/auth/sign-up/components";
 import { useAppSelector } from "~/config/store";
 import { VerifyOtp } from "~/features/auth/sign-up/components/VerifyOtp";
+import { SsoPageLink } from "../login/components";
 
 function SignUpPage() {
 	const isVerified = useAppSelector((state: any) => state.authSignUp.isVerified);
 	return (
 		<Fragment>
-			<section className="flex w-full max-w-md grow flex-col justify-center p-5 bg-white">
-				<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2">{signUp.title}</h1>
-				<BackToLogin />
+			<section className="flex w-full max-w-lg grow flex-col justify-center p-5 bg-white">
+				<div className="text-center">
+					<img className="mx-auto h-16 w-16 lg:hidden" src="/assets/images/logo.png" alt="logo" />
+					<div className="mt-4">
+						<h2 className="text-3xl font-semibold text-slate-600 dark:text-navy-100">{signUp.title}</h2>
+						<BackToLogin />
+					</div>
+				</div>
+				<SocialLogin signup />
 				<SignUpForm />
-				<SocialLogin />
+				<SsoPageLink />
 			</section>
 			{isVerified && <VerifyOtp />}
 		</Fragment>

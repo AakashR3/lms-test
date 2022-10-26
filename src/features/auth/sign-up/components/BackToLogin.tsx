@@ -5,10 +5,13 @@ import { navigateLink } from "~/config/api/links";
 import { signUp } from "~/features/auth/sign-up/constants";
 
 export const BackToLogin = React.memo(() => (
-	<div className="tracking-wide text-sm font-normal text-[rgba(0,0,0,0.6)] mb-7">
-		<span>{signUp.loginText} </span>
-		<Link to={navigateLink.auth.login} className="text-[#1869B3] underline">
+	<p className="mt-4 text-center text-sm+">
+		<span>{signUp.loginText}</span>
+		<Link
+			to={navigateLink.auth.login}
+			className="inline-block text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent underline"
+		>
 			{signUp.loginLinkText}
 		</Link>
-	</div>
+	</p>
 ));

@@ -21,38 +21,20 @@ export function FloatingLabelInput(props: IFloatingLabelInput) {
 	}
 
 	return (
-		<div
-			className={[
-				"h-12 relative border rounded-md bg-white text-[rgba(0,0,0,0.6)] w-full border-color[#D7DBE0]",
-				error ? "border-red-400" : "border-color[#D7DBE0]"
-			].join(" ")}
-		>
+		<label className="block relative ">
+			<span>{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}</span>
 			<input
 				autoComplete="off"
-				className={[
-					"autofill:(bg-white text-[rgba(0,0,0,0.6)]) h-12 leading-8 outline-none cursor-text w-full rounded-md bg-transparent text-sm transition-all duration-200 ease-in-out py-2 px-3",
-					active ? "pt-6" : "",
-					type === "password" ? "pr-11" : "",
-					handleVerify ? "pr-24" : ""
-				].join(" ")}
-				id={name || register?.name}
+				className="form-input mt-1.5 w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+				placeholder={name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}
 				type={showPassword ? "text" : type || "text"}
 				{...register}
 				onChange={handleActivation}
 			/>
-			<label
-				className={[
-					"select-none absolute capitalize cursor-text h-12 top-0 left-0 flex items-center py-2 px-3 transition-all duration-200 ease-in-out",
-					active ? "text-[10px] h-auto" : "text-sm"
-				].join(" ")}
-				htmlFor={name || register?.name}
-			>
-				{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}
-			</label>
 			{handleVerify && isVerify && (
 				<button
 					onClick={() => handleVerify()}
-					className="absolute capitalize rounded-t top-0 bg-white right-0 h-11 w-auto text-sm pr-3 text-blue-500 inline-flex items-center justify-center focus:outline-none"
+					className="absolute capitalize rounded-t bg-white right-0 h-11 w-auto text-sm pr-3 text-blue-500 inline-flex items-center justify-center focus:outline-none"
 				>
 					Verify email
 				</button>
@@ -60,7 +42,7 @@ export function FloatingLabelInput(props: IFloatingLabelInput) {
 			{type === "password" && (
 				<button
 					onClick={() => setShowPassword(!showPassword)}
-					className="absolute top-0 right-0 h-11 w-12 inline-flex items-center justify-center focus:outline-none"
+					className="absolute right-0 h-12 w-12 inline-flex items-center justify-center focus:outline-none"
 				>
 					<Icon
 						color="rgba(55, 65, 81, 1)"
@@ -69,6 +51,6 @@ export function FloatingLabelInput(props: IFloatingLabelInput) {
 					/>
 				</button>
 			)}
-		</div>
+		</label>
 	);
 }
