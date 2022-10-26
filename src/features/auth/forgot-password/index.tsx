@@ -27,7 +27,7 @@ function ForgotPasswordPage() {
 		<div className="flex w-full max-w-md grow flex-col justify-center p-5 bg-white">
 			<BackToLogin />
 			<div className="text-center">
-				<img className="mx-auto h-16 w-16 lg:hidden" src="/assets/images/logo.png" alt="logo" />
+				<img className="mx-auto mb-5 lg:hidden" src="/assets/images/logo.png" alt="logo" />
 				<div className="mt-4">
 					<h2 className="text-3xl font-semibold text-slate-600 dark:text-navy-100">{forgotPassword.title}</h2>
 					<p className="text-slate-400 dark:text-navy-300 mt-2 text-sm+">{forgotPassword.description}</p>
