@@ -77,12 +77,12 @@ function CartPage() {
 	);
 
 	const handleCheckout = () => {
-		const { cartId, purchaseType, subscriptionId, planCode } = cartItems[0];
+		const { CartID, PurchaseType, SubscriptionID, PlanCode } = cartItems[0];
 		checkout({
-			planCode,
-			purchaseType,
-			subscriptionId,
-			cartId
+			PlanCode,
+			PurchaseType,
+			SubscriptionID,
+			CartID
 		}).then(handleRazorpayPayment);
 	};
 
@@ -97,7 +97,30 @@ function CartPage() {
 					<Spinner />
 				</div>
 			)}
-			<section className="flex gap-4">
+			<div className="alert flex overflow-hidden rounded-lg bg-info/10 text-info dark:bg-info/15">
+				<div className="w-1.5 text-info" />
+				<div className="flex flex-1 items-center space-x-3 p-4">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+					<div className="flex-1">
+						System will support purchase of one cart item for now. Kindly remove the other items or system
+						will consider only the first item displayed in the cart.
+					</div>
+				</div>
+			</div>
+			<section className="flex gap-4 mt-5">
 				<CartList />
 				<div className="flex shirnk-0 flex-col gap-4 w-1/3">
 					<MailingAddress />
@@ -128,7 +151,7 @@ function CartPage() {
 							<p className="flex-1 text-sm truncate">Total Price</p>
 							<Price
 								isDollarCurrency={isDollarCurrency}
-								price={isDollarCurrency ? cartItems[0].price_usd : cartItems[0].price_inr}
+								price={isDollarCurrency ? cartItems[0].Price_USD : cartItems[0].Price_INR}
 							/>
 						</div>
 
@@ -141,7 +164,7 @@ function CartPage() {
 							<p className="flex-1 text-sm truncate">Summary</p>
 							<Price
 								isDollarCurrency={isDollarCurrency}
-								price={isDollarCurrency ? cartItems[0].price_usd : cartItems[0].price_inr}
+								price={isDollarCurrency ? cartItems[0].Price_USD : cartItems[0].Price_INR}
 							/>
 						</div>
 					</div>

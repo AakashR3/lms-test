@@ -1,8 +1,9 @@
 import { toast } from "react-hot-toast";
 import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
-import { addRootReducer } from "~/config/store/reducers";
-import { notify } from "~/helpers";
+
 import { CartApi } from "./query";
+import { notify } from "~/helpers";
+import { addRootReducer } from "~/config/store/reducers";
 
 const { cartList, cartCheckout, cartResponse, addToCart } = CartApi.endpoints;
 

@@ -12,7 +12,7 @@ function AppLayout() {
 	return (
 		<Fragment>
 			<Sidebar menus={menu?.data?.Data || []} />
-			<section className="flex-1 flex flex-col">
+			<section className="flex-1 flex flex-col" style={{ width: "calc(100% - var(--main-sidebar-width))" }}>
 				<Header {...points?.data?.Data} />
 				<main className="flex-1 overflow-auto">
 					<Outlet />

@@ -1,9 +1,9 @@
 import { IInterface } from "~/components";
 
 export interface Cart extends IInterface {
-	cartId: string;
-	title: string;
-	description: string;
+	CartID: string;
+	Title: string;
+	Description: string;
 	courseCount: string;
-	course_duration: string;
+	CourseDuration: string;
 }

@@ -1,8 +1,11 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { Modal } from "~/components";
+import { getLoggedUser } from "~/helpers/auth";
 
 export const MailingAddress = React.memo(() => {
+	const user = getLoggedUser();
+	console.log(user);
 	const [isEditAddress, setEditAddress] = React.useState<boolean>(false);
 	return (
 		<React.Fragment>
@@ -19,8 +22,10 @@ export const MailingAddress = React.memo(() => {
 					</button>
 				</div>
 				<div className="pt-2 text-base">
-					<p>Steve Jonas</p>
-					<p>stevejonas@gmail.com</p>
+					<p>
+						{user.FirstName} {user.LastName}
+					</p>
+					<p>{user.Email}</p>
 					<address className="mt-5">
 						Room #1 - Grounud Floor, AL hington building, 24 B street, India 620 001
 					</address>
