@@ -18,6 +18,7 @@ function AppRouter() {
 						<Route index element={<BasicDashboard />} />
 						<Route path="/role" element={<RoleDashboardContainer />} />
 						<Route path="cart" element={<CartPage />} />
+						<Route path="cart-success" element={<>Payment Successfully completed</>} />
 						<Route path="*" element={<PageNotFound />} />
 					</Route>
 					<Route path="auth">
@@ -31,6 +32,7 @@ function AppRouter() {
 					<Route path="forgot-password" element={<ForgotPasswordPage />} />
 					<Route path="sso-login" element={<SsoLoginPage />} />
 					<Route path="authorize" element={<SsoLoginAuthorize />} />
+					<Route path="logout" element={<AppLogout />} />
 				</Route>
 				<Route path="linkedin" element={<LinkedInCallback />} />
 				<Route path="account">

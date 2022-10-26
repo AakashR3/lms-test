@@ -1,11 +1,13 @@
 import { Icon } from "@iconify/react";
+import { getLoggedUser } from "~/helpers/auth";
 const HeroSection = () => {
+	const { FirstName } = getLoggedUser();
 	return (
 		<div className="relative flex  w-full flex-col break-words rounded-lg  bg-gradient-to-l from-pink-300 to-indigo-400   shadow-soft print:border px-7 sm:px-5;">
 			<div className=" flex h-auto items-center justify-between">
 				<div className="flex flex-col my-7">
 					<h2 className="font-bold tracking-wide text-white line-clamp-1 dark:text-navy-100 lg:text-xl">
-						Welcome, Steve
+						Welcome, {FirstName}
 					</h2>
 					<div className="mt-2 text-xs text-white max-w-2xl lg:text-sm">
 						<span className="font-bold">Profile completion - 60%</span>{" "}

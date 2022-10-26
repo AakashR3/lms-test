@@ -14,6 +14,7 @@
 		"@greatsumini/react-facebook-login": "^3.2.1",
 		"@hookform/resolvers": "^2.9.8",
 		"@react-oauth/google": "^0.2.8",
+		"@recurly/react-recurly": "^1.2.4",
 		"@reduxjs/toolkit": "^1.8.5",
 		"apexcharts": "^3.36.0",
 		"@tippyjs/react": "^4.2.6",
@@ -29,8 +30,11 @@
 		"react-hot-toast": "^2.3.0",
 		"react-linkedin-login-oauth2": "^2.0.1",
 		"react-otp-input": "^2.4.0",
+		"react-razorpay": "^1.1.5",
 		"react-redux": "^8.0.2",
 		"react-router-dom": "^6.3.0",
+		"recharts": "^2.1.14",
+		"tailwindcss-classnames": "^3.0.6",
 		"yup": "^0.32.11"
 	},
 	"devDependencies": {

@@ -1,5 +1,10 @@
 export const endPoints = {
 	baseUrl: import.meta.env.VITE_API_URL,
+	common: {
+		menu: "HeadersAndMenu/GetMenuItems", //:UserId added on url
+		points: "HeadersAndMenu/GetPoints", //:UserId added on url
+		nofitication: "HeadersAndMenu/GetUserNotification" //:UserId added on url
+	},
 	auth: {
 		login: "User/UserAuthentication",
 		forgotPassword: "User/ForgotPassword",
@@ -7,6 +12,7 @@ export const endPoints = {
 		verifyOtp: "User/VerifyOTP",
 		verifyEmailLink: "User/VerifyEmailLink",
 		ssoRequest: "User/SSORequest",
+		TokenValidation: "User/TokenValidation",
 		socialLogin: "User/SocialValidation",
 		linkedInLogin: "User/LinkedinValidation",
 		logout: "User/UserLogout"
@@ -20,6 +26,14 @@ export const endPoints = {
 		trendingSubscriptionByCode: "Dashboard/TrendingSubscription/:currencyCode",
 		catalogList: "Dashboard/CatalogList",
 		CourseListInProgress: "Dashboard/CourseListInProgress/:userID"
+	},
+	cart: {
+		list: "Cart/CartList", //:UserId added on url
+		addToCart: "Cart/AddToCart",
+		payment: {
+			checkout: "Payment/RazorpayCheckout",
+			response: "Payment/RazorpayResponse"
+		}
 	}
 };
 

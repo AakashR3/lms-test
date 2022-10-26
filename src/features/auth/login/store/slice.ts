@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
 import { notify } from "~/helpers";
 import * as auth from "~/helpers/auth";
 import { LoginApi } from "~/features/auth/login/store";
 import { addRootReducer } from "~/config/store/reducers";
 
-const { login } = LoginApi.endpoints;
+const { login, userLogout } = LoginApi.endpoints;
 const slice = createSlice({
 	name: "auth_login",
 	initialState: {},
@@ -14,9 +14,9 @@ const slice = createSlice({
 		builder
 			.addMatcher(login.matchFulfilled, (state, action: any) => {
 				const { Data } = action.payload;
-				auth.login(Data.SessionId);
+				auth.login(Data.TokenId);
 			})
-			.addMatcher(login.matchRejected, (state, action: any) => {
+			.addMatcher(isAnyOf(login.matchRejected, userLogout.matchRejected), (state, action: any) => {
 				const { data } = action.payload;
 				notify("login_error_message", data);
 			});

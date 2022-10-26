@@ -1,15 +1,23 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
+import { Spinner } from "~/components/spinner";
+
+import { useUserMenuQuery, useUserPointsQuery } from "~/config/api";
 import { Header, Sidebar } from "~/layout/app/components";
 
 function AppLayout() {
+	const menu = useUserMenuQuery();
+	const points = useUserPointsQuery();
+	if (menu.isLoading || points.isLoading) return <Spinner />;
 	return (
 		<Fragment>
-			<Sidebar />
-			<Header />
-			<main className="mt-[60px] grid grid-cols-1 place-content-start transition-[width,margin-left,margin-right,padding-left,padding-right] duration-[.25s] ease-in print:m-0 md:ml-[var(--main-sidebar-width)] w-full px-[var(--margin-x)] pb-8">
-				<Outlet />
-			</main>
+			<Sidebar menus={menu?.data?.Data || []} />
+			<section className="flex-1 flex flex-col">
+				<Header {...points?.data?.Data} />
+				<main className="flex-1 overflow-auto">
+					<Outlet />
+				</main>
+			</section>
 		</Fragment>
 	);
 }

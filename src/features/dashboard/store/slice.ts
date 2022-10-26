@@ -38,8 +38,8 @@ const slice = createSlice({
 				state.courseListInProgress = payload;
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
-				const { message } = action.error;
-				notify("dashboard_error-messages", message);
+				const { message } = action.data;
+				notify("dashboard_error_messages", message);
 			});
 	}
 });
