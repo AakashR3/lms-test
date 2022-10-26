@@ -2,8 +2,14 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { addRootReducer } from "~/config/store/reducers";
 import { dashboardApi } from "~/features/dashboard/store";
 import { notify } from "~/helpers";
-const { getCourseList, trendingSubscriptionByCurrencyCode, getCatalogList, getCourseListInProgress } =
-	dashboardApi.endpoints;
+const {
+	getCourseList,
+	trendingSubscriptionByCurrencyCode,
+	getCatalogList,
+	getCourseListInProgress,
+	getTranscriptList,
+	getLeaderBoard
+} = dashboardApi.endpoints;
 const rejectedMatches = isAnyOf(
 	getCourseList.matchRejected,
 	trendingSubscriptionByCurrencyCode.matchRejected,
@@ -16,7 +22,9 @@ const slice = createSlice({
 		courseList: [],
 		trendingSubscription: [],
 		catalogList: [],
-		courseListInProgress: []
+		courseListInProgress: [],
+		transcriptList: [],
+		leaderBoard: []
 	},
 	reducers: {},
 	extraReducers(builder) {
@@ -36,6 +44,16 @@ const slice = createSlice({
 			.addMatcher(getCourseListInProgress.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.courseListInProgress = payload;
+			})
+			.addMatcher(getTranscriptList.matchFulfilled, (state, action: any) => {
+				const payload: any = action.payload;
+				state.transcriptList = payload;
+				console.log(state.transcriptList);
+			})
+			.addMatcher(getLeaderBoard.matchFulfilled, (state, action: any) => {
+				const payload: any = action.payload;
+				state.leaderBoard = payload;
+				console.log(state.leaderBoard);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { message } = action.data;
