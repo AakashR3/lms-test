@@ -33,6 +33,21 @@ export const CartApi = api.injectEndpoints({
 				};
 			}
 		}),
+		removeCartItem: builder.mutation({
+			query: (CartID): any => {
+				const user = getLoggedUser();
+				console.log(CartID);
+				return {
+					url: endPoints.cart.removeCartItem,
+					method: "DELETE",
+					body: {
+						UserID: user.UserId,
+						CartID
+					}
+				};
+			}
+		}),
+
 		cartCheckout: builder.mutation({
 			query: body => {
 				const user = getLoggedUser();
@@ -64,4 +79,10 @@ export const CartApi = api.injectEndpoints({
 	})
 });
 
-export const { useCartListQuery, useCartCheckoutMutation, useCartResponseMutation, useAddToCartMutation } = CartApi;
+export const {
+	useCartListQuery,
+	useCartCheckoutMutation,
+	useCartResponseMutation,
+	useAddToCartMutation,
+	useRemoveCartItemMutation
+} = CartApi;

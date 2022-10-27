@@ -5,13 +5,14 @@ import { CartApi } from "./query";
 import { notify } from "~/helpers";
 import { addRootReducer } from "~/config/store/reducers";
 
-const { cartList, cartCheckout, cartResponse, addToCart } = CartApi.endpoints;
+const { cartList, cartCheckout, cartResponse, addToCart, removeCartItem } = CartApi.endpoints;
 
 const rejectedMatches = isAnyOf(
 	cartList.matchRejected,
 	cartCheckout.matchRejected,
 	cartResponse.matchRejected,
-	addToCart.matchRejected
+	addToCart.matchRejected,
+	removeCartItem.matchRejected
 );
 
 const initialState = {
@@ -32,11 +33,12 @@ const cartSlice = createSlice({
 		builder
 			.addMatcher(cartList.matchFulfilled, (state, action: any) => {
 				const { Data } = action.payload;
-				state.isCartEmpty = !Data.length;
-				state.cartItems = Data;
+				state.isCartEmpty = !Data?.length;
+				state.cartItems = Data || [];
 			})
-			.addMatcher(addToCart.matchFulfilled, (state, action: any) => {
-				toast.success("Items added to cart successfully");
+			.addMatcher(isAnyOf(addToCart.matchFulfilled, removeCartItem.matchFulfilled), (state, action: any) => {
+				const { Message } = action.payload;
+				toast.success(Message);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { data } = action.payload;
