@@ -24,7 +24,10 @@ export const endPoints = {
 	dashboard: {
 		courseList: "Dashboard/NewCoursesList",
 		trendingSubscriptionByCode: "Dashboard/TrendingSubscription/:currencyCode",
-		catalogList: "Dashboard/CatalogList"
+		catalogList: "Dashboard/CatalogList",
+		CourseListInProgress: "Dashboard/CourseListInProgress/:userID",
+		TranscriptList: "Dashboard/TranscriptList/:userID",
+		LeaderBoard: "Dashboard/GetLeaderBoard/:accountID"
 	},
 	cart: {
 		list: "Cart/CartList", //:UserId added on url
