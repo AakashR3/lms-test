@@ -8,7 +8,8 @@ const {
 	getCatalogList,
 	getCourseListInProgress,
 	getTranscriptList,
-	getLeaderBoard
+	getLeaderBoard,
+	getUpcomingEventsList
 } = dashboardApi.endpoints;
 const rejectedMatches = isAnyOf(
 	getCourseList.matchRejected,
@@ -24,7 +25,8 @@ const slice = createSlice({
 		catalogList: [],
 		courseListInProgress: [],
 		transcriptList: [],
-		leaderBoard: []
+		leaderBoard: [],
+		upcomingEventsList: []
 	},
 	reducers: {},
 	extraReducers(builder) {
@@ -48,12 +50,20 @@ const slice = createSlice({
 			.addMatcher(getTranscriptList.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.transcriptList = payload;
+				console.log("transcriptList");
 				console.log(state.transcriptList);
 			})
 			.addMatcher(getLeaderBoard.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.leaderBoard = payload;
+				console.log("leaderBoard");
 				console.log(state.leaderBoard);
+			})
+			.addMatcher(getUpcomingEventsList.matchFulfilled, (state, action: any) => {
+				const payload: any = action.payload;
+				state.upcomingEventsList = payload;
+				console.log("upcomingEventsList");
+				console.log(state.upcomingEventsList);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { message } = action.data;

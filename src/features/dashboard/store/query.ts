@@ -30,6 +30,14 @@ export const dashboardApi = api.injectEndpoints({
 			query: accountID => ({
 				url: endPoints.dashboard.LeaderBoard.replace(":accountID", accountID)
 			})
+		}),
+		getUpcomingEventsList: builder.query({
+			query: ({ userID, eventPeriod }) => ({
+				url: endPoints.dashboard.UpcomingEventsList.replace(":userID", userID).replace(
+					":eventPeriod",
+					eventPeriod
+				)
+			})
 		})
 	})
 });
@@ -40,5 +48,6 @@ export const {
 	useGetCatalogListQuery,
 	useGetCourseListInProgressQuery,
 	useGetTranscriptListQuery,
-	useGetLeaderBoardQuery
+	useGetLeaderBoardQuery,
+	useGetUpcomingEventsListQuery
 } = dashboardApi;

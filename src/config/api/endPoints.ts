@@ -27,7 +27,8 @@ export const endPoints = {
 		catalogList: "Dashboard/CatalogList",
 		CourseListInProgress: "Dashboard/CourseListInProgress/:userID",
 		TranscriptList: "Dashboard/TranscriptList/:userID",
-		LeaderBoard: "Dashboard/GetLeaderBoard/:accountID"
+		LeaderBoard: "Dashboard/GetLeaderBoard/:accountID",
+		UpcomingEventsList: "Dashboard/UpcomingEventsList/:userID/:eventPeriod"
 	},
 	cart: {
 		list: "Cart/CartList", //:UserId added on url

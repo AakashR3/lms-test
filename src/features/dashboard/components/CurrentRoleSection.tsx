@@ -1,5 +1,82 @@
 import { useState } from "react";
 import CircularProgress from "./CircleProgressBar";
+import Chart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
+
+const chartOptions: ApexOptions = {
+	chart: {
+		id: "basic-bar",
+		zoom: {
+			enabled: false
+		},
+		toolbar: {
+			show: false
+		}
+	},
+	colors: ["#FFFFFF"],
+	grid: {
+		show: false
+	},
+	xaxis: {
+		categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+		labels: {
+			show: false
+		},
+		axisTicks: {
+			show: false
+		},
+		axisBorder: {
+			show: false
+		},
+		crosshairs: {
+			show: false
+		}
+	},
+	yaxis: {
+		min: 0,
+		max: 100,
+		tickAmount: 4,
+		labels: {
+			show: false
+		},
+		axisTicks: {
+			show: false
+		},
+		axisBorder: {
+			show: false
+		},
+		crosshairs: {
+			show: false
+		}
+	},
+	dataLabels: {
+		enabled: false
+	},
+	legend: {
+		show: false
+	},
+	markers: {
+		size: 0
+	},
+	stroke: {
+		show: true,
+		curve: "straight",
+		width: 2
+	},
+	tooltip: {
+		enabled: false
+	}
+};
+
+const data = {
+	options: chartOptions,
+	series: [
+		{
+			name: "series-1",
+			data: [0, 10, 50, 25, 75, 25, 50]
+		}
+	]
+};
 
 const CurrentRoleSection = () => {
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
@@ -79,8 +156,8 @@ const CurrentRoleSection = () => {
 						)}
 					</div>
 				</div>
-				<div className="grid grid-cols-12 ml-8 gap-4 sm:gap-5 lg:gap-6">
-					<div className="col-span-12 lg:col-span-8">
+				<div className="grid grid-cols-12 p-8 gap-4 sm:gap-5 lg:gap-6">
+					<div className="col-span-12 lg:col-span-5">
 						<p className="font-dmsans font-normal tracking-wide text-white lg:text-sm">Current role</p>
 						<p className="font-dmsans font-bold tracking-wide text-white lg:text-xl">CAE Analyst</p>
 						<div className="flex items-center tracking-wide space-x-2 mt-2 text-white max-w-2xl lg:text-sm">
@@ -94,7 +171,9 @@ const CurrentRoleSection = () => {
 							other learners in your current role!
 						</p>
 					</div>
-					<div className="col-span-12 lg:col-span-4"></div>
+					<div className="col-span-12 lg:col-span-7 hidden lg:block">
+						<Chart options={data.options} series={data.series} type="line" height={"100px"} />
+					</div>
 				</div>
 			</div>
 			<div className="col-span-12 lg:col-span-4 rounded-lg bg-gradient-to-r from-[#818CF8] to-[#F9A8D4]   shadow-soft print:border">

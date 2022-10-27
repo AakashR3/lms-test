@@ -1,21 +1,27 @@
-const events = [
+import { useGetUpcomingEventsListQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
+
+const eventsTestData = [
 	{
 		index: "01",
-		name: "Advanced part design",
-		category: "CATIA V5",
-		date: "28 Oct 2022",
-		time: "12:00:00"
+		EventName: "Advanced part design",
+		CategoryName: "CATIA V5",
+		EventDate: "28 Oct 2022",
+		EventTime: "12:00:00"
 	},
 	{
 		index: "02",
-		name: "Advanced part design",
-		category: "CATIA V5",
-		date: "28 Oct 2022",
-		time: "12:00:00"
+		EventName: "Advanced part design",
+		CategoryName: "CATIA V5",
+		EventDate: "28 Oct 2022",
+		EventTime: "12:00:00"
 	}
 ];
 
 const UpcomingEvents = () => {
+	const { data, isLoading } = useGetUpcomingEventsListQuery({ userID: "595", eventPeriod: "W" });
+	const { upcomingEventsList } = useAppSelector((state: any) => state.dashboard);
+
 	return (
 		<>
 			<div className="col-span-12 lg:col-span-8 row-span-full">
@@ -29,7 +35,9 @@ const UpcomingEvents = () => {
 								<p className="m-3 text-xs text-[#FFFFFF] font-semibold font-inter lg:text-sm">TODAY</p>
 							</div>
 							<p className="m-3 mt-6">
-								<span className="text-2xl text-[#FFFFFF] font-bold font-inter lg:text-2xl">2</span>
+								<span className="text-2xl text-[#FFFFFF] font-bold font-inter lg:text-2xl">
+									{upcomingEventsList.length}
+								</span>
 								<span className="ml-2 text-xs text-[#FFFFFF] font-inter lg:text-sm">events</span>
 							</p>
 						</div>
@@ -65,33 +73,35 @@ const UpcomingEvents = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{events.map(item => (
+								{upcomingEventsList.map((item: any, index: number) => (
 									<>
-										<tr className={"border border-slate-150"} key={item.index}>
+										<tr className={"border border-slate-150"} key={index}>
 											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 												<div className="flex text-left">
 													<p className="ml-2 text-sm font-dmsans text-[#020A12]/60">
-														{item.name}
+														{item.EventName}
 													</p>
 												</div>
 											</td>
 											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 												<div className="flex text-left">
 													<p className="text-sm font-dmsans text-[#020A12]/60">
-														{item.category}
+														{item.CategoryName}
 													</p>
 												</div>
 											</td>
 											<td className="whitespace-nowrap px-4 py-1  sm:px-5">
 												<div className="flex text-left">
 													<p className="ml-2 mt-2 text-sm font-dmsans text-[#020A12]/60">
-														{item.date}
+														{item.EventDate}
 													</p>
 												</div>
 											</td>
 											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 												<div className="flex text-left">
-													<p className="text-sm font-dmsans text-[#020A12]/60">{item.time}</p>
+													<p className="text-sm font-dmsans text-[#020A12]/60">
+														{item.EventTime}
+													</p>
 												</div>
 											</td>
 											<td className="whitespace-nowrap px-3 py-3 sm:px-5">
