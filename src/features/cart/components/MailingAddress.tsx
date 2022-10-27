@@ -5,7 +5,6 @@ import { getLoggedUser } from "~/helpers/auth";
 
 export const MailingAddress = React.memo(() => {
 	const user = getLoggedUser();
-	console.log(user);
 	const [isEditAddress, setEditAddress] = React.useState<boolean>(false);
 	return (
 		<React.Fragment>
