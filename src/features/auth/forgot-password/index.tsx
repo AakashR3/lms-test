@@ -26,12 +26,17 @@ function ForgotPasswordPage() {
 	return (
 		<div className="flex w-full max-w-md grow flex-col justify-center p-5 bg-white">
 			<BackToLogin />
-			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-2 mt-5">{forgotPassword.title}</h1>
-			<p className="tracking-wide text-sm font-normal text-[#00000099] mb-7">{forgotPassword.description}</p>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<div className="text-center">
+				<img className="mx-auto mb-5 lg:hidden" src="/assets/images/logo.png" alt="logo" />
+				<div className="mt-4">
+					<h2 className="text-3xl font-semibold text-slate-600 dark:text-navy-100">{forgotPassword.title}</h2>
+					<p className="text-slate-400 dark:text-navy-300 mt-2 text-sm+">{forgotPassword.description}</p>
+				</div>
+			</div>
+			<form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
 				<div className="form-group flex flex-col">
 					<FloatingLabelInput name={forgotPassword.form.email.placeholder} register={register("Email")} />
-					{errors.Email && <p className="mt-0.5 ml-1.5 text-xs text-red-600">{errors.Email.message}</p>}
+					{errors.Email && <p className="mt-0.5 ml-1.5 text-xs+ text-red-600">{errors.Email.message}</p>}
 				</div>
 				<button
 					disabled={!isDirty || !isValid || option.isLoading}
@@ -40,6 +45,18 @@ function ForgotPasswordPage() {
 					{forgotPassword.btnTxt}
 				</button>
 			</form>
+			<div className="mt-6 text-center text-sm">
+				<p className="line-clamp-1">
+					<span>If you are still having trouble this </span>
+					<a
+						className="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
+						href="/"
+					>
+						article
+					</a>
+					<span> might help</span>
+				</p>
+			</div>
 		</div>
 	);
 }

@@ -31,10 +31,15 @@ export const Google = React.memo(() => {
 		<button
 			disabled={option.isLoading}
 			onClick={() => login()}
-			className="btn p-0 w-12 h-12 rounded-md items-center justify-center border bg-white border-slate-300"
+			className="btn w-full space-x-3 border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90"
 		>
 			{option.isLoading && <Icon width={22} className="animate-spin" icon="bx:loader-alt" />}
-			{!option.isLoading && <Icon width={22} icon="flat-color-icons:google" />}
+			{!option.isLoading && (
+				<>
+					<Icon width={22} icon="flat-color-icons:google" />
+					<span>Google</span>
+				</>
+			)}
 		</button>
 	);
 });

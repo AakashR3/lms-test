@@ -26,7 +26,7 @@ export const LoginForm = React.memo(() => {
 	};
 
 	return (
-		<div className="login-form">
+		<div className="login-form mt-10">
 			<div className="group mb-4">
 				<FloatingLabelInput name={login.form.email.placeholder} register={register("Email")} />
 				{errors.Email && <p className="mt-0.5 ml-1.5 text-xs text-red-600">{errors.Email.message}</p>}

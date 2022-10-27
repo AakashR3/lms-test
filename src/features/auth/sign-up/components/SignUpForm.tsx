@@ -34,20 +34,20 @@ export const SignUpForm = React.memo(() => {
 		//eslint-disable-next-line
 	}, []);
 	return (
-		<section className="space-y-4">
+		<section className="space-y-4 mt-10">
 			<div className="flex flex-col space-y-1">
 				<div className="flex space-x-3">
 					<FloatingLabelInput error={!!errors?.FirstName} register={register("FirstName")} />
 					<FloatingLabelInput error={!!errors.LastName} register={register("LastName")} />
 				</div>
 				{errors.FirstName && !errors.LastName && (
-					<span className="text-red-500 text-xs ml-2">{errors.FirstName?.message}</span>
+					<span className="text-red-500 text-xs+ ml-2">{errors.FirstName?.message}</span>
 				)}
 				{!errors.FirstName && errors.LastName && (
-					<span className="text-red-500 text-xs ml-2">{errors.LastName?.message}</span>
+					<span className="text-red-500 text-xs+ ml-2">{errors.LastName?.message}</span>
 				)}
 				{errors.FirstName && errors.LastName && (
-					<span className="text-red-500 text-xs ml-2">Enter first and last names</span>
+					<span className="text-red-500 text-xs+ ml-2">Enter first and last names</span>
 				)}
 			</div>
 			<div className="w-full relative">
@@ -57,20 +57,17 @@ export const SignUpForm = React.memo(() => {
 					error={!!errors?.Email}
 					register={register("Email")}
 				/>
-				{verifyEmailOption.isLoading && (
-					<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
+				<span className="bg-white inline-flex w-24 items-center justify-end absolute top-8 right-3">
+					{verifyEmailOption.isLoading && (
 						<Icon width={22} icon="tabler:loader-2" color="#666" className="animate-spin" />
-					</span>
-				)}
-				{signup.isOtpVerified && (
-					<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
+					)}
+					{signup.isOtpVerified && (
 						<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
-					</span>
-				)}
+					)}
+				</span>
 
-				{errors.Email && <span className="text-red-500 text-xs ml-2">{errors.Email?.message}</span>}
+				{errors.Email && <span className="text-red-500 text-xs+ ml-2">{errors.Email?.message}</span>}
 			</div>
-
 			<div className="flex flex-col space-y-1">
 				<div className="flex space-x-3">
 					<FloatingLabelInput type="password" error={!!errors?.Password} register={register("Password")} />
@@ -81,12 +78,9 @@ export const SignUpForm = React.memo(() => {
 						register={register("CPassword")}
 					/>
 				</div>
-				<p className="hidden text-xs pl-2 text-[rgba(0,0,0,0.6)">
-					Use 8 or more characters with a mix of letters, numbers & symbols
-				</p>
-				{errors.Password && <span className="text-red-500 text-xs ml-2">{errors.Password?.message}</span>}
+				{errors.Password && <span className="text-red-500 text-xs+ ml-2">{errors.Password?.message}</span>}
 				{!errors.Password && getValues("Password") && errors.CPassword && (
-					<span className="text-red-500 text-xs ml-2">{errors.CPassword?.message}</span>
+					<span className="text-red-500 text-xs+ ml-2">{errors.CPassword?.message}</span>
 				)}
 			</div>
 			<div className="pt-2 flex select-none text-[#0000008A]">

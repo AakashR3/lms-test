@@ -7,7 +7,7 @@ const baseQuery = fetchBaseQuery({
 	baseUrl: endPoints.baseUrl,
 	prepareHeaders: (headers, { getState }) => {
 		// By default, if we have a token in the store, let's use that for authenticated requests
-		const token = localStorage.getItem("");
+		const token = localStorage.getItem("sessionId");
 		if (token) {
 			headers.set("authorization", `Bearer ${token}`);
 		}

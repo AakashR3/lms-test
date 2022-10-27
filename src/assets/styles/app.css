@@ -10,7 +10,8 @@
 	}
 
 	body {
-		@apply bg-slate-50 font-sans text-sm leading-5 text-slate-500;
+		@apply bg-slate-50 font-sans leading-5 text-slate-500;
+		font-size: 16px;
 		@apply dark:bg-navy-900 dark:text-navy-200 dark:[color-scheme:dark];
 	}
 	.menu-toggle span {

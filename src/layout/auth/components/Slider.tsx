@@ -66,19 +66,24 @@ export function Slider() {
 		]
 	);
 	return (
-		<section
-			className="hidden w-full place-items-start lg:grid bg-no-repeat bg-cover"
-			style={{ backgroundImage: "url(/assets/images/login.png)" }}
-		>
-			<div className="w-full max-w-xl p-6 flex flex-col mx-auto py-16 lg:px-8 xl:px-0 ">
-				<img alt="logo_w" className="mb-10" width={87} height={31} src="/assets/images/logo_w.png" />
-				<div ref={sliderRef} className="keen-slider">
+		<section className="hidden w-full place-items-center lg:grid bg-no-repeat bg-cover">
+			<div className="fixed top-0 left-0 hidden p-6 lg:block lg:px-12">
+				<a href="/" className="flex items-center space-x-2">
+					<img alt="logo_w" className="mb-10" width={87} height={31} src="/assets/images/logo.png" />
+				</a>
+			</div>
+			<div className="w-full place-items-center max-w-lg lg:grid">
+				<img className="w-auto" src="/assets/images/dashboard-check.svg" alt="d" />
+				<div ref={sliderRef} className="keen-slider my-8">
 					{dataSlider.map(slide => (
-						<div key={slide.id} className="keen-slider__slide number-slide1 w-full">
-							<h1 className="text-white font-semibold text-2xl leading-7">
-								Start learning now {slide.id}
+						<div
+							key={slide.id}
+							className="keen-slider__slide number-slide1 w-full flex flex-col items-center justify-center"
+						>
+							<h1 className="leading-7 text-2xl font-semibold text-slate-600 dark:text-navy-100">
+								Start learning now
 							</h1>
-							<p className="text-white mt-1 mt-3">
+							<p className="mt-3 text-center text-base">
 								We provide an easy to use interface with adaptive content and clear direction. You'll
 								find bitesize practical information from experts who are industry leaders in their
 								field.
@@ -87,7 +92,7 @@ export function Slider() {
 					))}
 				</div>
 				{loaded && instanceRef.current && (
-					<div className="flex space-x-2 mt-5">
+					<div className="flex space-x-2 items-center justify-center">
 						{Array.from({ length: dataSlider.length }).map((item, idx) => (
 							<button
 								key={idx}
@@ -96,8 +101,8 @@ export function Slider() {
 								}}
 								className={`${
 									currentSlide === idx
-										? "w-6 bg-white cursor-none"
-										: "cursor-pointer w-2 bg-[#93CBF1]"
+										? "w-6 bg-primary cursor-none"
+										: "cursor-pointer w-2 bg-primary/60"
 								} h-2 inline-block rounded-full ease-in-out duration-300`}
 							/>
 						))}

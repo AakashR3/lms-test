@@ -20,10 +20,10 @@ export const DomainForm = React.memo(() => {
 		await doSsoRequest({ DomainName: formData.domain }).unwrap();
 	};
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
 			<div className="form-group flex flex-col">
 				<FloatingLabelInput name={sso.form.domain.placeholder} register={register("domain")} />
-				{errors.domain && <p className="mt-0.5 ml-1.5 text-xs text-red-600">{errors.domain.message}</p>}
+				{errors.domain && <p className="mt-0.5 ml-1.5 text-xs+ text-red-600">{errors.domain.message}</p>}
 			</div>
 			<button
 				disabled={!isDirty || !isValid || option.isLoading}

@@ -1,7 +1,7 @@
 export const signUp = {
 	title: "Sign Up",
-	loginText: "Already have an account?",
-	loginLinkText: "Login",
+	loginText: "Already a user? ",
+	loginLinkText: "Sign In",
 	btnTxt: "Create Account",
 	marketingTxt: "Send me Marketing Emails about Tata Technologies Products and Services",
 	form: {
