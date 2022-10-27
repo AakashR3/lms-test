@@ -46,7 +46,9 @@ const UpcomingEvents = () => {
 								<p className="m-3 text-xs font-semibold font-inter lg:text-sm">WEEK</p>
 							</div>
 							<p className="m-3 mt-6">
-								<span className="text-2xl font-bold font-inter lg:text-2xl">8</span>
+								<span className="text-2xl font-bold font-inter lg:text-2xl">
+									{upcomingEventsList.length}
+								</span>
 								<span className="ml-2 text-xs font-inter lg:text-sm">events</span>
 							</p>
 						</div>
@@ -119,7 +121,9 @@ const UpcomingEvents = () => {
 					</div>
 
 					<div className="flex flex-col items-center bg-white justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5">
-						<div className="text-sm">1 - 2 of 2 events</div>
+						<div className="text-sm">
+							1 - {upcomingEventsList.length} of {upcomingEventsList.length} events
+						</div>
 
 						<ul className="pagination inline-flex items-center -space-x-px">
 							<li className="rounded-l-full bg-[#E9EEF5]">
