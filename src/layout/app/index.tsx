@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Spinner } from "~/components/spinner";
 
 import { useUserMenuQuery, useUserPointsQuery } from "~/config/api";
-import { Header, Sidebar } from "~/layout/app/components";
+import { Header, Sidebar, AppFooter } from "~/layout/app/components";
 
 function AppLayout() {
 	const menu = useUserMenuQuery();
@@ -17,6 +17,8 @@ function AppLayout() {
 				<main className="flex-1 overflow-auto">
 					<Outlet />
 				</main>
+				<br />
+				<AppFooter />
 			</section>
 		</Fragment>
 	);

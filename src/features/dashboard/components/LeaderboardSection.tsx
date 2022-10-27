@@ -1,26 +1,34 @@
 import { Icon } from "@iconify/react";
-const leaderBoard = [
+import { useGetLeaderBoardQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
+
+const leaderBoardTest = [
 	{
-		name: "Eleanor Pena",
-		points: 100,
+		FirstName: "Eleanor",
+		LastName: "Pena",
+		Points: 100,
 		position: 3,
 		icon: "/assets/images/profile-1.svg"
 	},
 	{
-		name: "Jane Cooper",
-		points: 99,
+		FirstName: "Jane",
+		LastName: "Cooper",
+		Points: 99,
 		position: 2,
 		icon: "/assets/images/profile-2.svg"
 	},
 	{
-		name: "Robert Fox",
-		points: 98,
+		FirstName: "Robert",
+		LastName: "Fox",
+		Points: 98,
 		position: 1,
 		icon: "/assets/images/profile-3.svg"
 	},
 	{
 		name: "You",
-		points: 5,
+		FirstName: "You",
+		LastName: "",
+		Points: 5,
 		position: 1,
 		icon: "/assets/images/profile-4.svg"
 	}
@@ -30,6 +38,9 @@ interface IProps {
 	type?: string;
 }
 const LeaderboardSection = ({ type }: IProps) => {
+	const { data, isLoading } = useGetLeaderBoardQuery("154067");
+	const { leaderBoard } = useAppSelector((state: any) => state.dashboard);
+
 	return (
 		<div className="col-span-12 lg:col-span-4">
 			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
@@ -61,24 +72,24 @@ const LeaderboardSection = ({ type }: IProps) => {
 								</tr>
 							</thead>
 							<tbody>
-								{leaderBoard.map(item => (
+								{leaderBoardTest.map((item: any, index: number) => (
 									<tr className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
 										<td className="whitespace-nowrap px-4 py-1  sm:px-5">
 											<div className="flex items-center">
 												<img src={item.icon} alt="icon" />
 												<span
 													className={`ml-3  font-bold   text-xs+ ${
-														item.name === "You" ? "text-primary " : "text-slate-500"
+														item.FirstName === "You" ? "text-primary " : "text-slate-500"
 													}`}
 												>
-													{item.name}
+													{item.FirstName} {item.LastName}
 												</span>
 											</div>
 										</td>
 										<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 											<div className="flex items-center">
 												<Icon icon="mingcute:copper-coin-line" color="rgba(250, 164, 26, 1)" />
-												<span className="ml-2 font-bold   text-xs+  ">{item.points}</span>
+												<span className="ml-2 font-bold   text-xs+  ">{item.Points}</span>
 											</div>
 										</td>
 										<td className="whitespace-nowrap px-3 py-3 sm:px-5">
