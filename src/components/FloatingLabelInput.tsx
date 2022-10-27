@@ -22,7 +22,7 @@ export function FloatingLabelInput(props: IFloatingLabelInput) {
 
 	return (
 		<label className="block relative ">
-			<span>{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}</span>
+			<span className="text-sm">{name || register?.name?.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}</span>
 			<input
 				autoComplete="off"
 				className="form-input mt-1.5 w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
@@ -34,7 +34,7 @@ export function FloatingLabelInput(props: IFloatingLabelInput) {
 			{handleVerify && isVerify && (
 				<button
 					onClick={() => handleVerify()}
-					className="absolute capitalize rounded-t bg-white right-0 h-11 w-auto text-sm pr-3 text-blue-500 inline-flex items-center justify-center focus:outline-none"
+					className="absolute capitalize rounded-t bg-white right-1 top-7 h-8 w-auto text-xs+ pr-3 text-blue-500 inline-flex items-center justify-center focus:outline-none"
 				>
 					Verify email
 				</button>

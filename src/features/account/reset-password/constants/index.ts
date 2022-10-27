@@ -1,5 +1,5 @@
 export const resetPassword = {
 	title: "Reset password",
-	description: "Enter your email and we'll send you instructions on how to reset your password.",
+	description: "Enter your new password twice and try to not forget it.",
 	btnTxt: "Set Password"
 };

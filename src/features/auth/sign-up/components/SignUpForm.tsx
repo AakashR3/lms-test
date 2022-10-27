@@ -57,16 +57,14 @@ export const SignUpForm = React.memo(() => {
 					error={!!errors?.Email}
 					register={register("Email")}
 				/>
-				{verifyEmailOption.isLoading && (
-					<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
+				<span className="bg-white inline-flex w-24 items-center justify-end absolute top-8 right-3">
+					{verifyEmailOption.isLoading && (
 						<Icon width={22} icon="tabler:loader-2" color="#666" className="animate-spin" />
-					</span>
-				)}
-				{signup.isOtpVerified && (
-					<span className="bg-white inline-flex w-24 h-10 items-center justify-end absolute top-1 right-3">
+					)}
+					{signup.isOtpVerified && (
 						<Icon width={24} icon="mdi:email-check-outline" className="text-green-500" />
-					</span>
-				)}
+					)}
+				</span>
 
 				{errors.Email && <span className="text-red-500 text-xs+ ml-2">{errors.Email?.message}</span>}
 			</div>

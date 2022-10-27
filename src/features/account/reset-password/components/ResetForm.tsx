@@ -42,12 +42,8 @@ export const ResetForm = React.memo(() => {
 	}, []);
 
 	return (
-		<div className="flex-1 flex items-center max-w-lg mx-auto mt-20 flex-col px-8 w-full h-full">
-			<h1 className="tracking-wide font-bold text-2xl leading-7 mb-7 mt-5 capitalize">{resetPassword.title}</h1>
-			<p className="hidden tracking-wide text-center text-sm font-normal text-[#00000099] mb-7">
-				{resetPassword.description}
-			</p>
-			<div className="w-full space-y-3">
+		<>
+			<div className="mt-6 w-full space-y-5">
 				<div className="w-full">
 					<FloatingLabelInput name="New Password" type="password" register={register("Password")} />
 					{errors.Password && <span className="text-red-500 text-xs ml-2">{errors.Password?.message}</span>}
@@ -64,6 +60,6 @@ export const ResetForm = React.memo(() => {
 			>
 				{resetPassword.btnTxt}
 			</button>
-		</div>
+		</>
 	);
 });
