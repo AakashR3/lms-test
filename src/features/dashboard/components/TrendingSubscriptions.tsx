@@ -62,7 +62,7 @@ const TrendingSubscriptions = () => {
 					{!isLoading &&
 						trendingSubscription.map((item: any, index: number) => (
 							<div
-								key={item.id}
+								key={index}
 								className={`bg-white px-5 py-5   rounded-lg  keen-slider__slide number-slide${index} `}
 							>
 								<img src={"assets/images/user-pic.svg"} alt="icon" />

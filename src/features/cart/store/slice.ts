@@ -38,11 +38,11 @@ const cartSlice = createSlice({
 			})
 			.addMatcher(isAnyOf(addToCart.matchFulfilled, removeCartItem.matchFulfilled), (state, action: any) => {
 				const { Message } = action.payload;
-				toast.success(Message);
+				toast.success(Message, { id: "cart_error_message" });
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
-				const { data } = action.payload;
-				notify("cart_error_message", data);
+				const payload = action.payload;
+				if (payload?.data) notify("cart_error_message", payload?.data);
 			});
 	}
 });

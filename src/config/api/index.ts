@@ -5,7 +5,7 @@ import { getLoggedUser } from "~/helpers/auth";
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
 	baseUrl: endPoints.baseUrl,
-	prepareHeaders: (headers, { getState }) => {
+	prepareHeaders: headers => {
 		// By default, if we have a token in the store, let's use that for authenticated requests
 		const token = localStorage.getItem("sessionId");
 		if (token) {

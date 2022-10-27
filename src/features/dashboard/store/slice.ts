@@ -10,6 +10,7 @@ const {
 	getTranscriptList,
 	getLeaderBoard
 } = dashboardApi.endpoints;
+
 const rejectedMatches = isAnyOf(
 	getCourseList.matchRejected,
 	trendingSubscriptionByCurrencyCode.matchRejected,
@@ -48,16 +49,14 @@ const slice = createSlice({
 			.addMatcher(getTranscriptList.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.transcriptList = payload;
-				console.log(state.transcriptList);
 			})
 			.addMatcher(getLeaderBoard.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.leaderBoard = payload;
-				console.log(state.leaderBoard);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
-				const { message } = action.data;
-				notify("dashboard_error_messages", message);
+				const data = action.payload;
+				if (data) notify("dashboard_error_messages", data);
 			});
 	}
 });

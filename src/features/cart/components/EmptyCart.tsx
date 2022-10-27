@@ -10,10 +10,10 @@ export const EmptyCart = React.memo(() => (
 			Please check your payment details / internet connection and try again
 		</p>
 		<Link
-			to="/library"
+			to="/learning"
 			className="hover:(bg-gray-50) rounded text-[#020A1299] border bg-white py-1 px-3 font-medium font-sm flex justify-center items-center gap-2"
 		>
-			<span>Go to library</span>
+			<span>Go to learning</span>
 			<Icon icon="heroicons-solid:arrow-narrow-right" fontSize={20} />
 		</Link>
 	</section>

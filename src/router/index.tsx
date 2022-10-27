@@ -16,9 +16,13 @@ function AppRouter() {
 				<Route path="/" element={<ProtectedRoute />}>
 					<Route path="/" element={<AppLayout />}>
 						<Route index element={<BasicDashboard />} />
-						<Route path="/role" element={<RoleDashboard />} />
+						<Route path="role" element={<RoleDashboard />} />
+						<Route path="learning" element={<PageNotFound isConstruction />} />
+						<Route path="objectives" element={<PageNotFound isConstruction />} />
+						<Route path="tech-tips" element={<PageNotFound isConstruction />} />
+						<Route path="quick-start" element={<PageNotFound isConstruction />} />
+						<Route path="reports" element={<PageNotFound isConstruction />} />
 						<Route path="cart" element={<CartPage />} />
-						<Route path="cart-success" element={<>Payment Successfully completed</>} />
 						<Route path="*" element={<PageNotFound />} />
 					</Route>
 					<Route path="auth">
