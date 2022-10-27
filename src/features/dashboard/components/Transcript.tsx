@@ -21,7 +21,7 @@ const Transcript = () => {
 						</div>
 						<span className="ml-4">
 							<p className="text-lg font-bold font-inter lg:text-lg">
-								{transcriptList[0].TotalCertificates}
+								{transcriptList && transcriptList[0]?.TotalCertificates}
 							</p>
 							<p className="text-xs font-inter lg:text-sm">Course Points</p>
 						</span>
@@ -34,7 +34,7 @@ const Transcript = () => {
 						</div>
 						<span className="ml-4">
 							<p className="text-lg font-bold font-inter lg:text-lg">
-								{transcriptList[0].TotalAssessments}
+								{transcriptList && transcriptList[0]?.TotalAssessments}
 							</p>
 							<p className="text-xs font-inter lg:text-sm">Assessments Points</p>
 						</span>
