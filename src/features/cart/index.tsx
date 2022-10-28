@@ -13,7 +13,7 @@ type RazorpayOption = RazorpayOptions & { subscription_id?: string };
 function CartPage() {
 	const Razorpay = useRazorpay();
 	// const navigate = useNavigate();
-	const { isLoading, refetch } = useCartListQuery();
+	const { isLoading } = useCartListQuery();
 	const [checkout, checkoutOption] = useCartCheckoutMutation();
 	const [isPaymentSuccess, setIspaymentSuccess] = React.useState<boolean>(false);
 	const [checkoutResponse, checkoutResponseOption] = useCartResponseMutation();
@@ -23,51 +23,30 @@ function CartPage() {
 		({ data }: any) => {
 			const { Data } = data;
 			const options: RazorpayOption = {
-				key: Data.razorpayKey,
-				amount: Data.amount,
-				currency: Data.currency,
-				name: "CodinLMS",
-				order_id: Data?.orderId || null,
-				subscription_id: Data?.rzp_subscriptionId,
+				key: Data.RazorpayKey,
+				amount: Data.Amount,
+				currency: Data.Currency,
+				name: "TATA Technologies",
+				order_id: Data?.OrderID || null,
+				subscription_id: Data?.RZP_SubscriptionID,
 				prefill: {
-					email: Data.email,
-					contact: Data.contactNumber
+					email: Data.Email,
+					contact: Data.ContactNumber
 				},
 				handler: async res => {
+					console.log(res);
 					await checkoutResponse({
-						...res,
-						id: Data.id,
-						userId: Data.userId,
-						accountId: Data.accountId,
-						firstName: Data.firstName,
-						middleName: Data.middleName,
-						lastName: Data.lastName,
-						address: Data.address,
-						email: Data.email,
-						contact_number: Data.contactNumber,
-						plan_name: Data?.planName?.toString(),
-						rzp_planId: Data?.planID || "",
-						quantity: Data.quantity,
-						no_of_users: Data.no_of_users,
-						transactionId: Data.transactionId || "",
-						orderId: Data?.orderId || "",
-						signature: res.razorpay_signature,
-						paymentId: res.razorpay_payment_id,
-						subscriptionId: Data.subscriptionId,
-						rzp_subscriptionId: Data.rzp_subscriptionId,
-						amount: Data.amount,
-						chargeAt: Data.dtChargeAt,
-						startAt: Data.dtStartAt,
-						endAt: Data.dtEndAt,
-						trial_startAt: Data.dtTrialStartAt,
-						trial_endAt: Data.dtTrialEndAt,
-						isTrial: Data.isTrial,
-						purchaseType: Data.purchaseType,
-						cartId: Data.cartId
+						...Data,
+						Signature: res.razorpay_signature,
+						PaymentID: res.razorpay_payment_id,
+						ChargeAt: Data?.DtChargeAt || 0,
+						StartAt: Data?.DtStartAt || 0,
+						EndAt: Data?.DtEndAt || 0,
+						TrialStartAt: Data?.DtTrialStartAt || 0,
+						TrialEndAt: Data?.DtTrialEndAt || 0,
+						PlanName: Data?.PlanName?.toString() || ""
 					}).unwrap();
-					refetch();
 					setIspaymentSuccess(true);
-					// navigate("/cart-success");
 				}
 			};
 			const rzpay = new Razorpay(options);
@@ -77,8 +56,9 @@ function CartPage() {
 	);
 
 	const handleCheckout = () => {
-		const { CartID, PurchaseType, SubscriptionID, PlanCode } = cartItems[0];
+		const { CartID, PurchaseType, SubscriptionID, PlanCode, IsTrial } = cartItems[0];
 		checkout({
+			IsTrial,
 			PlanCode,
 			PurchaseType,
 			SubscriptionID,
@@ -108,9 +88,9 @@ function CartPage() {
 						stroke="currentColor"
 					>
 						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
 							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>

@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 const events = [
 	{
 		index: "01",
@@ -66,7 +68,7 @@ const UpcomingEvents = () => {
 							</thead>
 							<tbody>
 								{events.map(item => (
-									<>
+									<Fragment key={item.index}>
 										<tr className={"border border-slate-150"} key={item.index}>
 											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 												<div className="flex text-left">
@@ -102,7 +104,7 @@ const UpcomingEvents = () => {
 												</div>
 											</td>
 										</tr>
-									</>
+									</Fragment>
 								))}
 							</tbody>
 						</table>
@@ -120,9 +122,9 @@ const UpcomingEvents = () => {
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"
-										stroke-width="2"
+										strokeWidth="2"
 									>
-										<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+										<path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
 									</svg>
 								</button>
 							</li>
@@ -161,9 +163,9 @@ const UpcomingEvents = () => {
 										stroke="currentColor"
 									>
 										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
 											d="M9 5l7 7-7 7"
 										/>
 									</svg>

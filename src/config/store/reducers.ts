@@ -24,11 +24,6 @@ export const createRootReducer = () => {
 		...addedReducers
 	});
 
-	console.log({
-		...rootReducers,
-		...addedReducers
-	});
-
 	return (state: any, action: AnyAction) => {
 		return appReducer(state, action);
 	};

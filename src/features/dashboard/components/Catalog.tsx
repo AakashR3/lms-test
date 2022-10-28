@@ -58,6 +58,7 @@ const Catalog = () => {
 			<div className="mt-5 rounded-lg bg-white flex px-[6px] w-fit">
 				{distinctCatalog.map((catalog: any) => (
 					<button
+						key={catalog}
 						onClick={() => {
 							setCatalogDetails([]);
 							setTimeout(() => setSelectedCatalog(catalog), 0);

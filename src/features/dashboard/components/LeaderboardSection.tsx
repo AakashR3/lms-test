@@ -73,7 +73,10 @@ const LeaderboardSection = ({ type }: IProps) => {
 							</thead>
 							<tbody>
 								{leaderBoardTest.map((item: any, index: number) => (
-									<tr className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+									<tr
+										key={index}
+										className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+									>
 										<td className="whitespace-nowrap px-4 py-1  sm:px-5">
 											<div className="flex items-center">
 												<img src={item.icon} alt="icon" />

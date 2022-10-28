@@ -44,7 +44,7 @@ const NewCourses = () => {
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
 					{courseList.map((course: any, index: number) => (
 						<div
-							key={course.id}
+							key={index}
 							className={`bg-white px-5 py-6 border-primary  rounded-lg border-l-4  keen-slider__slide number-slide${index} `}
 						>
 							<img src={imageUrl + course.InitialGraphic} alt="profile" className="w-12 h-12" />
@@ -63,8 +63,9 @@ const NewCourses = () => {
 							</div>
 							<div className="mt-9 flex justify-between">
 								<div className="flex items-center">
-									{[...Array(course.Rating)].map(item => (
+									{[...Array(course.Rating)].map((item, index) => (
 										<Icon
+											key={index}
 											icon="mingcute:star-fill"
 											fill="rgba(247, 192, 67, 1)"
 											width="16"
