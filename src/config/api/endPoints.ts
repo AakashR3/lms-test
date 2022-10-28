@@ -33,6 +33,7 @@ export const endPoints = {
 		list: "Cart/CartList", //:UserId added on url
 		addToCart: "Cart/AddToCart",
 		removeCartItem: "Cart/DeleteCartItem",
+		shippingAddress: "Cart/ShippingInfo/{UserID}",
 		payment: {
 			checkout: "Payment/RazorpayCheckout",
 			response: "Payment/RazorpayResponse"

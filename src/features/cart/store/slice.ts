@@ -5,10 +5,11 @@ import { CartApi } from "./query";
 import { notify } from "~/helpers";
 import { addRootReducer } from "~/config/store/reducers";
 
-const { cartList, cartCheckout, cartResponse, addToCart, removeCartItem } = CartApi.endpoints;
+const { cartList, cartCheckout, cartResponse, addToCart, removeCartItem, shippingAddress } = CartApi.endpoints;
 
 const rejectedMatches = isAnyOf(
 	cartList.matchRejected,
+	shippingAddress.matchRejected,
 	cartCheckout.matchRejected,
 	cartResponse.matchRejected,
 	addToCart.matchRejected,
@@ -18,7 +19,13 @@ const rejectedMatches = isAnyOf(
 const initialState = {
 	cartItems: [],
 	isCartEmpty: true,
-	isDollarCurrency: false
+	isDollarCurrency: false,
+	shippingDetails: {
+		name: "",
+		email: "",
+		address: "",
+		contact: ""
+	}
 };
 
 const cartSlice = createSlice({
@@ -35,6 +42,15 @@ const cartSlice = createSlice({
 				const { Data } = action.payload;
 				state.isCartEmpty = !Data?.length;
 				state.cartItems = Data || [];
+			})
+			.addMatcher(shippingAddress.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.shippingDetails = {
+					name: `${Data.FirstName} ${Data.LastName}`,
+					email: Data.Email,
+					address: `${Data.Address1},${Data.Address2},${Data.City},${Data.State},${Data.Country} ${Data.PostalCode}`,
+					contact: Data.ContactNumber
+				};
 			})
 			.addMatcher(isAnyOf(addToCart.matchFulfilled, removeCartItem.matchFulfilled), (state, action: any) => {
 				const { Message } = action.payload;

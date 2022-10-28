@@ -13,7 +13,7 @@ type RazorpayOption = RazorpayOptions & { subscription_id?: string };
 function CartPage() {
 	const Razorpay = useRazorpay();
 	// const navigate = useNavigate();
-	const { isLoading, refetch } = useCartListQuery();
+	const { isLoading } = useCartListQuery();
 	const [checkout, checkoutOption] = useCartCheckoutMutation();
 	const [isPaymentSuccess, setIspaymentSuccess] = React.useState<boolean>(false);
 	const [checkoutResponse, checkoutResponseOption] = useCartResponseMutation();
