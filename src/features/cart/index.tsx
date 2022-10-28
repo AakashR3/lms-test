@@ -13,7 +13,7 @@ type RazorpayOption = RazorpayOptions & { subscription_id?: string };
 function CartPage() {
 	const Razorpay = useRazorpay();
 	// const navigate = useNavigate();
-	const { isLoading } = useCartListQuery();
+	const { isLoading, refetch } = useCartListQuery();
 	const [checkout, checkoutOption] = useCartCheckoutMutation();
 	const [isPaymentSuccess, setIspaymentSuccess] = React.useState<boolean>(false);
 	const [checkoutResponse, checkoutResponseOption] = useCartResponseMutation();
@@ -46,6 +46,7 @@ function CartPage() {
 						TrialEndAt: Data?.DtTrialEndAt || 0,
 						PlanName: Data?.PlanName?.toString() || ""
 					}).unwrap();
+					refetch();
 					setIspaymentSuccess(true);
 				}
 			};
