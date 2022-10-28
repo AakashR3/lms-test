@@ -22,9 +22,7 @@ const initialState = {
 	isDollarCurrency: false,
 	shippingDetails: {
 		name: "",
-		email: "",
-		address: "",
-		contact: ""
+		address: ""
 	}
 };
 
@@ -47,9 +45,8 @@ const cartSlice = createSlice({
 				const { Data } = action.payload;
 				state.shippingDetails = {
 					name: `${Data.FirstName} ${Data.LastName}`,
-					email: Data.Email,
 					address: `${Data.Address1},${Data.Address2},${Data.City},${Data.State},${Data.Country} ${Data.PostalCode}`,
-					contact: Data.ContactNumber
+					...Data
 				};
 			})
 			.addMatcher(isAnyOf(addToCart.matchFulfilled, removeCartItem.matchFulfilled), (state, action: any) => {

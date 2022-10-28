@@ -32,7 +32,7 @@ export const MailingAddress = React.memo(() => {
 				{!isLoading && (
 					<div className="pt-2 text-base">
 						<p>{shippingDetails?.name}</p>
-						<p>{shippingDetails?.email}</p>
+						<p>{shippingDetails?.Email}</p>
 						{shippingDetails.address !== ",,,, " && (
 							<address className="mt-5">{shippingDetails?.address}</address>
 						)}
@@ -45,7 +45,7 @@ export const MailingAddress = React.memo(() => {
 						<label className="block">
 							<span className="text-sm">Address</span>
 							<textarea
-								defaultValue={shippingDetails?.address === ",,,, " ? "" : shippingDetails.address}
+								value={shippingDetails?.Address1}
 								placeholder=" Enter Text"
 								className="form-textarea mt-1.5 w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 							/>
@@ -54,7 +54,7 @@ export const MailingAddress = React.memo(() => {
 							<label className="block w-1/2">
 								<span className="text-sm">Country</span>
 								<input
-									defaultValue={shippingDetails?.country}
+									value={shippingDetails.Country}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 									placeholder="Country"
 									type="text"
@@ -63,6 +63,7 @@ export const MailingAddress = React.memo(() => {
 							<label className="block w-1/2">
 								<span className="text-sm">State</span>
 								<input
+									value={shippingDetails.State}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 									placeholder="State"
 									type="text"
@@ -73,6 +74,7 @@ export const MailingAddress = React.memo(() => {
 							<label className="block w-1/2">
 								<span className="text-sm">City</span>
 								<input
+									value={shippingDetails.City}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 									placeholder="City"
 									type="text"
@@ -81,6 +83,7 @@ export const MailingAddress = React.memo(() => {
 							<label className="block w-1/2">
 								<span className="text-sm">Zip Code</span>
 								<input
+									value={shippingDetails.PostalCode}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 									placeholder="Zip Code"
 									type="text"
