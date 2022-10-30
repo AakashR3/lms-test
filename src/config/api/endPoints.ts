@@ -28,7 +28,13 @@ export const endPoints = {
 		CourseListInProgress: "Dashboard/CourseListInProgress/:userID",
 		TranscriptList: "Dashboard/TranscriptList/:userID",
 		LeaderBoard: "Dashboard/GetLeaderBoard/:accountID",
-		UpcomingEventsList: "Dashboard/UpcomingEventsList/:userID/:eventPeriod"
+		Scorecard: "Dashboard/Scorecard/:userID",
+		RecommendedCourseList: "Dashboard/RecommendedCourseList/:userID",
+		PeersCourseList: "Dashboard/PeersCourseList/:userID",
+		LearningPath: "Dashboard/LearningPath/:userID",
+		UpcomingEventsTodayList: "Dashboard/UpcomingEventsList/:userID/T",
+		UpcomingEventsWeekList: "Dashboard/UpcomingEventsList/:userID/W",
+		UpcomingEventsMonthList: "Dashboard/UpcomingEventsList/:userID/M"
 	},
 	cart: {
 		list: "Cart/CartList", //:UserId added on url

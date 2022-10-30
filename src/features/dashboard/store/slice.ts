@@ -9,7 +9,13 @@ const {
 	getCourseListInProgress,
 	getTranscriptList,
 	getLeaderBoard,
-	getUpcomingEventsList
+	getScorecard,
+	getRecommendedCourseList,
+	getPeersCourseList,
+	getLearningPath,
+	getUpcomingEventsTodayList,
+	getUpcomingEventsWeekList,
+	getUpcomingEventsMonthList
 } = dashboardApi.endpoints;
 
 const rejectedMatches = isAnyOf(
@@ -27,7 +33,13 @@ const slice = createSlice({
 		courseListInProgress: [],
 		transcriptList: [],
 		leaderBoard: [],
-		upcomingEventsList: []
+		scorecard: [],
+		recommendedCourseList: [],
+		peersCourseList: [],
+		learningPath: [],
+		upcomingEventsTodayList: [],
+		upcomingEventsWeekList: [],
+		upcomingEventsMonthList: []
 	},
 	reducers: {},
 	extraReducers(builder) {
@@ -37,30 +49,70 @@ const slice = createSlice({
 				state.courseList = Data;
 			})
 			.addMatcher(trendingSubscriptionByCurrencyCode.matchFulfilled, (state, action: any) => {
-				const { Data }: any = action.payload;
+				const { Data } = action.payload;
 				state.trendingSubscription = Data;
 			})
 			.addMatcher(getCatalogList.matchFulfilled, (state, action: any) => {
-				const { Data }: any = action.payload;
+				const { Data } = action.payload;
 				state.catalogList = Data;
 			})
 			.addMatcher(getCourseListInProgress.matchFulfilled, (state, action: any) => {
-				const { Data }: any = action.payload;
+				const { Data } = action.payload;
 				state.courseListInProgress = Data;
 			})
 			.addMatcher(getTranscriptList.matchFulfilled, (state, action: any) => {
-				const { Data }: any = action.payload;
+				const { Data } = action.payload;
 				state.transcriptList = Data;
+				console.log("transcriptList");
+				console.log(state.transcriptList);
 			})
 			.addMatcher(getLeaderBoard.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.leaderBoard = payload;
+				const { Data } = action.payload;
+				state.leaderBoard = Data;
+				console.log("leaderBoard");
+				console.log(state.leaderBoard);
 			})
-			.addMatcher(getUpcomingEventsList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.upcomingEventsList = payload;
-				console.log("upcomingEventsList");
-				console.log(state.upcomingEventsList);
+			.addMatcher(getScorecard.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.scorecard = Data;
+				console.log("scorecard");
+				console.log(state.scorecard);
+			})
+			.addMatcher(getRecommendedCourseList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.recommendedCourseList = Data;
+				console.log("recommendedCourseList");
+				console.log(state.recommendedCourseList);
+			})
+			.addMatcher(getPeersCourseList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.peersCourseList = Data;
+				console.log("peersCourseList");
+				console.log(state.peersCourseList);
+			})
+			.addMatcher(getLearningPath.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.learningPath = Data;
+				console.log("learningPath");
+				console.log(state.learningPath);
+			})
+			.addMatcher(getUpcomingEventsTodayList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.upcomingEventsTodayList = Data;
+				console.log("upcomingEventsTodayList");
+				console.log(state.upcomingEventsTodayList);
+			})
+			.addMatcher(getUpcomingEventsWeekList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.upcomingEventsWeekList = Data;
+				console.log("upcomingEventsWeekList");
+				console.log(state.upcomingEventsWeekList);
+			})
+			.addMatcher(getUpcomingEventsMonthList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.upcomingEventsMonthList = Data;
+				console.log("upcomingEventsMonthList");
+				console.log(state.upcomingEventsMonthList);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { Data } = action.payload;

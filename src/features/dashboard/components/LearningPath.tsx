@@ -1,4 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
+import { useGetLearningPathQuery, useGetScorecardQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
+import _ from "lodash";
 
 const trainingPath = [
 	{
@@ -53,8 +56,37 @@ const courseList = [
 ];
 
 const LearningPath = () => {
+	const { data, isLoading } = useGetLearningPathQuery("5951");
+	const { learningPath } = useAppSelector((state: any) => state.dashboard);
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
 	const [expanded, setCollapseExpanded] = useState<Map<string, boolean>>(new Map<string, boolean>());
+	const [startIndex, setStartIndex] = useState<number>(0);
+	const [endIndex, setEndIndex] = useState<number>(3);
+	const [noOfPages, setPages] = useState<number>(0);
+
+	useEffect(() => {
+		if (learningPath && learningPath.length > 0) {
+			if (learningPath.length % 3 == 0) {
+				setPages(Math.floor(learningPath.length / 3));
+			} else {
+				setPages(Math.floor(learningPath.length / 3) + 1);
+			}
+		}
+	}, [learningPath, noOfPages]);
+
+	function loadContent(pageNumber: number): void {
+		let newStartIndex = 0 + 3 * pageNumber;
+		let newEndIndex = 3 + 3 * pageNumber;
+		if (newStartIndex > learningPath.length) {
+			newStartIndex = startIndex;
+		}
+		if (newEndIndex > learningPath.length) {
+			newEndIndex = learningPath.length;
+		}
+		setStartIndex(newStartIndex);
+		setEndIndex(newEndIndex);
+	}
+
 	const toggleDropDown = () => {
 		setShowDropDown(!showDropDown);
 	};
@@ -194,134 +226,146 @@ const LearningPath = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{trainingPath.map(item => (
-								<Fragment key={item.index}>
-									<tr
-										className={` ${showTableRowBorder(
-											item.index
-										)} border-transparent border-b-slate-200`}
-										key={item.index}
-									>
-										<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
-											<div className="flex text-left">
-												<p className="ml-2 text-sm font-dmsans text-[#020A12]/60">
-													{item.index}
-												</p>
-											</div>
-										</td>
-										<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
-											<div className="flex text-left">
-												<p className="text-sm font-dmsans text-[#020A12]/60">{item.name}</p>
-											</div>
-										</td>
-										<td className="whitespace-nowrap px-4 py-1  sm:px-5">
-											<div className="flex text-left">
-												<img src={item.icon} alt="icon" />
-												<p className="ml-2 mt-2 text-sm font-dmsans text-[#020A12]/60">
-													{item.assignedBy}
-												</p>
-											</div>
-										</td>
-										<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
-											<div className="flex text-left">
-												<p className="text-sm font-dmsans text-[#020A12]/60">{item.duration}</p>
-											</div>
-										</td>
+							{noOfPages > 0 ? (
+								learningPath.map((item: any, index: number) => (
+									<Fragment key={item.SNo}>
+										<tr
+											className={` ${showTableRowBorder(
+												item.SNo
+											)} border-transparent border-b-slate-200`}
+											key={item.SNo}
+										>
+											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
+												<div className="flex text-left">
+													<p className="ml-2 text-sm font-dmsans text-[#020A12]/60">
+														{item.SNo}
+													</p>
+												</div>
+											</td>
+											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
+												<div className="flex text-left">
+													<p className="text-sm font-dmsans text-[#020A12]/60">
+														{item.LearningPathName}
+													</p>
+												</div>
+											</td>
+											<td className="whitespace-nowrap px-4 py-1  sm:px-5">
+												<div className="flex text-left">
+													<img src={item.icon} alt="icon" />
+													<p className="ml-2 mt-2 text-sm font-dmsans text-[#020A12]/60">
+														{item.assignedBy}
+													</p>
+												</div>
+											</td>
+											<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
+												<div className="flex text-left">
+													<p className="text-sm font-dmsans text-[#020A12]/60">
+														{item.LPDuration}
+													</p>
+												</div>
+											</td>
+											<td className="whitespace-nowrap px-3 py-3 sm:px-5">
+												<div className="flex text-left">
+													<p className="text-sm font-dmsans text-[#020A12]/60">
+														{item.CourseCount}
+													</p>
+												</div>
+											</td>
+											<td className="whitespace-nowrap">
+												<button className="btn" onClick={(): void => toggleCollapse(item.SNo)}>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														className={`h-4.5 w-4.5 text-sm font-dmsans text-[#020A12]/60  ${rotateCollapse180(
+															item.SNo
+														)}`}
+														viewBox="0 0 24 24"
+														stroke="currentColor"
+														strokeWidth="2"
+														strokeLinecap="round"
+														strokeLinejoin="round"
+													>
+														<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path>
+													</svg>
+												</button>
+											</td>
+										</tr>
+										{expanded.get(item.SNo) && (
+											<CourseTable
+												clickHide={clickHide}
+												courseDetails={item.LearningPathCourseDetails}
+											/>
+										)}
+									</Fragment>
+								))
+							) : (
+								<Fragment>
+									<tr className={"border border-slate-150"}>
 										<td className="whitespace-nowrap px-3 py-3 sm:px-5">
-											<div className="flex text-left">
-												<p className="text-sm font-dmsans text-[#020A12]/60">
-													{item.noOfCourses}
+											<div className="flex text-center">
+												<p className="my-16 text-sm font-dmsans text-[#020A12]/60">
+													No Learning Path
 												</p>
 											</div>
-										</td>
-										<td className="whitespace-nowrap">
-											<button className="btn" onClick={(): void => toggleCollapse(item.index)}>
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className={`h-4.5 w-4.5 text-sm font-dmsans text-[#020A12]/60  ${rotateCollapse180(
-														item.index
-													)}`}
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-												>
-													<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path>
-												</svg>
-											</button>
 										</td>
 									</tr>
-									{expanded.get(item.index) && <CourseTable clickHide={clickHide} />}
 								</Fragment>
-							))}
+							)}
 						</tbody>
 					</table>
 				</div>
 
-				<div className="flex flex-col items-center bg-white justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5">
-					<div className="text-sm">0 - 3 of 6 entries</div>
+				{noOfPages > 0 && (
+					<div className="flex flex-col items-center bg-white justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5">
+						<div className="text-sm">
+							{startIndex + 1} - {endIndex} of {learningPath.length} entries
+						</div>
 
-					<ul className="pagination inline-flex items-center -space-x-px">
-						<li className="rounded-l-full bg-[#E9EEF5]">
-							<button className="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									strokeWidth="2"
-								>
-									<path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-								</svg>
-							</button>
-						</li>
-						<li className="bg-slate-150 ">
-							<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-full px-3 leading-tight transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80 ">
-								1
-							</button>
-						</li>
-						<li className="bg-slate-150 ">
-							<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-full bg-[#1268B3] px-3 leading-tight text-white transition-colors hover:bg-[#1268B3]-focus focus:bg-[#1268B3]-focus active:bg-[#1268B3]-focus/90">
-								2
-							</button>
-						</li>
-						<li className="bg-slate-150 ">
-							<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-full px-3 leading-tight transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
-								3
-							</button>
-						</li>
-						<li className="bg-slate-150 ">
-							<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-full px-3 leading-tight transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
-								4
-							</button>
-						</li>
-						<li className="bg-slate-150">
-							<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-full px-3 leading-tight transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
-								5
-							</button>
-						</li>
-						<li className="rounded-r-full bg-slate-150">
-							<button className="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
+						<ul className="pagination inline-flex items-center -space-x-px">
+							<li className="rounded-l-full bg-[#E9EEF5]">
+								<button className="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-4 w-4"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
 										strokeWidth="2"
-										d="M9 5l7 7-7 7"
-									/>
-								</svg>
-							</button>
-						</li>
-					</ul>
-				</div>
+									>
+										<path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+									</svg>
+								</button>
+							</li>
+							{_.times(noOfPages, i => (
+								<li key={i + 1} className="bg-[#E9EEF5] ">
+									<button
+										className="flex h-8 min-w-[2rem] items-center justify-center rounded-full px-3 leading-tight transition-colors hover:bg-[slate-300] focus:bg-[#1268B3] focus:text-[#FFFFFF] active:bg-[#1268B3] active:text-[#FFFFFF]"
+										onClick={() => loadContent(i)}
+									>
+										{i + 1}
+									</button>
+								</li>
+							))}
+							<li className="rounded-r-full bg-slate-150">
+								<button className="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-4 w-4"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</button>
+							</li>
+						</ul>
+					</div>
+				)}
 			</div>
 		</>
 	);
@@ -351,7 +395,7 @@ function calculateWidth(progress: any): string {
 	return "w-0";
 }
 
-const CourseTable = ({ clickHide }: { clickHide: Function }) => {
+const CourseTable = ({ clickHide, courseDetails }: { clickHide: Function; courseDetails: any }) => {
 	return (
 		<tr className="border-y border-transparent border-b-slate-200 text-[#020A12]/60">
 			<td colSpan={6}>
@@ -371,35 +415,37 @@ const CourseTable = ({ clickHide }: { clickHide: Function }) => {
 							</tr>
 						</thead>
 						<tbody>
-							{courseList.map(item => (
-								<tr className="border-y border-transparent border-b-slate-200" key={item.index}>
+							{courseDetails.map((course: any, index: number) => (
+								<tr className="border-y border-transparent border-b-slate-200" key={course.CourseSNo}>
 									<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 										<div className="flex text-left">
-											<p className="ml-2 text-sm font-dmsans text-[#020A12]/60">{item.index}</p>
-										</div>
-									</td>
-									<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
-										<div className="flex text-left">
-											<p className="text-sm font-dmsans text-[#020A12]/60">{item.name}</p>
-										</div>
-									</td>
-									<td className="whitespace-nowrap px-4 py-1  sm:px-5">
-										<div className="flex text-left">
-											<p className="ml-2 mt-2 text-sm font-dmsans text-[#020A12]/60">
-												{item.noOfLessons}
+											<p className="ml-2 text-sm font-dmsans text-[#020A12]/60">
+												{course.CourseSNo}
 											</p>
 										</div>
 									</td>
 									<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
 										<div className="flex text-left">
-											<p className="text-sm font-dmsans text-[#020A12]/60">{item.duration}</p>
+											<p className="text-sm font-dmsans text-[#020A12]/60">{course.CourseName}</p>
+										</div>
+									</td>
+									<td className="whitespace-nowrap px-4 py-1  sm:px-5">
+										<div className="flex text-left">
+											<p className="ml-2 mt-2 text-sm font-dmsans text-[#020A12]/60">
+												{course.LessonsCompleted} / {course.LessonsTotal}
+											</p>
+										</div>
+									</td>
+									<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
+										<div className="flex text-left">
+											<p className="text-sm font-dmsans text-[#020A12]/60">{course.Duration}</p>
 										</div>
 									</td>
 									<td className="whitespace-nowrap px-3 py-3 sm:px-5">
 										<div className="progress h-2 bg-[#F8F8F8]">
 											<div
 												className={`relative h-2 ${calculateWidth(
-													item.progress
+													course.Progress
 												)} overflow-hidden rounded-full bg-[#1268B3]`}
 											></div>
 										</div>

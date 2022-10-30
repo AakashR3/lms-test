@@ -157,10 +157,10 @@ const CurrentRoleSection = () => {
 					</div>
 				</div>
 				<div className="grid grid-cols-12 p-8 gap-4 sm:gap-5 lg:gap-6">
-					<div className="col-span-12 lg:col-span-5">
+					<div className="col-span-12 lg:col-span-7">
 						<p className="font-dmsans font-normal tracking-wide text-white lg:text-sm">Current role</p>
 						<p className="font-dmsans font-bold tracking-wide text-white lg:text-xl">CAE Analyst</p>
-						<div className="flex items-center tracking-wide space-x-2 mt-2 text-white max-w-2xl lg:text-sm">
+						<div className="flex items-center tracking-wide space-x-2 mt-2 text-white lg:text-sm">
 							<p className="font-dmsans font-normal text-sm lg:text-lg ">You are progressing </p>
 							<p className="bg-[#FFFFFF]/20 text-sm lg:text-lg text-white font-bold mr-2 px-2 py-1 rounded-2xl">
 								36%
@@ -171,7 +171,7 @@ const CurrentRoleSection = () => {
 							other learners in your current role!
 						</p>
 					</div>
-					<div className="col-span-12 lg:col-span-7 hidden lg:block">
+					<div className="col-span-12 lg:col-span-5 hidden lg:block">
 						<Chart options={data.options} series={data.series} type="line" height={"100px"} />
 					</div>
 				</div>
