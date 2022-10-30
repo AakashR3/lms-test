@@ -31,32 +31,32 @@ const slice = createSlice({
 	extraReducers(builder) {
 		builder
 			.addMatcher(getCourseList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.courseList = payload;
+				const { Data } = action.payload;
+				state.courseList = Data;
 			})
 			.addMatcher(trendingSubscriptionByCurrencyCode.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.trendingSubscription = payload;
+				const { Data }: any = action.payload;
+				state.trendingSubscription = Data;
 			})
 			.addMatcher(getCatalogList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.catalogList = payload;
+				const { Data }: any = action.payload;
+				state.catalogList = Data;
 			})
 			.addMatcher(getCourseListInProgress.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.courseListInProgress = payload;
+				const { Data }: any = action.payload;
+				state.courseListInProgress = Data;
 			})
 			.addMatcher(getTranscriptList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.transcriptList = payload;
+				const { Data }: any = action.payload;
+				state.transcriptList = Data;
 			})
 			.addMatcher(getLeaderBoard.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.leaderBoard = payload;
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
-				const data = action.payload;
-				if (data) notify("dashboard_error_messages", data);
+				const { Data } = action.payload;
+				if (Data) notify("dashboard_error_messages", Data);
 			});
 	}
 });

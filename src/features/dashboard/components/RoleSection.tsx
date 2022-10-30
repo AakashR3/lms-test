@@ -67,7 +67,9 @@ const chartOptions: ApexOptions = {
 
 	yaxis: {
 		min: 0,
-		tickAmount: 3,
+		max: 100,
+		tickAmount: 4,
+		logBase: 10,
 		labels: {
 			style: {
 				colors: "rgba(2, 10, 18, 0.54)",
