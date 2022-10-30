@@ -11,6 +11,7 @@ const {
 	getLeaderBoard,
 	getUpcomingEventsList
 } = dashboardApi.endpoints;
+
 const rejectedMatches = isAnyOf(
 	getCourseList.matchRejected,
 	trendingSubscriptionByCurrencyCode.matchRejected,
@@ -32,32 +33,28 @@ const slice = createSlice({
 	extraReducers(builder) {
 		builder
 			.addMatcher(getCourseList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.courseList = payload;
+				const { Data } = action.payload;
+				state.courseList = Data;
 			})
 			.addMatcher(trendingSubscriptionByCurrencyCode.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.trendingSubscription = payload;
+				const { Data }: any = action.payload;
+				state.trendingSubscription = Data;
 			})
 			.addMatcher(getCatalogList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.catalogList = payload;
+				const { Data }: any = action.payload;
+				state.catalogList = Data;
 			})
 			.addMatcher(getCourseListInProgress.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.courseListInProgress = payload;
+				const { Data }: any = action.payload;
+				state.courseListInProgress = Data;
 			})
 			.addMatcher(getTranscriptList.matchFulfilled, (state, action: any) => {
-				const payload: any = action.payload;
-				state.transcriptList = payload;
-				console.log("transcriptList");
-				console.log(state.transcriptList);
+				const { Data }: any = action.payload;
+				state.transcriptList = Data;
 			})
 			.addMatcher(getLeaderBoard.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
 				state.leaderBoard = payload;
-				console.log("leaderBoard");
-				console.log(state.leaderBoard);
 			})
 			.addMatcher(getUpcomingEventsList.matchFulfilled, (state, action: any) => {
 				const payload: any = action.payload;
@@ -66,8 +63,8 @@ const slice = createSlice({
 				console.log(state.upcomingEventsList);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
-				const { message } = action.data;
-				notify("dashboard_error_messages", message);
+				const { Data } = action.payload;
+				if (Data) notify("dashboard_error_messages", Data);
 			});
 	}
 });

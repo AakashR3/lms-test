@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { useAppSelector } from "~/config/store";
 import { useGetCourseListQuery } from "~/features/dashboard/store";
@@ -16,6 +17,7 @@ const ResizePlugin = (slider: any) => {
 	});
 };
 const NewCourses = () => {
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const imageUrl = import.meta.env.VITE_APP_IMG_URL;
 	const { data, isLoading } = useGetCourseListQuery("a");
 	const { courseList } = useAppSelector((state: any) => state.dashboard);
@@ -30,6 +32,9 @@ const NewCourses = () => {
 				"(min-width: 992px)": {
 					slides: { perView: 3, spacing: 24 }
 				}
+			},
+			slideChanged(s) {
+				setCurrentSlide(s.track.details.rel);
 			}
 		},
 		[ResizePlugin]
@@ -44,7 +49,7 @@ const NewCourses = () => {
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
 					{courseList.map((course: any, index: number) => (
 						<div
-							key={course.id}
+							key={index}
 							className={`bg-white px-5 py-6 border-primary  rounded-lg border-l-4  keen-slider__slide number-slide${index} `}
 						>
 							<img src={imageUrl + course.InitialGraphic} alt="profile" className="w-12 h-12" />
@@ -63,8 +68,9 @@ const NewCourses = () => {
 							</div>
 							<div className="mt-9 flex justify-between">
 								<div className="flex items-center">
-									{[...Array(course.Rating)].map(item => (
+									{[...Array(course.Rating)].map((item, index) => (
 										<Icon
+											key={index}
 											icon="mingcute:star-fill"
 											fill="rgba(247, 192, 67, 1)"
 											width="16"
@@ -91,19 +97,24 @@ const NewCourses = () => {
 						</div>
 					))}
 				</div>
-				<button
-					className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
-					onClick={() => instanceRef?.current?.prev()}
-				>
-					<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
-				</button>
+				{currentSlide !== 0 && (
+					<button
+						className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
+						onClick={() => instanceRef?.current?.prev()}
+					>
+						<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
+					</button>
+				)}
 
-				<button
-					className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
-					onClick={() => instanceRef?.current?.next()}
-				>
-					<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
-				</button>
+				{instanceRef?.current?.track?.details &&
+					currentSlide !== instanceRef.current?.track?.details?.slides?.length - 3 && (
+						<button
+							className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
+							onClick={() => instanceRef?.current?.next()}
+						>
+							<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
+						</button>
+					)}
 			</div>
 		</div>
 	);

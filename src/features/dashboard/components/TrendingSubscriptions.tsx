@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { useNavigate } from "react-router-dom";
 import { navigateLink } from "~/config/api/links";
@@ -19,6 +20,7 @@ const ResizePlugin = (slider: any) => {
 };
 const TrendingSubscriptions = () => {
 	const navigate = useNavigate();
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const { data, isLoading } = useTrendingSubscriptionByCurrencyCodeQuery("INR");
 	const [addCart] = useAddToCartMutation();
 	const { trendingSubscription } = useAppSelector((state: any) => state.dashboard);
@@ -28,6 +30,9 @@ const TrendingSubscriptions = () => {
 		{
 			initial: 1,
 			loop: false,
+			slideChanged(s) {
+				setCurrentSlide(s.track.details.rel);
+			},
 			breakpoints: {
 				"(min-width: 400px)": {
 					slides: { perView: 2, spacing: 24 }
@@ -62,11 +67,11 @@ const TrendingSubscriptions = () => {
 					{!isLoading &&
 						trendingSubscription.map((item: any, index: number) => (
 							<div
-								key={item.id}
+								key={index}
 								className={`bg-white px-5 py-5   rounded-lg  keen-slider__slide number-slide${index} `}
 							>
 								<img src={"assets/images/user-pic.svg"} alt="icon" />
-								<div className="mt-3   text-base font-medium line-clamp-2 text-slate-600 dark:text-navy-100 max-w-[240px]">
+								<div className="mt-3 h-12  text-base font-medium line-clamp-2 text-slate-600 dark:text-navy-100 max-w-[240px]">
 									{item.SubscriptionName}
 								</div>
 								<div className="mt-4 text-xs text-slate-400 dark:text-navy-300">
@@ -109,19 +114,24 @@ const TrendingSubscriptions = () => {
 							</div>
 						))}
 				</div>
-				<button
-					className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
-					onClick={() => instanceRef?.current?.prev()}
-				>
-					<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
-				</button>
+				{currentSlide !== 0 && (
+					<button
+						className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
+						onClick={() => instanceRef?.current?.prev()}
+					>
+						<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
+					</button>
+				)}
 
-				<button
-					className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
-					onClick={() => instanceRef?.current?.next()}
-				>
-					<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
-				</button>
+				{instanceRef?.current?.track?.details &&
+					currentSlide !== instanceRef.current?.track?.details?.slides?.length - 5 && (
+						<button
+							className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
+							onClick={() => instanceRef?.current?.next()}
+						>
+							<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
+						</button>
+					)}
 			</div>
 		</div>
 	);

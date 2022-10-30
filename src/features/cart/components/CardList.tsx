@@ -17,7 +17,11 @@ const CartItem = React.memo((cart: any) => {
 		>
 			<div className="flex items-center space-x-4">
 				<div className="relative flex">
-					<img src={cart.ImagePath} className="mask is-star h-11 w-11 origin-center object-cover" alt="" />
+					<img
+						src={cart?.ImagePath || "/assets/images/sample_learn.png"}
+						className="mask is-star h-11 w-11 origin-center object-cover"
+						alt=""
+					/>
 				</div>
 				<div className="flex flex-col space-y-1">
 					<div className="flex items-center space-x-1">
