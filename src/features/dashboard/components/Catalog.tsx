@@ -18,6 +18,7 @@ const ResizePlugin = (slider: any) => {
 const Catalog = () => {
 	// const imageUrl = import.meta.env.VITE_APP_IMG_URL;
 	const { data, isLoading } = useGetCatalogListQuery("a");
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const [selectedCatalog, setSelectedCatalog] = useState();
 	const { catalogList } = useAppSelector((state: any) => state.dashboard);
 	const [distinctCatalog, setDistinctCatalog] = useState([]);
@@ -26,6 +27,9 @@ const Catalog = () => {
 		{
 			initial: 1,
 			loop: false,
+			slideChanged(s) {
+				setCurrentSlide(s.track.details.rel);
+			},
 			breakpoints: {
 				"(min-width: 400px)": {
 					slides: { perView: 2, spacing: 24 }
@@ -48,6 +52,7 @@ const Catalog = () => {
 
 	useEffect(() => {
 		setCatalogDetails(catalogList.filter((item: any) => item.CatalogCategoryName === selectedCatalog));
+		setTimeout(() => instanceRef.current?.update(), 10);
 	}, [selectedCatalog]);
 
 	return (
@@ -60,8 +65,7 @@ const Catalog = () => {
 					<button
 						key={catalog}
 						onClick={() => {
-							setCatalogDetails([]);
-							setTimeout(() => setSelectedCatalog(catalog), 0);
+							setSelectedCatalog(catalog);
 						}}
 						className={`px-[10px] py-[7px] text-slate-500 rounded-lg text-[14px] font-bold my-1 ${
 							selectedCatalog === catalog && "bg-slate-150 p-4 dark:bg-navy-700"
@@ -92,19 +96,24 @@ const Catalog = () => {
 							</div>
 						))}
 					</div>
-					<button
-						className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
-						onClick={() => instanceRef?.current?.prev()}
-					>
-						<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
-					</button>
+					{currentSlide !== 0 && (
+						<button
+							className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
+							onClick={() => instanceRef?.current?.prev()}
+						>
+							<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
+						</button>
+					)}
 
-					<button
-						className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
-						onClick={() => instanceRef?.current?.next()}
-					>
-						<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
-					</button>
+					{instanceRef?.current?.track?.details &&
+						currentSlide !== instanceRef?.current?.track?.details?.length - 5 && (
+							<button
+								className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
+								onClick={() => instanceRef?.current?.next()}
+							>
+								<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
+							</button>
+						)}
 				</div>
 			</div>
 		</div>
