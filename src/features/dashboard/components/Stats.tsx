@@ -2,7 +2,7 @@ import { useGetScorecardQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 
 const Stats = () => {
-	const { data, isLoading } = useGetScorecardQuery("595");
+	const { isLoading } = useGetScorecardQuery("595");
 	const { scorecard } = useAppSelector((state: any) => state.dashboard);
 	return (
 		<>

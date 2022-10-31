@@ -4,64 +4,6 @@ import { useGetCourseListInProgressQuery } from "~/features/dashboard/store";
 
 import { Icon } from "@iconify/react";
 
-const courseListInProgressTest = [
-	{
-		CategoryID: 10,
-		CategoryName: "Legacy Courses",
-		CourseID: 1916,
-		CourseName: "UG V17 to NX V1 CAD Update",
-		tTime: "002:24",
-		Progress: 0,
-		EventID: 10200,
-		LessonsCompleted: 0,
-		LessonsTotal: 168
-	},
-	{
-		CategoryID: 10,
-		CategoryName: "Legacy Courses",
-		CourseID: 1969,
-		CourseName: "UG V18 to NX V1 CAD Update",
-		tTime: "000:00",
-		Progress: 96,
-		EventID: 1081,
-		LessonsCompleted: 0,
-		LessonsTotal: 98
-	},
-	{
-		CategoryID: 10,
-		CategoryName: "Legacy Courses",
-		CourseID: 2026,
-		CourseName: "UG NX V1 New User Express",
-		tTime: "007:50",
-		Progress: 0,
-		EventID: 1038,
-		LessonsCompleted: 0,
-		LessonsTotal: 254
-	},
-	{
-		CategoryID: 10,
-		CategoryName: "Legacy Courses",
-		CourseID: 2130,
-		CourseName: "UG NX V1 Sketcher",
-		tTime: "003:59",
-		Progress: 0,
-		EventID: 1082,
-		LessonsCompleted: 0,
-		LessonsTotal: 79
-	},
-	{
-		CategoryID: 10,
-		CategoryName: "Legacy Courses",
-		CourseID: 2581,
-		CourseName: "3M UG V17 to NX V1 CAD Update",
-		tTime: "015:45",
-		Progress: 0,
-		EventID: 3721,
-		LessonsCompleted: 0,
-		LessonsTotal: 64
-	}
-];
-
 const ResizePlugin = (slider: any) => {
 	const observer = new ResizeObserver(function () {
 		slider.update();

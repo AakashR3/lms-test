@@ -14,7 +14,7 @@ const LearningPath = () => {
 
 	useEffect(() => {
 		if (learningPath && learningPath.length > 0) {
-			if (learningPath.length % 3 == 0) {
+			if (learningPath.length % 3 === 0) {
 				setPages(Math.floor(learningPath.length / 3));
 			} else {
 				setPages(Math.floor(learningPath.length / 3) + 1);
