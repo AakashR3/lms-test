@@ -9,6 +9,7 @@ import TimeSpent from "../components/TimeSpent";
 import ContinueLearning from "../components/ContinueLearning";
 import UpcomingEvents from "../components/UpcomingEvents";
 import Transcript from "../components/Transcript";
+import TrendingSubscriptions from "../components/TrendingSubscriptions";
 import NewCoursesRecommended from "../components/NewCoursesRecommended";
 import { Page } from "~/components";
 const RoleDashboard = () => {
@@ -20,6 +21,7 @@ const RoleDashboard = () => {
 				<RoleSection />
 				<LeaderboardSection />
 			</div>
+			<TrendingSubscriptions />
 			<ContinueLearning />
 			<LearningPath />
 			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">

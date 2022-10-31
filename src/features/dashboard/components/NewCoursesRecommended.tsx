@@ -19,9 +19,9 @@ const ResizePlugin = (slider: any) => {
 const NewCoursesRecommended = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const imageUrl = import.meta.env.VITE_APP_IMG_URL;
-	const { data: recomData, isLoading: recomIsLoading } = useGetRecommendedCourseListQuery("595");
+	useGetRecommendedCourseListQuery("595");
 	const { recommendedCourseList } = useAppSelector((state: any) => state.dashboard);
-	const { data: peersData, isLoading: peersIsLoading } = useGetPeersCourseListQuery("2191");
+	useGetPeersCourseListQuery("2191");
 	const { peersCourseList } = useAppSelector((state: any) => state.dashboard);
 	const [courseList, setCourseList] = useState<any>(recommendedCourseList);
 	const [highlightRecommended, setHighlightRecommended] = useState<boolean>(true);
@@ -50,11 +50,11 @@ const NewCoursesRecommended = () => {
 	}, [courseList]);
 
 	function onClickButton(eventPeriodStr: string): void {
-		if (eventPeriodStr == "R") {
+		if (eventPeriodStr === "R") {
 			setCourseList(recommendedCourseList);
 			setHighlightRecommended(true);
 			setHighlightPeers(false);
-		} else if (eventPeriodStr == "P") {
+		} else if (eventPeriodStr === "P") {
 			setCourseList(peersCourseList);
 			setHighlightPeers(true);
 			setHighlightRecommended(false);

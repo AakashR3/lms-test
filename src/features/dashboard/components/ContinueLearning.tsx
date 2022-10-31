@@ -99,7 +99,7 @@ function calculateWidth(progress: any): string {
 }
 
 const ContinueLearning = () => {
-	const { data, isLoading } = useGetCourseListInProgressQuery("2092");
+	useGetCourseListInProgressQuery("2092");
 	const { courseListInProgress } = useAppSelector((state: any) => state.dashboard);
 
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(

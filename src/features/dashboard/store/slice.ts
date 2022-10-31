@@ -15,7 +15,10 @@ const {
 	getLearningPath,
 	getUpcomingEventsTodayList,
 	getUpcomingEventsWeekList,
-	getUpcomingEventsMonthList
+	getUpcomingEventsMonthList,
+	getTimeSpent,
+	getTimeSpentGraph,
+	getPopularRoles
 } = dashboardApi.endpoints;
 
 const rejectedMatches = isAnyOf(
@@ -39,7 +42,10 @@ const slice = createSlice({
 		learningPath: [],
 		upcomingEventsTodayList: [],
 		upcomingEventsWeekList: [],
-		upcomingEventsMonthList: []
+		upcomingEventsMonthList: [],
+		timeSpent: [],
+		timeSpentGraph: [],
+		popularRoles: []
 	},
 	reducers: {},
 	extraReducers(builder) {
@@ -113,6 +119,30 @@ const slice = createSlice({
 				state.upcomingEventsMonthList = Data;
 				console.log("upcomingEventsMonthList");
 				console.log(state.upcomingEventsMonthList);
+			})
+			.addMatcher(getUpcomingEventsMonthList.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.upcomingEventsMonthList = Data;
+				console.log("upcomingEventsMonthList");
+				console.log(state.upcomingEventsMonthList);
+			})
+			.addMatcher(getTimeSpent.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.timeSpent = Data;
+				console.log("timeSpent");
+				console.log(state.timeSpent);
+			})
+			.addMatcher(getTimeSpentGraph.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.timeSpentGraph = Data;
+				console.log("timeSpentGraph");
+				console.log(state.timeSpentGraph);
+			})
+			.addMatcher(getPopularRoles.matchFulfilled, (state, action: any) => {
+				const { Data } = action.payload;
+				state.popularRoles = Data;
+				console.log("popularRoles");
+				console.log(state.popularRoles);
 			})
 			.addMatcher(rejectedMatches, (state, action: any) => {
 				const { Data } = action.payload;

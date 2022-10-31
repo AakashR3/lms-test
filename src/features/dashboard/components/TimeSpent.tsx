@@ -1,75 +1,114 @@
+import { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-
-const chartOptions: ApexOptions = {
-	chart: {
-		id: "basic-bar",
-		zoom: {
-			enabled: false
-		},
-		toolbar: {
-			show: false
-		}
-	},
-	xaxis: {
-		categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-		labels: {
-			style: {
-				colors: "rgba(2, 10, 18, 0.54)",
-				fontSize: "12",
-				fontWeight: 400
-			}
-		}
-	},
-	dataLabels: {
-		enabled: false
-	},
-	legend: {
-		show: false
-	},
-	markers: {
-		size: 0
-	},
-	stroke: {
-		show: true,
-		curve: "straight",
-		width: 2
-	},
-	fill: {
-		type: "gradient",
-		gradient: {
-			shadeIntensity: 1,
-			opacityFrom: 0.7,
-			opacityTo: 0.9,
-			stops: [0, 75]
-		}
-	},
-
-	yaxis: {
-		min: 0,
-		max: 100,
-		tickAmount: 4,
-		labels: {
-			style: {
-				colors: "rgba(2, 10, 18, 0.54)",
-				fontSize: "12",
-				fontWeight: 400
-			}
-		}
-	}
-};
-
-const data = {
-	options: chartOptions,
-	series: [
-		{
-			name: "series-1",
-			data: [0, 50, 25, 75, 50, 25, 50]
-		}
-	]
-};
+import { useGetTimeSpentQuery, useGetTimeSpentGraphQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
 
 const TimeSpent = () => {
+	useGetTimeSpentQuery("595");
+	useGetTimeSpentGraphQuery("595");
+	const { timeSpent } = useAppSelector((state: any) => state.dashboard);
+	const { timeSpentGraph } = useAppSelector((state: any) => state.dashboard);
+	const [WeekDaysName, setWeekDaysName] = useState<any>([]);
+	const [WeekDaysData, setWeekDaysData] = useState<any>([]);
+	useEffect(() => {
+		if (timeSpentGraph.length > 0 && timeSpentGraph[0].WeekDaysName) {
+			console.log(JSON.parse(timeSpentGraph[0].WeekDaysName));
+			setWeekDaysName(JSON.parse(timeSpentGraph[0].WeekDaysName));
+		}
+		if (timeSpentGraph.length > 0 && timeSpentGraph[0].WeekDayData) {
+			console.log(JSON.parse(timeSpentGraph[0].WeekDayData));
+			setWeekDaysData(JSON.parse(timeSpentGraph[0].WeekDayData));
+		}
+	}, [timeSpentGraph]);
+
+	const chartOptions: ApexOptions = {
+		chart: {
+			id: "basic-bar",
+			zoom: {
+				enabled: false
+			},
+			toolbar: {
+				show: false
+			}
+		},
+		xaxis: {
+			categories: WeekDaysName,
+			labels: {
+				style: {
+					colors: "rgba(2, 10, 18, 0.54)",
+					fontSize: "12",
+					fontWeight: 400
+				}
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		markers: {
+			size: 0
+		},
+		stroke: {
+			show: true,
+			curve: "straight",
+			width: 2
+		},
+		fill: {
+			type: "gradient",
+			gradient: {
+				shadeIntensity: 1,
+				opacityFrom: 0.7,
+				opacityTo: 0.9,
+				stops: [0, 75]
+			}
+		},
+
+		yaxis: {
+			min: 0,
+			max: 100,
+			tickAmount: 4,
+			labels: {
+				style: {
+					colors: "rgba(2, 10, 18, 0.54)",
+					fontSize: "12",
+					fontWeight: 400
+				}
+			}
+		}
+	};
+
+	const data = {
+		options: chartOptions,
+		series: [
+			{
+				name: "series-1",
+				data: WeekDaysData
+			}
+		]
+	};
+
+	function showPercentage(value: number): string {
+		if (Math.sign(value) === 1) {
+			return "bg-[#E6F7E9] text-[#4FC666]";
+		} else if (Math.sign(value) === -1) {
+			return "bg-[#FAEBEE] text-[#D85C57]";
+		}
+		return "";
+	}
+
+	function showIcon(value: number): string {
+		if (Math.sign(value) === 1) {
+			return "#E6F7E9";
+		} else if (Math.sign(value) === -1) {
+			return "#FAEBEE  -rotate-180";
+		}
+		return "";
+	}
+
 	return (
 		<>
 			<div className="mt-8 w-full">
@@ -85,8 +124,12 @@ const TimeSpent = () => {
 								<div className="flex justify-between">
 									<div>
 										<p className="text-2xl font-dmsans font-bold text-[#020A12]">
-											<span className="text-xl">03H </span>
-											<span className="text-lg">20M</span>
+											<span className="text-xl">
+												{timeSpent.TimeSpent && timeSpent.TimeSpent.split(" ")[0]}{" "}
+											</span>
+											<span className="text-lg">
+												{timeSpent.TimeSpent && timeSpent.TimeSpent.split(" ")[1]}
+											</span>
 										</p>
 										<p className="mt-2 text-xs font-inter lg:text-sm">Time Spent</p>
 									</div>
@@ -106,15 +149,21 @@ const TimeSpent = () => {
 									</div>
 								</div>
 								<div className="mt-4 flex text-left">
-									<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors bg-[#E6F7E9] text-[#4FC666] text-xs font-inter">
-										3.84%
+									<button
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+											timeSpent.TotalTimePercentage
+										)}`}
+									>
+										{Math.abs(timeSpent.TotalTimePercentage)}%
 									</button>
 								</div>
 							</div>
 							<div className="rounded-lg bg-white p-3">
 								<div className="flex justify-between">
 									<div>
-										<p className="text-2xl font-dmsans font-bold text-[#020A12]">01</p>
+										<p className="text-2xl font-dmsans font-bold text-[#020A12]">
+											{timeSpent.CompletedAssessments}
+										</p>
 										<p className="mt-2 text-xs font-inter lg:text-sm">Assessments Completed</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
@@ -135,8 +184,16 @@ const TimeSpent = () => {
 									</div>
 								</div>
 								<div className="mt-4 flex text-left">
-									<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors bg-[#E6F7E9] text-[#4FC666] text-xs font-inter">
-										3.84%
+									<button
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+											timeSpent.TotalAssessmentPercentage
+										)}`}
+									>
+										<Icon
+											icon="fluent:triangle-12-filled"
+											className={`${showIcon(timeSpent.TotalAssessmentPercentage)}`}
+										/>
+										<p className="ml-1">{Math.abs(timeSpent.TotalAssessmentPercentage)}%</p>
 									</button>
 								</div>
 							</div>
@@ -147,7 +204,9 @@ const TimeSpent = () => {
 							<div className="rounded-lg bg-white p-3">
 								<div className="flex justify-between">
 									<div>
-										<p className="text-2xl font-dmsans font-bold text-[#020A12]">02</p>
+										<p className="text-2xl font-dmsans font-bold text-[#020A12]">
+											{timeSpent.CompletedCourses}
+										</p>
 										<p className="mt-2 text-xs font-inter lg:text-sm">Course Completed</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
@@ -166,15 +225,31 @@ const TimeSpent = () => {
 									</div>
 								</div>
 								<div className="mt-4 flex text-left">
-									<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors bg-[#FAEBEE] text-[#D85C57] text-xs font-inter">
-										10.05%
+									<button
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+											timeSpent.TotalCoursePercentage
+										)}`}
+									>
+										{Math.abs(timeSpent.TotalCoursePercentage)}%
 									</button>
 								</div>
 							</div>
 							<div className="rounded-lg bg-white p-3">
 								<div className="flex justify-between">
 									<div>
-										<p className="text-2xl font-dmsans font-bold text-[#020A12]">3.2</p>
+										<div className="flex">
+											<p className="text-2xl font-dmsans font-bold text-[#020A12]">
+												{timeSpent.PerformanceLevel}
+											</p>
+											{Math.floor(timeSpent.TotalPerformanceLevelPercentage) !== 0 && (
+												<Icon
+													icon="bi:arrow-up"
+													className={`text-sm ${showIcon(
+														timeSpent.TotalPerformanceLevelPercentage
+													)}`}
+												/>
+											)}
+										</div>
 										<p className="mt-2 text-xs font-inter lg:text-sm">Performance Level</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
@@ -196,8 +271,12 @@ const TimeSpent = () => {
 									</div>
 								</div>
 								<div className="mt-4 flex text-left">
-									<button className="flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors bg-[#E6F7E9] text-[#4FC666] text-xs font-inter">
-										3.2%
+									<button
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+											timeSpent.TotalPerformanceLevelPercentage
+										)}`}
+									>
+										{Math.abs(timeSpent.TotalPerformanceLevelPercentage)}%
 									</button>
 								</div>
 							</div>

@@ -38,7 +38,7 @@ interface IProps {
 	type?: string;
 }
 const LeaderboardSection = ({ type }: IProps) => {
-	const { data, isLoading } = useGetLeaderBoardQuery("154067");
+	useGetLeaderBoardQuery("154067");
 	const { leaderBoard } = useAppSelector((state: any) => state.dashboard);
 
 	return (
@@ -76,7 +76,11 @@ const LeaderboardSection = ({ type }: IProps) => {
 									>
 										<td className="whitespace-nowrap px-4 py-1  sm:px-5">
 											<div className="flex items-center">
-												<img src={item.icon} alt="icon" />
+												<div className="avatar h-8 w-8">
+													<div className="is-initial rounded-full bg-[#048BCE] text-lg uppercase text-white">
+														{item.FirstName.charAt(0)} {item.LastName.charAt(0)}
+													</div>
+												</div>
 												<span
 													className={`ml-3  font-bold   text-xs+ ${
 														item.FirstName === "You" ? "text-primary " : "text-slate-500"

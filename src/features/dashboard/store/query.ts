@@ -65,6 +65,21 @@ export const dashboardApi = api.injectEndpoints({
 			query: userID => ({
 				url: endPoints.dashboard.UpcomingEventsMonthList.replace(":userID", userID)
 			})
+		}),
+		getTimeSpent: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.TimeSpent.replace(":userID", userID)
+			})
+		}),
+		getTimeSpentGraph: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.TimeSpentGraph.replace(":userID", userID)
+			})
+		}),
+		getPopularRoles: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.PopularRoles.replace(":userID", userID)
+			})
 		})
 	})
 });
@@ -82,5 +97,8 @@ export const {
 	useGetLearningPathQuery,
 	useGetUpcomingEventsTodayListQuery,
 	useGetUpcomingEventsWeekListQuery,
-	useGetUpcomingEventsMonthListQuery
+	useGetUpcomingEventsMonthListQuery,
+	useGetTimeSpentQuery,
+	useGetTimeSpentGraphQuery,
+	useGetPopularRolesQuery
 } = dashboardApi;

@@ -1,62 +1,10 @@
 import { Fragment, useState, useEffect } from "react";
-import { useGetLearningPathQuery, useGetScorecardQuery } from "~/features/dashboard/store";
+import { useGetLearningPathQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 import _ from "lodash";
 
-const trainingPath = [
-	{
-		index: "01",
-		name: "CAE Learning Path",
-		duration: "57hrs 35min",
-		assignedBy: "Robert jr",
-		noOfCourses: "03",
-		icon: "/assets/images/profile-1.svg"
-	},
-	{
-		index: "02",
-		name: "CAE Learning Path",
-		duration: "57hrs 35min",
-		assignedBy: "Robert jr",
-		noOfCourses: "03",
-		icon: "/assets/images/profile-1.svg"
-	},
-	{
-		index: "03",
-		name: "CAE Learning Path",
-		duration: "57hrs 35min",
-		assignedBy: "Robert jr",
-		noOfCourses: "03",
-		icon: "/assets/images/profile-1.svg"
-	},
-	{
-		index: "04",
-		name: "CAE Learning Path",
-		duration: "57hrs 35min",
-		assignedBy: "Robert jr",
-		noOfCourses: "03",
-		icon: "/assets/images/profile-1.svg"
-	}
-];
-
-const courseList = [
-	{
-		index: "01",
-		name: "CAE Learning Path",
-		duration: "40 mins",
-		progress: "10",
-		noOfLessons: "16 /30"
-	},
-	{
-		index: "02",
-		name: "CAE Learning Path",
-		duration: "40 mins",
-		progress: "10",
-		noOfLessons: "16 /30"
-	}
-];
-
 const LearningPath = () => {
-	const { data, isLoading } = useGetLearningPathQuery("5951");
+	useGetLearningPathQuery("595");
 	const { learningPath } = useAppSelector((state: any) => state.dashboard);
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
 	const [expanded, setCollapseExpanded] = useState<Map<string, boolean>>(new Map<string, boolean>());
@@ -219,7 +167,6 @@ const LearningPath = () => {
 							<tr className="bg-[#E2E8F0] font-inter font-medium text-sm text-[#020A12]/60 rounded-tl-lg">
 								<th className=" px-4 py-3 lg:px-5">#</th>
 								<th className=" px-4 py-3 lg:px-5">Learning Path Name</th>
-								<th className=" px-4 py-3 lg:px-5">Assigned By</th>
 								<th className=" px-4 py-3 lg:px-5">Duration</th>
 								<th className=" px-4 py-3 lg:px-5">No. of Courses</th>
 								<th className=" px-1 lg:px-5"></th>
@@ -246,14 +193,6 @@ const LearningPath = () => {
 												<div className="flex text-left">
 													<p className="text-sm font-dmsans text-[#020A12]/60">
 														{item.LearningPathName}
-													</p>
-												</div>
-											</td>
-											<td className="whitespace-nowrap px-4 py-1  sm:px-5">
-												<div className="flex text-left">
-													<img src={item.icon} alt="icon" />
-													<p className="ml-2 mt-2 text-sm font-dmsans text-[#020A12]/60">
-														{item.assignedBy}
 													</p>
 												</div>
 											</td>
