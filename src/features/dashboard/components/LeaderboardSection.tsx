@@ -66,9 +66,6 @@ const LeaderboardSection = ({ type }: IProps) => {
 									<th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
 										POINTS
 									</th>
-									<th className="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-										POSITION
-									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -93,16 +90,6 @@ const LeaderboardSection = ({ type }: IProps) => {
 											<div className="flex items-center">
 												<Icon icon="mingcute:copper-coin-line" color="rgba(250, 164, 26, 1)" />
 												<span className="ml-2 font-bold   text-xs+  ">{item.Points}</span>
-											</div>
-										</td>
-										<td className="whitespace-nowrap px-3 py-3 sm:px-5">
-											<div className="flex items-center justify-end">
-												<span className="mr-2 font-bold   text-xs+  ">{item.position}</span>
-												{item.name === "You" ? (
-													<Icon icon="akar-icons:arrow-down" color="rgba(79, 198, 102, 1)" />
-												) : (
-													<Icon icon="akar-icons:arrow-up" color="rgba(216, 92, 87, 1)" />
-												)}
 											</div>
 										</td>
 									</tr>

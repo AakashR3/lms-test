@@ -30,6 +30,41 @@ export const dashboardApi = api.injectEndpoints({
 			query: accountID => ({
 				url: endPoints.dashboard.LeaderBoard.replace(":accountID", accountID)
 			})
+		}),
+		getScorecard: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.Scorecard.replace(":userID", userID)
+			})
+		}),
+		getRecommendedCourseList: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.RecommendedCourseList.replace(":userID", userID)
+			})
+		}),
+		getPeersCourseList: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.PeersCourseList.replace(":userID", userID)
+			})
+		}),
+		getLearningPath: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.LearningPath.replace(":userID", userID)
+			})
+		}),
+		getUpcomingEventsTodayList: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.UpcomingEventsTodayList.replace(":userID", userID)
+			})
+		}),
+		getUpcomingEventsWeekList: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.UpcomingEventsWeekList.replace(":userID", userID)
+			})
+		}),
+		getUpcomingEventsMonthList: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.UpcomingEventsMonthList.replace(":userID", userID)
+			})
 		})
 	})
 });
@@ -40,5 +75,12 @@ export const {
 	useGetCatalogListQuery,
 	useGetCourseListInProgressQuery,
 	useGetTranscriptListQuery,
-	useGetLeaderBoardQuery
+	useGetLeaderBoardQuery,
+	useGetScorecardQuery,
+	useGetRecommendedCourseListQuery,
+	useGetPeersCourseListQuery,
+	useGetLearningPathQuery,
+	useGetUpcomingEventsTodayListQuery,
+	useGetUpcomingEventsWeekListQuery,
+	useGetUpcomingEventsMonthListQuery
 } = dashboardApi;

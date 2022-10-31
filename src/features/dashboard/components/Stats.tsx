@@ -1,4 +1,9 @@
+import { useGetScorecardQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
+
 const Stats = () => {
+	const { data, isLoading } = useGetScorecardQuery("595");
+	const { scorecard } = useAppSelector((state: any) => state.dashboard);
 	return (
 		<>
 			<div className="grid grid-cols-4 gap-6 mt-8">
@@ -24,7 +29,9 @@ const Stats = () => {
 						</div>
 					</div>
 					<div className="flex justify-between">
-						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">10</p>
+						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">
+							{scorecard.InProgressCourses}
+						</p>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="hidden lg:block mt-6 h-16 w-16 text-[#E8EAEE]"
@@ -61,7 +68,9 @@ const Stats = () => {
 						</div>
 					</div>
 					<div className="flex justify-between">
-						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">05</p>
+						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">
+							{scorecard.CompletedCourses}
+						</p>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="hidden lg:block mt-6 h-16 w-16 text-[#E8EAEE]"
@@ -96,7 +105,7 @@ const Stats = () => {
 						</div>
 					</div>
 					<div className="flex justify-between">
-						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">05</p>
+						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">{scorecard.NumAssms}</p>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="hidden lg:block mt-6 h-16 w-16 text-[#E8EAEE]"
@@ -132,8 +141,12 @@ const Stats = () => {
 					</div>
 					<div className="flex justify-between">
 						<p className="mt-6 mb-4 text-2xl font-dmsans font-bold text-[#020A12]">
-							<span className="text-xl">03H </span>
-							<span className="text-lg">20M</span>
+							<span className="text-xl">
+								{scorecard.TrainingTime && scorecard.TrainingTime.split(" ")[0]}{" "}
+							</span>
+							<span className="text-lg">
+								{scorecard.TrainingTime && scorecard.TrainingTime.split(" ")[1]}
+							</span>
 						</p>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

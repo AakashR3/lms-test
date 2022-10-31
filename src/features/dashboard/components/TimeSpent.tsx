@@ -1,38 +1,70 @@
 import Chart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
 
-const data = {
-	options: {
-		stacked: false,
-
-		chart: {
-			id: "basic-bar",
-			zoom: {
-				enabled: false
-			},
-			toolbar: {
-				show: false
-			}
-		},
-		xaxis: {
-			categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-		},
-		dataLabels: {
+const chartOptions: ApexOptions = {
+	chart: {
+		id: "basic-bar",
+		zoom: {
 			enabled: false
 		},
-		legend: {
+		toolbar: {
 			show: false
-		},
-		markers: {
-			size: 0
 		}
 	},
-	stroke: {
-		curve: "straight"
+	xaxis: {
+		categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+		labels: {
+			style: {
+				colors: "rgba(2, 10, 18, 0.54)",
+				fontSize: "12",
+				fontWeight: 400
+			}
+		}
 	},
+	dataLabels: {
+		enabled: false
+	},
+	legend: {
+		show: false
+	},
+	markers: {
+		size: 0
+	},
+	stroke: {
+		show: true,
+		curve: "straight",
+		width: 2
+	},
+	fill: {
+		type: "gradient",
+		gradient: {
+			shadeIntensity: 1,
+			opacityFrom: 0.7,
+			opacityTo: 0.9,
+			stops: [0, 75]
+		}
+	},
+
+	yaxis: {
+		min: 0,
+		max: 100,
+		tickAmount: 4,
+		labels: {
+			style: {
+				colors: "rgba(2, 10, 18, 0.54)",
+				fontSize: "12",
+				fontWeight: 400
+			}
+		}
+	}
+};
+
+const data = {
+	options: chartOptions,
 	series: [
 		{
 			name: "series-1",
-			data: [25, 50, 25, 75, 50, 25, 50]
+			data: [0, 50, 25, 75, 50, 25, 50]
 		}
 	]
 };
