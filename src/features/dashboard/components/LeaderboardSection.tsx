@@ -1,45 +1,15 @@
 import { Icon } from "@iconify/react";
 import { useGetLeaderBoardQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
-
-const leaderBoardTest = [
-	{
-		FirstName: "Eleanor",
-		LastName: "Pena",
-		Points: 100,
-		position: 3,
-		icon: "/assets/images/profile-1.svg"
-	},
-	{
-		FirstName: "Jane",
-		LastName: "Cooper",
-		Points: 99,
-		position: 2,
-		icon: "/assets/images/profile-2.svg"
-	},
-	{
-		FirstName: "Robert",
-		LastName: "Fox",
-		Points: 98,
-		position: 1,
-		icon: "/assets/images/profile-3.svg"
-	},
-	{
-		name: "You",
-		FirstName: "You",
-		LastName: "",
-		Points: 5,
-		position: 1,
-		icon: "/assets/images/profile-4.svg"
-	}
-];
+import { Fragment } from "react";
 
 interface IProps {
 	type?: string;
+	userId?: string;
 }
-const LeaderboardSection = ({ type }: IProps) => {
-	useGetLeaderBoardQuery("154067");
-	const { leaderBoard } = useAppSelector((state: any) => state.dashboard);
+const LeaderboardSection = ({ type, userId }: IProps) => {
+	useGetLeaderBoardQuery(userId);
+	const { leaderBoard, leaderBoardMessage } = useAppSelector((state: any) => state.dashboard);
 
 	return (
 		<div className="col-span-12 lg:col-span-4">
@@ -56,8 +26,8 @@ const LeaderboardSection = ({ type }: IProps) => {
 						</div>
 					</div>
 				) : (
-					<div className="col-span-12  ">
-						<table className="is-hoverable w-full text-left">
+					<div className="col-span-12 h-64 overflow-auto">
+						<table className="is-hoverable w-full  text-left">
 							<thead>
 								<tr>
 									<th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5   lg:px-5">
@@ -69,35 +39,58 @@ const LeaderboardSection = ({ type }: IProps) => {
 								</tr>
 							</thead>
 							<tbody>
-								{leaderBoardTest.map((item: any, index: number) => (
-									<tr
-										key={index}
-										className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
-									>
-										<td className="whitespace-nowrap px-4 py-1  sm:px-5">
-											<div className="flex items-center">
-												<div className="avatar h-8 w-8">
-													<div className="is-initial rounded-full bg-[#048BCE] text-lg uppercase text-white">
-														{item.FirstName.charAt(0)} {item.LastName.charAt(0)}
+								{leaderBoard.length > 0 ? (
+									leaderBoard.map((item: any, index: number) => (
+										<Fragment key={item.index}>
+											<tr
+												key={index}
+												className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+											>
+												<td className="whitespace-nowrap px-4 py-1  sm:px-5">
+													<div className="flex items-center">
+														<div className="avatar h-8 w-8">
+															<div className="is-initial rounded-full bg-[#048BCE] text-lg uppercase text-white">
+																{item.FirstName.charAt(0)} {item.LastName.charAt(0)}
+															</div>
+														</div>
+														<span
+															className={`ml-3  font-bold   text-xs+ ${
+																item.FirstName === "You"
+																	? "text-primary "
+																	: "text-slate-500"
+															}`}
+														>
+															{item.FirstName} {item.LastName}
+														</span>
 													</div>
+												</td>
+												<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
+													<div className="flex items-center">
+														<Icon
+															icon="mingcute:copper-coin-line"
+															color="rgba(250, 164, 26, 1)"
+														/>
+														<span className="ml-2 font-bold   text-xs+  ">
+															{item.Points}
+														</span>
+													</div>
+												</td>
+											</tr>
+										</Fragment>
+									))
+								) : (
+									<Fragment>
+										<tr>
+											<td className="whitespace-nowrap px-3 py-3 sm:px-5">
+												<div className="flex text-center">
+													<p className="my-16 text-sm font-dmsans text-[#020A12]/60">
+														{leaderBoardMessage}
+													</p>
 												</div>
-												<span
-													className={`ml-3  font-bold   text-xs+ ${
-														item.FirstName === "You" ? "text-primary " : "text-slate-500"
-													}`}
-												>
-													{item.FirstName} {item.LastName}
-												</span>
-											</div>
-										</td>
-										<td className="whitespace-nowrap px-4 py-4 last:py-4 sm:px-5">
-											<div className="flex items-center">
-												<Icon icon="mingcute:copper-coin-line" color="rgba(250, 164, 26, 1)" />
-												<span className="ml-2 font-bold   text-xs+  ">{item.Points}</span>
-											</div>
-										</td>
-									</tr>
-								))}
+											</td>
+										</tr>
+									</Fragment>
+								)}
 							</tbody>
 						</table>
 					</div>

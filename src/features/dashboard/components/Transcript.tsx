@@ -1,8 +1,12 @@
 import { useGetTranscriptListQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 
-const Transcript = () => {
-	useGetTranscriptListQuery("453447");
+interface IProps {
+	userId?: string;
+}
+
+const Transcript = ({ userId }: IProps) => {
+	useGetTranscriptListQuery(userId);
 	const { transcriptList } = useAppSelector((state: any) => state.dashboard);
 
 	return (
@@ -21,7 +25,7 @@ const Transcript = () => {
 						</div>
 						<span className="ml-4">
 							<p className="text-lg font-bold font-inter lg:text-lg">
-								{transcriptList && transcriptList[0]?.TotalCertificates}
+								{transcriptList && transcriptList[0]?.CoursePoints}
 							</p>
 							<p className="text-xs font-inter lg:text-sm">Course Points</p>
 						</span>
@@ -34,7 +38,7 @@ const Transcript = () => {
 						</div>
 						<span className="ml-4">
 							<p className="text-lg font-bold font-inter lg:text-lg">
-								{transcriptList && transcriptList[0]?.TotalAssessments}
+								{transcriptList && transcriptList[0]?.AssessmentPoints}
 							</p>
 							<p className="text-xs font-inter lg:text-sm">Assessments Points</p>
 						</span>

@@ -4,6 +4,11 @@ import { useAppSelector } from "~/config/store";
 import { useGetCourseListQuery } from "~/features/dashboard/store";
 
 import { Icon } from "@iconify/react";
+
+interface IProps {
+	userId?: string;
+}
+
 const ResizePlugin = (slider: any) => {
 	const observer = new ResizeObserver(function () {
 		slider.update();
@@ -16,10 +21,10 @@ const ResizePlugin = (slider: any) => {
 		observer.unobserve(slider.container);
 	});
 };
-const NewCourses = () => {
+const NewCourses = ({ userId }: IProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const imageUrl = import.meta.env.VITE_APP_IMG_URL;
-	const { data, isLoading } = useGetCourseListQuery("a");
+	useGetCourseListQuery(userId);
 	const { courseList } = useAppSelector((state: any) => state.dashboard);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{

@@ -9,14 +9,19 @@ import _ from "lodash";
 
 import { Fragment } from "react";
 
-const UpcomingEvents = () => {
-	useGetUpcomingEventsTodayListQuery("595");
-	useGetUpcomingEventsWeekListQuery("595");
-	useGetUpcomingEventsMonthListQuery("595");
-	const { upcomingEventsTodayList } = useAppSelector((state: any) => state.dashboard);
-	const { upcomingEventsWeekList } = useAppSelector((state: any) => state.dashboard);
-	const { upcomingEventsMonthList } = useAppSelector((state: any) => state.dashboard);
+interface IProps {
+	userId?: string;
+}
+
+const UpcomingEvents = ({ userId }: IProps) => {
+	useGetUpcomingEventsTodayListQuery(userId);
+	useGetUpcomingEventsWeekListQuery(userId);
+	useGetUpcomingEventsMonthListQuery(userId);
+	const { upcomingEventsTodayList, upcomingEventsTodayListMessage } = useAppSelector((state: any) => state.dashboard);
+	const { upcomingEventsWeekList, upcomingEventsWeekListMessage } = useAppSelector((state: any) => state.dashboard);
+	const { upcomingEventsMonthList, upcomingEventsMonthListMessage } = useAppSelector((state: any) => state.dashboard);
 	const [upcomingEventsList, setUpcomingEventsList] = useState<any>(upcomingEventsTodayList);
+	const [message, setMessage] = useState<any>(upcomingEventsTodayListMessage);
 	const [startIndex, setStartIndex] = useState<number>(0);
 	const [endIndex, setEndIndex] = useState<number>(4);
 	const [noOfPages, setPages] = useState<number>(0);
@@ -53,16 +58,19 @@ const UpcomingEvents = () => {
 		setEndIndex(4);
 		if (eventPeriodStr === "T") {
 			setUpcomingEventsList(upcomingEventsTodayList);
+			setMessage(upcomingEventsTodayListMessage);
 			setDayBG("bg-[#048BCE] text-[#FFFFFF]");
 			setWeekBG("bg-white");
 			setMonthBG("bg-white");
 		} else if (eventPeriodStr === "W") {
 			setUpcomingEventsList(upcomingEventsWeekList);
+			setMessage(upcomingEventsWeekListMessage);
 			setDayBG("bg-white");
 			setWeekBG("bg-[#048BCE] text-[#FFFFFF]");
 			setMonthBG("bg-white");
 		} else if (eventPeriodStr === "M") {
 			setUpcomingEventsList(upcomingEventsMonthList);
+			setMessage(upcomingEventsMonthListMessage);
 			setDayBG("bg-white");
 			setWeekBG("bg-white");
 			setMonthBG("bg-[#048BCE] text-[#FFFFFF]");
@@ -188,7 +196,7 @@ const UpcomingEvents = () => {
 											<td className="whitespace-nowrap px-3 py-3 sm:px-5">
 												<div className="flex text-center">
 													<p className="my-32 text-sm font-dmsans text-[#020A12]/60">
-														No Upcoming Events List
+														{message}
 													</p>
 												</div>
 											</td>

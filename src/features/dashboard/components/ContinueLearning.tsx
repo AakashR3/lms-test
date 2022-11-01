@@ -4,6 +4,10 @@ import { useGetCourseListInProgressQuery } from "~/features/dashboard/store";
 
 import { Icon } from "@iconify/react";
 
+interface IProps {
+	userId?: string;
+}
+
 const ResizePlugin = (slider: any) => {
 	const observer = new ResizeObserver(function () {
 		slider.update();
@@ -40,9 +44,9 @@ function calculateWidth(progress: any): string {
 	return "w-0";
 }
 
-const ContinueLearning = () => {
-	useGetCourseListInProgressQuery("2092");
-	const { courseListInProgress } = useAppSelector((state: any) => state.dashboard);
+const ContinueLearning = ({ userId }: IProps) => {
+	useGetCourseListInProgressQuery(userId);
+	const { courseListInProgress, courseListInProgressMessage } = useAppSelector((state: any) => state.dashboard);
 
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{
@@ -67,48 +71,58 @@ const ContinueLearning = () => {
 				</div>
 				<div className="relative">
 					<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-						{courseListInProgress.map((course: any, index: number) => (
-							<div
-								key={course.CourseID}
-								className={`bg-white pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
-							>
-								<p className="text-sm text-[#020A12]/54 font-bold font-dmsans">{course.CourseName}</p>
-								<p className="text-xs text-[#020A12]/54 font-normal font-dmsans">
-									{course.CategoryName}
-								</p>
-								<div className="progress mt-10 h-1.5 bg-[#E9EEF5]">
-									<div
-										className={`relative h-1.5 ${calculateWidth(
-											course.Progress
-										)} overflow-hidden rounded-full bg-[#1268B3]`}
-									></div>
-								</div>
-								<div className="flex justify-between">
-									<div className=" text-xs text-[#020A12]/54 font-normal font-dmsans mt-4">
-										<span>
-											{course.LessonsCompleted} / {course.LessonsTotal} lessons
-										</span>
-										<span className="ml-4">{course.tTime}</span>
+						{courseListInProgress.length > 0 ? (
+							courseListInProgress.map((course: any, index: number) => (
+								<div
+									key={course.CourseID}
+									className={`bg-white pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
+								>
+									<p className="text-sm text-[#020A12]/54 font-bold font-dmsans">
+										{course.CourseName}
+									</p>
+									<p className="text-xs text-[#020A12]/54 font-normal font-dmsans">
+										{course.CategoryName}
+									</p>
+									<div className="progress mt-10 h-1.5 bg-[#E9EEF5]">
+										<div
+											className={`relative h-1.5 ${calculateWidth(
+												course.Progress
+											)} overflow-hidden rounded-full bg-[#1268B3]`}
+										></div>
 									</div>
-									<button className="my-4">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											strokeWidth="2"
-											stroke="currentColor"
-											className="w-4 h-4 text-[#1268B3]"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-											/>
-										</svg>
-									</button>
+									<div className="flex justify-between">
+										<div className=" text-xs text-[#020A12]/54 font-normal font-dmsans mt-4">
+											<span>
+												{course.LessonsCompleted} / {course.LessonsTotal} lessons
+											</span>
+											<span className="ml-4">{course.tTime}</span>
+										</div>
+										<button className="my-4">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+												strokeWidth="2"
+												stroke="currentColor"
+												className="w-4 h-4 text-[#1268B3]"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+												/>
+											</svg>
+										</button>
+									</div>
 								</div>
+							))
+						) : (
+							<div className="flex text-center">
+								<p className="my-4 text-sm font-dmsans text-[#020A12]/60">
+									{courseListInProgressMessage}
+								</p>
 							</div>
-						))}
+						)}
 					</div>
 					{courseListInProgress.length > 4 && (
 						<>

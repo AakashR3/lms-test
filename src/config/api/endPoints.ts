@@ -29,7 +29,7 @@ export const endPoints = {
 		catalogList: "Dashboard/CatalogList",
 		CourseListInProgress: "Dashboard/CourseListInProgress/:userID",
 		TranscriptList: "Dashboard/TranscriptList/:userID",
-		LeaderBoard: "Dashboard/GetLeaderBoard/:accountID",
+		LeaderBoard: "Dashboard/GetLeaderBoard/:userID",
 		Scorecard: "Dashboard/Scorecard/:userID",
 		RecommendedCourseList: "Dashboard/RecommendedCourseList/:userID",
 		PeersCourseList: "Dashboard/PeersCourseList/:userID",
@@ -39,7 +39,8 @@ export const endPoints = {
 		UpcomingEventsMonthList: "Dashboard/UpcomingEventsList/:userID/M",
 		TimeSpent: "Dashboard/TimeSpent/:userID",
 		TimeSpentGraph: "Dashboard/TimeSpentGraph/:userID",
-		PopularRoles: "Dashboard/PopularRoles/:userID"
+		PopularRoles: "Dashboard/PopularRoles/:userID",
+		PopularRolesGraph: "Dashboard/PopularRolesGraph/:userID"
 	},
 	cart: {
 		list: "Cart/CartList", //:UserId added on url

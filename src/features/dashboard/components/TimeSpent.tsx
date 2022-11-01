@@ -5,9 +5,13 @@ import { ApexOptions } from "apexcharts";
 import { useGetTimeSpentQuery, useGetTimeSpentGraphQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 
-const TimeSpent = () => {
-	useGetTimeSpentQuery("595");
-	useGetTimeSpentGraphQuery("595");
+interface IProps {
+	userId?: string;
+}
+
+const TimeSpent = ({ userId }: IProps) => {
+	useGetTimeSpentQuery(userId);
+	useGetTimeSpentGraphQuery(userId);
 	const { timeSpent } = useAppSelector((state: any) => state.dashboard);
 	const { timeSpentGraph } = useAppSelector((state: any) => state.dashboard);
 	const [WeekDaysName, setWeekDaysName] = useState<any>([]);

@@ -3,9 +3,13 @@ import { useGetLearningPathQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 import _ from "lodash";
 
-const LearningPath = () => {
-	useGetLearningPathQuery("595");
-	const { learningPath } = useAppSelector((state: any) => state.dashboard);
+interface IProps {
+	userId?: string;
+}
+
+const LearningPath = ({ userId }: IProps) => {
+	useGetLearningPathQuery(userId);
+	const { learningPath, learningPathMessage } = useAppSelector((state: any) => state.dashboard);
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
 	const [expanded, setCollapseExpanded] = useState<Map<string, boolean>>(new Map<string, boolean>());
 	const [startIndex, setStartIndex] = useState<number>(0);
@@ -242,7 +246,7 @@ const LearningPath = () => {
 										<td className="whitespace-nowrap px-3 py-3 sm:px-5">
 											<div className="flex text-center">
 												<p className="my-16 text-sm font-dmsans text-[#020A12]/60">
-													No Learning Path
+													{learningPathMessage}
 												</p>
 											</div>
 										</td>
