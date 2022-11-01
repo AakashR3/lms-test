@@ -1,13 +1,13 @@
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { AppLayout, AuthLayout } from "~/layout";
 import CartPage from "~/features/cart";
-import ProtectedRoute from "~/router/ProtectedRoute";
-import { BasicDashboard, RoleDashboard } from "~/features/dashboard";
-import { ResetPassword } from "~/features/account";
-import { LoginPage, SignUpPage, ForgotPasswordPage, SsoLoginPage, SsoLoginAuthorize, AppLogout } from "~/features/auth";
 import { PageNotFound } from "~/components";
+import { AppLayout, AuthLayout } from "~/layout";
+import DashboardPage from "~/features/dashboard";
+import { ResetPassword } from "~/features/account";
+import ProtectedRoute from "~/router/ProtectedRoute";
+import { LoginPage, SignUpPage, ForgotPasswordPage, SsoLoginPage, SsoLoginAuthorize, AppLogout } from "~/features/auth";
 
 function AppRouter() {
 	return (
@@ -15,8 +15,8 @@ function AppRouter() {
 			<Routes>
 				<Route path="/" element={<ProtectedRoute />}>
 					<Route path="/" element={<AppLayout />}>
-						<Route index element={<BasicDashboard />} />
-						<Route path="role" element={<RoleDashboard />} />
+						<Route index element={<DashboardPage />} />
+						{/* <Route path="role" element={<RoleDashboard />} /> */}
 						<Route path="learning" element={<PageNotFound isConstruction />} />
 						<Route path="objectives" element={<PageNotFound isConstruction />} />
 						<Route path="tech-tips" element={<PageNotFound isConstruction />} />

@@ -37,27 +37,27 @@ export const api = createApi({
 	 * which is why no endpoints are shown below.
 	 * If you want all endpoints defined in the same file, they could be included here instead
 	 */
-	endpoints: builder => ({
-		userMenu: builder.query<any, void>({
-			query: () => {
-				const user = getLoggedUser();
-				return { url: `${endPoints.common.menu}/${user.UserId}` };
-			}
-		}),
-		userPoints: builder.query<any, void>({
-			query: () => {
-				const user = getLoggedUser();
-				return { url: `${endPoints.common.points}/${user.UserId}/${user.SessionId}` };
-			}
-		}),
-		userNotification: builder.query<any, void>({
-			query: () => {
-				const user = getLoggedUser();
-				return { url: `${endPoints.common.nofitication}/${user.UserId}` };
-			},
-			transformResponse: (response: any) => response.Data
-		})
-	})
+	endpoints: builder => {
+		const user = getLoggedUser();
+		return {
+			userMenu: builder.query<any, void>({
+				query: () => ({ url: `${endPoints.common.menu}/${user.UserId}` })
+			}),
+			userPoints: builder.query<any, void>({
+				query: () => ({ url: `${endPoints.common.points}/${user.UserId}/${user.SessionId}` })
+			}),
+			userNotification: builder.query<any, void>({
+				query: () => ({ url: `${endPoints.common.nofitication}/${user.UserId}` }),
+				transformResponse: (response: any) => response.Data
+			}),
+			userIsSubscribed: builder.query<any, void>({
+				query: () => ({ url: `${endPoints.common.subscription}/${user.UserId}` }),
+				transformResponse: (response: any) => {
+					return response?.Data && response?.Data?.length !== 0 ? true : false;
+				}
+			})
+		};
+	}
 });
 
-export const { useUserMenuQuery, useUserPointsQuery, useUserNotificationQuery } = api;
+export const { useUserMenuQuery, useUserPointsQuery, useUserNotificationQuery, useUserIsSubscribedQuery } = api;
