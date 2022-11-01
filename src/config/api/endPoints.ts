@@ -34,7 +34,10 @@ export const endPoints = {
 		LearningPath: "Dashboard/LearningPath/:userID",
 		UpcomingEventsTodayList: "Dashboard/UpcomingEventsList/:userID/T",
 		UpcomingEventsWeekList: "Dashboard/UpcomingEventsList/:userID/W",
-		UpcomingEventsMonthList: "Dashboard/UpcomingEventsList/:userID/M"
+		UpcomingEventsMonthList: "Dashboard/UpcomingEventsList/:userID/M",
+		TimeSpent: "Dashboard/TimeSpent/:userID",
+		TimeSpentGraph: "Dashboard/TimeSpentGraph/:userID",
+		PopularRoles: "Dashboard/PopularRoles/:userID"
 	},
 	cart: {
 		list: "Cart/CartList", //:UserId added on url

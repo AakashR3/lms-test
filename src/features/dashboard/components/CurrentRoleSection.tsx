@@ -1,82 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CircularProgress from "./CircleProgressBar";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-
-const chartOptions: ApexOptions = {
-	chart: {
-		id: "basic-bar",
-		zoom: {
-			enabled: false
-		},
-		toolbar: {
-			show: false
-		}
-	},
-	colors: ["#FFFFFF"],
-	grid: {
-		show: false
-	},
-	xaxis: {
-		categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-		labels: {
-			show: false
-		},
-		axisTicks: {
-			show: false
-		},
-		axisBorder: {
-			show: false
-		},
-		crosshairs: {
-			show: false
-		}
-	},
-	yaxis: {
-		min: 0,
-		max: 100,
-		tickAmount: 4,
-		labels: {
-			show: false
-		},
-		axisTicks: {
-			show: false
-		},
-		axisBorder: {
-			show: false
-		},
-		crosshairs: {
-			show: false
-		}
-	},
-	dataLabels: {
-		enabled: false
-	},
-	legend: {
-		show: false
-	},
-	markers: {
-		size: 0
-	},
-	stroke: {
-		show: true,
-		curve: "straight",
-		width: 2
-	},
-	tooltip: {
-		enabled: false
-	}
-};
-
-const data = {
-	options: chartOptions,
-	series: [
-		{
-			name: "series-1",
-			data: [0, 10, 50, 25, 75, 25, 50]
-		}
-	]
-};
+import { useGetTimeSpentGraphQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
 
 const CurrentRoleSection = () => {
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
@@ -87,6 +14,96 @@ const CurrentRoleSection = () => {
 		if (event.currentTarget === event.target) {
 			setShowDropDown(false);
 		}
+	};
+	useGetTimeSpentGraphQuery("595");
+	const { timeSpentGraph } = useAppSelector((state: any) => state.dashboard);
+
+	const [WeekDaysName, setWeekDaysName] = useState<any>([]);
+	const [WeekDaysData, setWeekDaysData] = useState<any>([]);
+	useEffect(() => {
+		if (timeSpentGraph.length > 0 && timeSpentGraph[0].WeekDaysName) {
+			console.log(JSON.parse(timeSpentGraph[0].WeekDaysName));
+			setWeekDaysName(JSON.parse(timeSpentGraph[0].WeekDaysName));
+		}
+		if (timeSpentGraph.length > 0 && timeSpentGraph[0].WeekDayData) {
+			console.log(JSON.parse(timeSpentGraph[0].WeekDayData));
+			setWeekDaysData(JSON.parse(timeSpentGraph[0].WeekDayData));
+		}
+	}, [timeSpentGraph]);
+
+	const chartOptions: ApexOptions = {
+		chart: {
+			id: "basic-bar",
+			zoom: {
+				enabled: false
+			},
+			toolbar: {
+				show: false
+			}
+		},
+		colors: ["#FFFFFF"],
+		grid: {
+			show: false
+		},
+		xaxis: {
+			categories: WeekDaysName,
+			labels: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			crosshairs: {
+				show: false
+			}
+		},
+		yaxis: {
+			min: 0,
+			max: 100,
+			tickAmount: 4,
+			labels: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			crosshairs: {
+				show: false
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		markers: {
+			size: 0
+		},
+		stroke: {
+			show: true,
+			curve: "straight",
+			width: 2
+		},
+		tooltip: {
+			enabled: false
+		}
+	};
+
+	const data = {
+		options: chartOptions,
+		series: [
+			{
+				name: "series-1",
+				data: WeekDaysData
+			}
+		]
 	};
 
 	return (

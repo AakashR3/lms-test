@@ -1,26 +1,10 @@
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { Icon } from "@iconify/react";
-const roleStats = [
-	{
-		role: "Product Design Engineer",
-		percentage: 98,
-		count: 674,
-		color: "#EE6002"
-	},
-	{
-		role: "CEA Analyst",
-		percentage: 79,
-		count: 546,
-		color: "#6200EE"
-	},
-	{
-		role: "Manufacturing and Designer engineer",
-		percentage: 98,
-		count: 674,
-		color: "#26A69A"
-	}
-];
+import { useGetPopularRolesQuery } from "~/features/dashboard/store";
+import { useAppSelector } from "~/config/store";
+
+const iconColor = ["#EE6002", "#6200EE", "#26A69A"];
 const chartOptions: ApexOptions = {
 	chart: {
 		id: "basic-bar",
@@ -99,6 +83,8 @@ const data = {
 };
 
 const RoleSection = () => {
+	useGetPopularRolesQuery("595");
+	const { popularRoles } = useAppSelector((state: any) => state.dashboard);
 	return (
 		<div className="col-span-12 lg:col-span-8">
 			<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
@@ -107,19 +93,21 @@ const RoleSection = () => {
 			<div className="grid-cols-12 grid bg-white rounded-lg  px-6 py-[26px]">
 				<div className="col-span-4">
 					<div className="border border-slate-150 rounded-lg   px-4 py-4">
-						{roleStats.map((item, index) => (
+						{popularRoles.slice(0, 3).map((item: any, index: number) => (
 							<div className="flex mb-4 last:mb-0" key={index}>
 								<Icon
 									icon="carbon:user-multiple"
-									color={item.color}
+									color={iconColor[index]}
 									className="self-start mr-[5px] mt-1"
 								/>
 								<div>
 									<div className="text-base font-medium text-slate-600 dark:text-navy-100">
-										<span>{item.percentage}%</span>
-										<span className="ml-1">({item.count})</span>
+										<span>{item.TotalPercentage}%</span>
+										<span className="ml-1">({item.TotalCount})</span>
 									</div>
-									<div className="text-xs text-slate-400 dark:text-navy-300mt-[3px]">{item.role}</div>
+									<div className="text-xs text-slate-400 dark:text-navy-300mt-[3px]">
+										{item.PopularRoleName}
+									</div>
 								</div>
 							</div>
 						))}

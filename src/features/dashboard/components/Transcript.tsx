@@ -2,7 +2,7 @@ import { useGetTranscriptListQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 
 const Transcript = () => {
-	const { data, isLoading } = useGetTranscriptListQuery("453447");
+	useGetTranscriptListQuery("453447");
 	const { transcriptList } = useAppSelector((state: any) => state.dashboard);
 
 	return (

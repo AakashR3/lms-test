@@ -10,20 +10,23 @@ import _ from "lodash";
 import { Fragment } from "react";
 
 const UpcomingEvents = () => {
-	const { data: todayData, isLoading: isLoadingTodayData } = useGetUpcomingEventsTodayListQuery("595");
+	useGetUpcomingEventsTodayListQuery("595");
+	useGetUpcomingEventsWeekListQuery("595");
+	useGetUpcomingEventsMonthListQuery("595");
 	const { upcomingEventsTodayList } = useAppSelector((state: any) => state.dashboard);
-	const { data: weekData, isLoading: isLoadingWeekData } = useGetUpcomingEventsWeekListQuery("595");
 	const { upcomingEventsWeekList } = useAppSelector((state: any) => state.dashboard);
-	const { data: monthData, isLoading: isLoadingMonthData } = useGetUpcomingEventsMonthListQuery("595");
 	const { upcomingEventsMonthList } = useAppSelector((state: any) => state.dashboard);
 	const [upcomingEventsList, setUpcomingEventsList] = useState<any>(upcomingEventsTodayList);
 	const [startIndex, setStartIndex] = useState<number>(0);
 	const [endIndex, setEndIndex] = useState<number>(4);
 	const [noOfPages, setPages] = useState<number>(0);
+	const [dayBG, setDayBG] = useState<string>("bg-[#048BCE] text-[#FFFFFF]");
+	const [weekBG, setWeekBG] = useState<string>("bg-white");
+	const [monthBG, setMonthBG] = useState<string>("bg-white");
 
 	useEffect(() => {
 		if (upcomingEventsList && upcomingEventsList.length > 0) {
-			if (upcomingEventsList.length % 4 == 0) {
+			if (upcomingEventsList.length % 4 === 0) {
 				setPages(Math.floor(upcomingEventsList.length / 4));
 			} else {
 				setPages(Math.floor(upcomingEventsList.length / 4) + 1);
@@ -48,12 +51,21 @@ const UpcomingEvents = () => {
 		setPages(0);
 		setStartIndex(0);
 		setEndIndex(4);
-		if (eventPeriodStr == "T") {
+		if (eventPeriodStr === "T") {
 			setUpcomingEventsList(upcomingEventsTodayList);
-		} else if (eventPeriodStr == "W") {
+			setDayBG("bg-[#048BCE] text-[#FFFFFF]");
+			setWeekBG("bg-white");
+			setMonthBG("bg-white");
+		} else if (eventPeriodStr === "W") {
 			setUpcomingEventsList(upcomingEventsWeekList);
-		} else if (eventPeriodStr == "M") {
+			setDayBG("bg-white");
+			setWeekBG("bg-[#048BCE] text-[#FFFFFF]");
+			setMonthBG("bg-white");
+		} else if (eventPeriodStr === "M") {
 			setUpcomingEventsList(upcomingEventsMonthList);
+			setDayBG("bg-white");
+			setWeekBG("bg-white");
+			setMonthBG("bg-[#048BCE] text-[#FFFFFF]");
 		}
 		console.log(upcomingEventsList);
 	}
@@ -66,23 +78,23 @@ const UpcomingEvents = () => {
 				</div>
 				<div className="bg-white p-6">
 					<div className="grid grid-cols-3 gap-6">
-						<div className="border border-slate-150  rounded-lg bg-[#048BCE]">
+						<div className={`border border-slate-150  rounded-lg ${dayBG}`}>
 							<div className="flex justify-between">
 								<button
-									className="m-3 text-xs text-[#FFFFFF] font-semibold font-inter lg:text-sm"
+									className="m-3 text-xs  font-semibold font-inter lg:text-sm"
 									onClick={() => onClickButton("T")}
 								>
 									TODAY
 								</button>
 							</div>
 							<p className="m-3 mt-6">
-								<span className="text-2xl text-[#FFFFFF] font-bold font-inter lg:text-2xl">
+								<span className="text-2xl font-bold font-inter lg:text-2xl">
 									{upcomingEventsTodayList.length}
 								</span>
-								<span className="ml-2 text-xs text-[#FFFFFF] font-inter lg:text-sm">events</span>
+								<span className="ml-2 text-xs font-inter lg:text-sm">events</span>
 							</p>
 						</div>
-						<div className="border border-slate-150  rounded-lg bg-white">
+						<div className={`border border-slate-150  rounded-lg ${weekBG}`}>
 							<div className="flex justify-between">
 								<button
 									className="m-3 text-xs font-semibold font-inter lg:text-sm"
@@ -98,7 +110,7 @@ const UpcomingEvents = () => {
 								<span className="ml-2 text-xs font-inter lg:text-sm">events</span>
 							</p>
 						</div>
-						<div className="border border-slate-150  rounded-lg bg-white">
+						<div className={`border border-slate-150  rounded-lg ${monthBG}`}>
 							<div className="flex justify-between">
 								<button
 									className="m-3 text-xs font-semibold font-inter lg:text-sm"
