@@ -13,10 +13,10 @@ const LeaderboardSection = ({ type, userId }: IProps) => {
 
 	return (
 		<div className="col-span-12 lg:col-span-4">
-			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
-				Leaderboard
+			<div className="flex items-center space-x-4 py-5 lg:py-6">
+				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">Leaderboard</h2>
 			</div>
-			<div className="grid-cols-12 grid bg-white rounded-lg  h-5/6">
+			<div className="grid-cols-12 grid bg-white rounded-lg  border border-gray-200 h-5/6">
 				{type === "basic" ? (
 					<div className=" px-6 py-[26px] col-span-12 flex justify-center items-center flex-col">
 						<img src="assets/images/leader-board.svg" alt="leader-board"></img>
@@ -30,11 +30,11 @@ const LeaderboardSection = ({ type, userId }: IProps) => {
 						<table className="is-hoverable w-full  text-left">
 							<thead>
 								<tr>
-									<th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5   lg:px-5">
-										NAME
+									<th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5   lg:px-5">
+										Name
 									</th>
-									<th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-										POINTS
+									<th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+										Points
 									</th>
 								</tr>
 							</thead>

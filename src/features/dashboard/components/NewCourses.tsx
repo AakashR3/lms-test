@@ -46,9 +46,9 @@ const NewCourses = ({ userId }: IProps) => {
 	);
 
 	return (
-		<div className="mt-8 w-full">
-			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
-				New Courses
+		<div className="w-full">
+			<div className="flex items-center space-x-4 py-5 lg:py-6">
+				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">New Courses</h2>
 			</div>
 			<div className="relative">
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
@@ -64,7 +64,7 @@ const NewCourses = ({ userId }: IProps) => {
 							<div className="mt-[6px] line-clamp-1 text-base font-medium text-slate-600 dark:text-navy-100">
 								{course.CourseName}
 							</div>
-							<div className=" font-medium text-xs flex items-center leading-[17px]  ">
+							<div className=" font-medium text-xs+ flex items-center leading-[17px]  ">
 								<span>{course.TotalLessons} lessons</span>{" "}
 								<div className="w-[8px] h-[8px] bg-slate-200 rounded-[50%] ml-1 mr-1"></div>
 								<span>{course.OnlineHours} hrs</span>

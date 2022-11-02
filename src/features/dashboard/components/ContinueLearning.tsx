@@ -65,9 +65,11 @@ const ContinueLearning = ({ userId }: IProps) => {
 	);
 	return (
 		<div>
-			<div className="mt-8 w-full">
-				<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1">
-					Continue Learning
+			<div className="w-full">
+				<div className="flex items-center space-x-4 py-5 lg:py-6">
+					<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+						Continue Learning
+					</h2>
 				</div>
 				<div className="relative">
 					<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
@@ -75,12 +77,14 @@ const ContinueLearning = ({ userId }: IProps) => {
 							courseListInProgress.map((course: any, index: number) => (
 								<div
 									key={course.CourseID}
-									className={`bg-white pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
+									className={`bg-white border border-gray-200  pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
 								>
-									<p className="text-sm text-[#020A12]/54 font-bold font-dmsans">
-										{course.CourseName}
-									</p>
-									<p className="text-xs text-[#020A12]/54 font-normal font-dmsans">
+									<div className="flex items-center space-x-1">
+										<p className="text-lg font-medium text-slate-700 line-clamp-1">
+											{course.CourseName}
+										</p>
+									</div>
+									<p className="text-xs+ space-x-2  text-[#020A12]/54 font-normal">
 										{course.CategoryName}
 									</p>
 									<div className="progress mt-10 h-1.5 bg-[#E9EEF5]">
@@ -91,7 +95,7 @@ const ContinueLearning = ({ userId }: IProps) => {
 										></div>
 									</div>
 									<div className="flex justify-between">
-										<div className=" text-xs text-[#020A12]/54 font-normal font-dmsans mt-4">
+										<div className=" text-xs+ text-[#020A12]/54 font-normal font-dmsans mt-4">
 											<span>
 												{course.LessonsCompleted} / {course.LessonsTotal} lessons
 											</span>

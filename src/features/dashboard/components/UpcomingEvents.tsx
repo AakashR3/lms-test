@@ -80,11 +80,13 @@ const UpcomingEvents = ({ userId }: IProps) => {
 
 	return (
 		<>
-			<div className="col-span-12 lg:col-span-9 row-span-full">
-				<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1">
-					Upcoming Events
+			<div className="col-span-12 lg:col-span-9 row-span-full ">
+				<div className="flex items-center space-x-4 py-5 lg:py-6">
+					<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+						Upcoming Events
+					</h2>
 				</div>
-				<div className="bg-white p-6">
+				<div className="bg-white p-6 border border-gray-200">
 					<div className="grid grid-cols-3 gap-6">
 						<div className={`border border-slate-150  rounded-lg ${dayBG}`}>
 							<div className="flex justify-between">
@@ -99,7 +101,7 @@ const UpcomingEvents = ({ userId }: IProps) => {
 								<span className="text-2xl font-bold font-inter lg:text-2xl">
 									{upcomingEventsTodayList.length}
 								</span>
-								<span className="ml-2 text-xs font-inter lg:text-sm">events</span>
+								<span className="ml-2 text-xs+ font-inter lg:text-sm">events</span>
 							</p>
 						</div>
 						<div className={`border border-slate-150  rounded-lg ${weekBG}`}>
@@ -115,7 +117,7 @@ const UpcomingEvents = ({ userId }: IProps) => {
 								<span className="text-2xl font-bold font-inter lg:text-2xl">
 									{upcomingEventsWeekList.length}
 								</span>
-								<span className="ml-2 text-xs font-inter lg:text-sm">events</span>
+								<span className="ml-2 text-xs+ font-inter lg:text-sm">events</span>
 							</p>
 						</div>
 						<div className={`border border-slate-150  rounded-lg ${monthBG}`}>
@@ -131,7 +133,7 @@ const UpcomingEvents = ({ userId }: IProps) => {
 								<span className="text-2xl font-bold font-inter lg:text-2xl">
 									{upcomingEventsMonthList.length}
 								</span>
-								<span className="ml-2 text-xs font-inter lg:text-sm">events</span>
+								<span className="ml-2 text-xs+ font-inter lg:text-sm">events</span>
 							</p>
 						</div>
 					</div>
@@ -195,9 +197,7 @@ const UpcomingEvents = ({ userId }: IProps) => {
 										<tr className={"border border-slate-150"}>
 											<td className="whitespace-nowrap px-3 py-3 sm:px-5">
 												<div className="flex text-center">
-													<p className="my-32 text-sm font-dmsans text-[#020A12]/60">
-														{message}
-													</p>
+													<p className="my-32 text-xs+ text-[#020A12]/60">{message}</p>
 												</div>
 											</td>
 										</tr>

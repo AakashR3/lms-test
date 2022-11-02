@@ -19,14 +19,14 @@ const RoleDashboard = () => {
 		<Page>
 			<CurrentRoleSection />
 			<Stats userId={UserId} />
-			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
+			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
 				<RoleSection />
 				<LeaderboardSection userId={UserId} />
 			</div>
 			<TrendingSubscriptions />
 			<ContinueLearning userId={UserId} />
 			<LearningPath userId={UserId} />
-			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
+			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
 				<UpcomingEvents userId={UserId} />
 				<Transcript userId={UserId} />
 			</div>
