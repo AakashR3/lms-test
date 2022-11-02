@@ -9,7 +9,12 @@ const { login, userLogout } = LoginApi.endpoints;
 const slice = createSlice({
 	name: "auth_login",
 	initialState: {},
-	reducers: {},
+	reducers: {
+		logout: state => {
+			console.log("action logout", state);
+			// in rootReducer, we can use it to CLEAR the complete Redux Store's state
+		}
+	},
 	extraReducers(builder) {
 		builder
 			.addMatcher(login.matchFulfilled, (state, action: any) => {

@@ -2,8 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "~/components/spinner";
 import { navigateLink } from "~/config/api/links";
+import { dispatch } from "~/config/store";
 import { getLoggedUser } from "~/helpers/auth";
-import { useUserLogoutMutation } from "../login/store";
+import { loginAction, useUserLogoutMutation } from "../login/store";
 
 function AppLogout() {
 	const navigate = useNavigate();
@@ -15,6 +16,7 @@ function AppLogout() {
 			await logout({ SessionId })
 				.unwrap()
 				.then(() => {
+					dispatch(loginAction.logout());
 					localStorage.removeItem("sessionId");
 					navigate(navigateLink.auth.login, { replace: true });
 				})

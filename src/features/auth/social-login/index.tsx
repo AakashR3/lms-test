@@ -14,7 +14,7 @@ function SocialLogin({ signup }: { signup?: boolean }) {
 	return (
 		<section className="flex-col mt-6 space-y-5">
 			{!signup && renderDivider()}
-			<div className={classNames("flex space-x-3", { "mb-10": signup })}>
+			<div className={classNames("flex flex-col sm:flex-row gap-3", { "mb-10": signup })}>
 				<GoogleOAuthProvider clientId={import.meta.env.VITE_G_CLIENT_ID}>
 					<Google />
 				</GoogleOAuthProvider>

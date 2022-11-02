@@ -7,7 +7,7 @@ export interface IPage {
 }
 function Page(props: PropsWithChildren<IPage>) {
 	const { title, children, harizontal = true } = props;
-	const wrapper = classNames("main w-full h-full px-[var(--margin-x)] py-8 flex", { "flex-col": harizontal });
+	const wrapper = classNames("main w-full h-full px-[var(--margin-x)] pb-8 flex", { "flex-col": harizontal });
 	return (
 		<section className={wrapper}>
 			{title && (
