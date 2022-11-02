@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { useAppSelector } from "~/config/store";
 import { useGetCourseListInProgressQuery } from "~/features/dashboard/store";
@@ -47,18 +48,24 @@ function calculateWidth(progress: any): string {
 const ContinueLearning = ({ userId }: IProps) => {
 	useGetCourseListInProgressQuery(userId);
 	const { courseListInProgress, courseListInProgressMessage } = useAppSelector((state: any) => state.dashboard);
-
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{
 			initial: 1,
 			loop: false,
 			breakpoints: {
 				"(min-width: 400px)": {
-					slides: { perView: 3, spacing: 24 }
+					slides: { perView: 2, spacing: 24 }
 				},
 				"(min-width: 992px)": {
-					slides: { perView: 4, spacing: 24 }
+					slides: { perView: 3, spacing: 24 }
+				},
+				"(min-width: 1200px)": {
+					slides: { perView: 5, spacing: 24 }
 				}
+			},
+			slideChanged(s) {
+				setCurrentSlide(s.track.details.rel);
 			}
 		},
 		[ResizePlugin]
@@ -128,23 +135,23 @@ const ContinueLearning = ({ userId }: IProps) => {
 							</div>
 						)}
 					</div>
-					{courseListInProgress.length > 4 && (
-						<>
-							<button
-								className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
-								onClick={() => instanceRef?.current?.prev()}
-							>
-								<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
-							</button>
-
+					{currentSlide !== 0 && (
+						<button
+							className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
+							onClick={() => instanceRef?.current?.prev()}
+						>
+							<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
+						</button>
+					)}
+					{instanceRef?.current?.track?.details &&
+						currentSlide !== instanceRef.current?.track?.details?.slides?.length - 3 && (
 							<button
 								className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
 								onClick={() => instanceRef?.current?.next()}
 							>
 								<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
 							</button>
-						</>
-					)}
+						)}
 				</div>
 			</div>
 		</div>

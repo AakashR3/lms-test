@@ -41,6 +41,9 @@ const NewCoursesRecommended = ({ userId }: IProps) => {
 				},
 				"(min-width: 992px)": {
 					slides: { perView: 3, spacing: 24 }
+				},
+				"(min-width: 1200px)": {
+					slides: { perView: 5, spacing: 24 }
 				}
 			},
 			slideChanged(s) {

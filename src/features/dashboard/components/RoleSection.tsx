@@ -98,7 +98,7 @@ const RoleSection = ({ userId }: IProps) => {
 			<div className="flex items-center space-x-4 py-5 lg:py-6">
 				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">Popular Roles</h2>
 			</div>
-			<div className="h-5/6 grid-cols-12 grid bg-white rounded-lg border border-gray-200 px-6 py-[26px]">
+			<div className=" h-4/5 grid-cols-12 grid bg-white rounded-lg border border-gray-200 px-6 py-[26px]">
 				<div className="col-span-4">
 					<div className="border border-slate-150 rounded-lg   px-4 py-4">
 						{popularRoles.slice(0, 3).map((item: any, index: number) => (
