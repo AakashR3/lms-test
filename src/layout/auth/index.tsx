@@ -14,7 +14,7 @@ function AuthLayout({ children }: PropsWithChildren) {
 	return (
 		<Fragment>
 			<Slider />
-			<main className="flex w-full flex-col items-center bg-white dark:bg-navy-700 lg:max-w-5xl">
+			<main className="flex w-full flex-col items-center bg-white dark:bg-navy-700 lg:max-w-5xl overflow-auto">
 				{children ? children : <Outlet />}
 				<div className="my-5 flex justify-center text-sm text-slate-400 dark:text-navy-300">
 					<a href="https://myigetit.com/privacy" target="_blank" rel="noreferrer">

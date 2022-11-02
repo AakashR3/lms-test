@@ -67,9 +67,9 @@ function CartPage() {
 		}).then(handleRazorpayPayment);
 	};
 
-	if (isLoading || isCartEmpty) return isLoading ? <Spinner /> : <EmptyCart />;
-
 	if (isPaymentSuccess) return <CartSuccess />;
+
+	if (isLoading || isCartEmpty) return isLoading ? <Spinner /> : <EmptyCart />;
 
 	return (
 		<Page title="Cart">
