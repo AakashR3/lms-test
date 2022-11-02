@@ -1,8 +1,12 @@
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { Icon } from "@iconify/react";
-import { useGetPopularRolesQuery } from "~/features/dashboard/store";
+import { useGetPopularRolesQuery, useGetPopularRolesGraphQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
+
+interface IProps {
+	userId?: string;
+}
 
 const iconColor = ["#EE6002", "#6200EE", "#26A69A"];
 const chartOptions: ApexOptions = {
@@ -25,6 +29,7 @@ const chartOptions: ApexOptions = {
 			}
 		}
 	},
+	colors: ["#EE6002", "#6200EE", "#26A69A"],
 	dataLabels: {
 		enabled: false
 	},
@@ -82,9 +87,12 @@ const data = {
 	]
 };
 
-const RoleSection = () => {
+const RoleSection = ({ userId }: IProps) => {
 	useGetPopularRolesQuery("595");
+	useGetPopularRolesGraphQuery("595");
 	const { popularRoles } = useAppSelector((state: any) => state.dashboard);
+	const { popularRolesQuery } = useAppSelector((state: any) => state.dashboard);
+
 	return (
 		<div className="col-span-12 lg:col-span-8">
 			<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">

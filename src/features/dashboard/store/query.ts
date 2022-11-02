@@ -27,8 +27,8 @@ export const dashboardApi = api.injectEndpoints({
 			})
 		}),
 		getLeaderBoard: builder.query({
-			query: accountID => ({
-				url: endPoints.dashboard.LeaderBoard.replace(":accountID", accountID)
+			query: userID => ({
+				url: endPoints.dashboard.LeaderBoard.replace(":userID", userID)
 			})
 		}),
 		getScorecard: builder.query({
@@ -80,6 +80,11 @@ export const dashboardApi = api.injectEndpoints({
 			query: userID => ({
 				url: endPoints.dashboard.PopularRoles.replace(":userID", userID)
 			})
+		}),
+		getPopularRolesGraph: builder.query({
+			query: userID => ({
+				url: endPoints.dashboard.PopularRolesGraph.replace(":userID", userID)
+			})
 		})
 	})
 });
@@ -100,5 +105,6 @@ export const {
 	useGetUpcomingEventsMonthListQuery,
 	useGetTimeSpentQuery,
 	useGetTimeSpentGraphQuery,
-	useGetPopularRolesQuery
+	useGetPopularRolesQuery,
+	useGetPopularRolesGraphQuery
 } = dashboardApi;

@@ -4,6 +4,10 @@ import { useAppSelector } from "~/config/store";
 import { useGetRecommendedCourseListQuery, useGetPeersCourseListQuery } from "~/features/dashboard/store";
 
 import { Icon } from "@iconify/react";
+interface IProps {
+	userId?: string;
+}
+
 const ResizePlugin = (slider: any) => {
 	const observer = new ResizeObserver(function () {
 		slider.update();
@@ -16,14 +20,15 @@ const ResizePlugin = (slider: any) => {
 		observer.unobserve(slider.container);
 	});
 };
-const NewCoursesRecommended = () => {
+const NewCoursesRecommended = ({ userId }: IProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const imageUrl = import.meta.env.VITE_APP_IMG_URL;
-	useGetRecommendedCourseListQuery("595");
-	const { recommendedCourseList } = useAppSelector((state: any) => state.dashboard);
-	useGetPeersCourseListQuery("2191");
-	const { peersCourseList } = useAppSelector((state: any) => state.dashboard);
-	const [courseList, setCourseList] = useState<any>(recommendedCourseList);
+	useGetRecommendedCourseListQuery(userId);
+	useGetPeersCourseListQuery(userId);
+	const { recommendedCourseList, recommendedCourseListMessage } = useAppSelector((state: any) => state.dashboard);
+	const { peersCourseList, peersCourseListMessage } = useAppSelector((state: any) => state.dashboard);
+	const [courseList, setCourseList] = useState<any>([]);
+	const [message, setMessage] = useState<string>("");
 	const [highlightRecommended, setHighlightRecommended] = useState<boolean>(true);
 	const [highlightPeers, setHighlightPeers] = useState<boolean>(false);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
@@ -46,16 +51,22 @@ const NewCoursesRecommended = () => {
 	);
 
 	useEffect(() => {
-		console.log(courseList);
-	}, [courseList]);
+		if (recommendedCourseList.length > 0) {
+			setCourseList(recommendedCourseList);
+		} else {
+			setMessage(recommendedCourseListMessage);
+		}
+	}, [recommendedCourseList]);
 
 	function onClickButton(eventPeriodStr: string): void {
 		if (eventPeriodStr === "R") {
 			setCourseList(recommendedCourseList);
+			setMessage(recommendedCourseListMessage);
 			setHighlightRecommended(true);
 			setHighlightPeers(false);
 		} else if (eventPeriodStr === "P") {
 			setCourseList(peersCourseList);
+			setMessage(peersCourseListMessage);
 			setHighlightPeers(true);
 			setHighlightRecommended(false);
 		}
@@ -95,55 +106,63 @@ const NewCoursesRecommended = () => {
 			</div>
 			<div className="relative">
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
-					{courseList.map((course: any, index: number) => (
-						<div
-							key={index}
-							className={`bg-white px-5 py-6 border-primary  rounded-lg border-l-4  keen-slider__slide number-slide${index} `}
-						>
-							<img src={imageUrl + course.InitialGraphic} alt="profile" className="w-12 h-12" />
-							<div className="mt-[14px] px-[6px] bg-info/10  dark:bg-info/15  inline-block rounded-sm">
-								<span className="leading-4 text-xs text-primary font-bold">{course.CategoryName}</span>
-							</div>
-							<div className="mt-[6px] line-clamp-1 text-base font-medium text-slate-600 dark:text-navy-100">
-								{course.CourseName}
-							</div>
-							<div className=" font-medium text-xs flex items-center leading-[17px]  ">
-								<span>{course.TotalLessons} lessons</span>{" "}
-								<div className="w-[8px] h-[8px] bg-slate-200 rounded-[50%] ml-1 mr-1"></div>
-								<span>{course.OnlineHours} hrs</span>
-								<div className="w-[8px] h-[8px] bg-slate-200 rounded-[50%] ml-1 mr-1"></div>
-								<span>{course.Enrolled}+ enrolled</span>
-							</div>
-							<div className="mt-9 flex justify-between">
-								<div className="flex items-center">
-									{[...Array(course.Rating)].map((item, index) => (
-										<Icon
-											key={index}
-											icon="mingcute:star-fill"
-											fill="rgba(247, 192, 67, 1)"
-											width="16"
-											height="16"
-											color="rgba(247, 192, 67, 1)"
-										/>
-									))}
+					{courseList.length > 0 ? (
+						courseList.map((course: any, index: number) => (
+							<div
+								key={index}
+								className={`bg-white px-5 py-6 border-primary  rounded-lg border-l-4  keen-slider__slide number-slide${index} `}
+							>
+								<img src={imageUrl + course.InitialGraphic} alt="profile" className="w-12 h-12" />
+								<div className="mt-[14px] px-[6px] bg-info/10  dark:bg-info/15  inline-block rounded-sm">
+									<span className="leading-4 text-xs text-primary font-bold">
+										{course.CategoryName}
+									</span>
 								</div>
-								<div className="w-[28px] h-[28px] bg-slate-200 flex items-center justify-center rounded-[50%] ml-1 mr-1">
-									<svg
-										width="10"
-										height="9"
-										viewBox="0 0 10 9"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M3.82465 0.897447L8.47353 1.30419C8.79449 1.33223 9.03192 1.61518 9.00379 1.93614L8.59711 6.58504C8.56903 6.90596 8.28608 7.14339 7.96516 7.11531C7.6442 7.08727 7.40677 6.80432 7.43489 6.48336L7.71884 3.23738L1.80126 8.20282C1.55447 8.4099 1.18653 8.37772 0.979442 8.13092C0.772352 7.88412 0.804551 7.51618 1.05134 7.3091L6.96892 2.34366L3.72297 2.05967C3.402 2.03161 3.16459 1.74868 3.1927 1.42771C3.22077 1.10678 3.50372 0.869357 3.82465 0.897447Z"
-											fill="#1E293B"
-										/>
-									</svg>
+								<div className="mt-[6px] line-clamp-1 text-base font-medium text-slate-600 dark:text-navy-100">
+									{course.CourseName}
+								</div>
+								<div className=" font-medium text-xs flex items-center leading-[17px]  ">
+									<span>{course.TotalLessons} lessons</span>{" "}
+									<div className="w-[8px] h-[8px] bg-slate-200 rounded-[50%] ml-1 mr-1"></div>
+									<span>{course.OnlineHours} hrs</span>
+									<div className="w-[8px] h-[8px] bg-slate-200 rounded-[50%] ml-1 mr-1"></div>
+									<span>{course.Enrolled}+ enrolled</span>
+								</div>
+								<div className="mt-9 flex justify-between">
+									<div className="flex items-center">
+										{[...Array(course.Rating)].map((item, index) => (
+											<Icon
+												key={index}
+												icon="mingcute:star-fill"
+												fill="rgba(247, 192, 67, 1)"
+												width="16"
+												height="16"
+												color="rgba(247, 192, 67, 1)"
+											/>
+										))}
+									</div>
+									<div className="w-[28px] h-[28px] bg-slate-200 flex items-center justify-center rounded-[50%] ml-1 mr-1">
+										<svg
+											width="10"
+											height="9"
+											viewBox="0 0 10 9"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M3.82465 0.897447L8.47353 1.30419C8.79449 1.33223 9.03192 1.61518 9.00379 1.93614L8.59711 6.58504C8.56903 6.90596 8.28608 7.14339 7.96516 7.11531C7.6442 7.08727 7.40677 6.80432 7.43489 6.48336L7.71884 3.23738L1.80126 8.20282C1.55447 8.4099 1.18653 8.37772 0.979442 8.13092C0.772352 7.88412 0.804551 7.51618 1.05134 7.3091L6.96892 2.34366L3.72297 2.05967C3.402 2.03161 3.16459 1.74868 3.1927 1.42771C3.22077 1.10678 3.50372 0.869357 3.82465 0.897447Z"
+												fill="#1E293B"
+											/>
+										</svg>
+									</div>
 								</div>
 							</div>
+						))
+					) : (
+						<div className="flex text-center">
+							<p className="my-4 text-sm font-dmsans text-[#020A12]/60">{message}</p>
 						</div>
-					))}
+					)}
 				</div>
 				{currentSlide !== 0 && (
 					<button

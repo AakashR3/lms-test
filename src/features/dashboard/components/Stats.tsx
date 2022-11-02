@@ -1,8 +1,12 @@
 import { useGetScorecardQuery } from "~/features/dashboard/store";
 import { useAppSelector } from "~/config/store";
 
-const Stats = () => {
-	const { isLoading } = useGetScorecardQuery("595");
+interface IProps {
+	userId?: string;
+}
+
+const Stats = ({ userId }: IProps) => {
+	useGetScorecardQuery(userId);
 	const { scorecard } = useAppSelector((state: any) => state.dashboard);
 	return (
 		<>

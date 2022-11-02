@@ -12,23 +12,25 @@ import Transcript from "../components/Transcript";
 import TrendingSubscriptions from "../components/TrendingSubscriptions";
 import NewCoursesRecommended from "../components/NewCoursesRecommended";
 import { Page } from "~/components";
+import { getLoggedUser } from "~/helpers/auth";
 const RoleDashboard = () => {
+	const { UserId } = getLoggedUser();
 	return (
 		<Page>
 			<CurrentRoleSection />
-			<Stats />
+			<Stats userId={UserId} />
 			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
 				<RoleSection />
-				<LeaderboardSection />
+				<LeaderboardSection userId={UserId} />
 			</div>
 			<TrendingSubscriptions />
-			<ContinueLearning />
-			<LearningPath />
+			<ContinueLearning userId={UserId} />
+			<LearningPath userId={UserId} />
 			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
-				<UpcomingEvents />
-				<Transcript />
+				<UpcomingEvents userId={UserId} />
+				<Transcript userId={UserId} />
 			</div>
-			<TimeSpent />
+			<TimeSpent userId={UserId} />
 			<NewCourses />
 			<NewCoursesRecommended />
 			<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
