@@ -64,7 +64,7 @@ const CartItem = React.memo((cart: any) => {
 export const CartList = React.memo(() => {
 	const { cartItems, isDollarCurrency } = useAppSelector((state: any) => state.cartReducer);
 	return (
-		<div className="flex-1 flex flex-col space-y-4 w-2/3">
+		<div className="flex-1 flex flex-col space-y-4 w-full lg:w-2/3">
 			{cartItems.map((cart: Cart) => (
 				<CartItem key={cart.CartID} {...cart} isDollarCurrency={isDollarCurrency} />
 			))}

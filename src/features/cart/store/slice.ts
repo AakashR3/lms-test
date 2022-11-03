@@ -22,9 +22,17 @@ const initialState = {
 	isDollarCurrency: false,
 	shippingDetails: {
 		name: "",
-		address: ""
+		address: "",
+		Address1: "",
+		Address2: "",
+		City: "",
+		State: "",
+		Country: "",
+		PostalCode: ""
 	}
 };
+
+const formatAddress = (Data: any) => `${Data.Address1},${Data.City},${Data.State},${Data.Country} ${Data.PostalCode}`;
 
 const cartSlice = createSlice({
 	name: "cart",
@@ -32,6 +40,14 @@ const cartSlice = createSlice({
 	reducers: {
 		changeCurrencyType: (state, action: PayloadAction<string>) => {
 			state.isDollarCurrency = action.payload === "USD";
+		},
+		updateMailingAddress: (state, action: PayloadAction<any>) => {
+			console.log(action.payload);
+			state.shippingDetails = {
+				...state.shippingDetails,
+				address: formatAddress(action.payload),
+				...action.payload
+			};
 		}
 	},
 	extraReducers(builder) {
@@ -45,7 +61,7 @@ const cartSlice = createSlice({
 				const { Data } = action.payload;
 				state.shippingDetails = {
 					name: `${Data.FirstName} ${Data.LastName}`,
-					address: `${Data.Address1},${Data.Address2},${Data.City},${Data.State},${Data.Country} ${Data.PostalCode}`,
+					address: formatAddress(Data),
 					...Data
 				};
 			})
@@ -60,7 +76,7 @@ const cartSlice = createSlice({
 	}
 });
 
-export const { changeCurrencyType } = cartSlice.actions;
+export const { changeCurrencyType, updateMailingAddress } = cartSlice.actions;
 const cartReducer = { cartReducer: cartSlice.reducer };
 
 addRootReducer(cartReducer);
