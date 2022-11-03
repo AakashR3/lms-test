@@ -1,14 +1,24 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { Modal } from "~/components";
-import { useAppSelector } from "~/config/store";
-import { useShippingAddressQuery } from "../store";
+import { dispatch, useAppSelector } from "~/config/store";
+import { updateMailingAddress, useShippingAddressQuery } from "../store";
 import { Spinner } from "~/components/spinner";
+import { useForm } from "react-hook-form";
 
 export const MailingAddress = React.memo(() => {
 	const { isLoading } = useShippingAddressQuery();
 	const { shippingDetails } = useAppSelector((state: any) => state.cartReducer);
 	const [isEditAddress, setEditAddress] = React.useState<boolean>(false);
+	const { register, handleSubmit } = useForm({
+		mode: "onChange"
+	});
+
+	const onSubmit = async (formData: any) => {
+		dispatch(updateMailingAddress(formData));
+		setEditAddress(false);
+	};
+
 	return (
 		<React.Fragment>
 			<div className="card p-4 sm:px-5">
@@ -33,7 +43,7 @@ export const MailingAddress = React.memo(() => {
 					<div className="pt-2 text-base">
 						<p>{shippingDetails?.name}</p>
 						<p>{shippingDetails?.Email}</p>
-						{shippingDetails.address !== ",,,, " && (
+						{shippingDetails.address !== ",,, " && (
 							<address className="mt-5">{shippingDetails?.address}</address>
 						)}
 					</div>
@@ -45,48 +55,53 @@ export const MailingAddress = React.memo(() => {
 						<label className="block">
 							<span className="text-sm">Address</span>
 							<textarea
-								value={shippingDetails?.Address1}
-								placeholder=" Enter Text"
+								defaultValue={shippingDetails?.Address1}
+								placeholder="Address"
 								className="form-textarea mt-1.5 w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+								{...register("Address1")}
 							/>
 						</label>
 						<div className="flex space-x-3">
 							<label className="block w-1/2">
-								<span className="text-sm">Country</span>
-								<input
-									value={shippingDetails.Country}
-									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-									placeholder="Country"
-									type="text"
-								/>
-							</label>
-							<label className="block w-1/2">
 								<span className="text-sm">State</span>
 								<input
-									value={shippingDetails.State}
+									defaultValue={shippingDetails.State}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 									placeholder="State"
 									type="text"
+									{...register("State")}
+								/>
+							</label>
+							<label className="block w-1/2">
+								<span className="text-sm">City</span>
+								<input
+									defaultValue={shippingDetails.City}
+									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+									placeholder="City"
+									type="text"
+									{...register("City")}
 								/>
 							</label>
 						</div>
 						<div className="flex space-x-3">
 							<label className="block w-1/2">
-								<span className="text-sm">City</span>
+								<span className="text-sm">Country</span>
 								<input
-									value={shippingDetails.City}
+									defaultValue={shippingDetails.Country}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-									placeholder="City"
+									placeholder="Country"
 									type="text"
+									{...register("Country")}
 								/>
 							</label>
 							<label className="block w-1/2">
 								<span className="text-sm">Zip Code</span>
 								<input
-									value={shippingDetails.PostalCode}
+									defaultValue={shippingDetails.PostalCode}
 									className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 									placeholder="Zip Code"
 									type="text"
+									{...register("PostalCode")}
 								/>
 							</label>
 						</div>
@@ -98,7 +113,10 @@ export const MailingAddress = React.memo(() => {
 						>
 							Cancel
 						</button>
-						<button className="btn h-8 rounded-full bg-primary text-xs+ font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+						<button
+							onClick={handleSubmit(onSubmit)}
+							className="btn h-8 rounded-full bg-primary text-xs+ font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+						>
 							Update
 						</button>
 					</div>

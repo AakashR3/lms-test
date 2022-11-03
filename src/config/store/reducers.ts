@@ -25,7 +25,7 @@ export const createRootReducer = () => {
 	});
 
 	return (state: any, action: AnyAction) => {
-		console.log("actionType", action);
+		// console.log("actionType", action);
 		if (action?.type === "auth_login/logout") {
 			// check for action type
 			state = undefined;

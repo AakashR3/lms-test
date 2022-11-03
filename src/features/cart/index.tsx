@@ -17,7 +17,9 @@ function CartPage() {
 	const [checkout, checkoutOption] = useCartCheckoutMutation();
 	const [isPaymentSuccess, setIspaymentSuccess] = React.useState<boolean>(false);
 	const [checkoutResponse, checkoutResponseOption] = useCartResponseMutation();
-	const { isCartEmpty, cartItems, isDollarCurrency } = useAppSelector((state: any) => state.cartReducer);
+	const { isCartEmpty, cartItems, isDollarCurrency, shippingDetails } = useAppSelector(
+		(state: any) => state.cartReducer
+	);
 
 	const handleRazorpayPayment = React.useCallback(
 		({ data }: any) => {
@@ -44,7 +46,8 @@ function CartPage() {
 						EndAt: Data?.DtEndAt || 0,
 						TrialStartAt: Data?.DtTrialStartAt || 0,
 						TrialEndAt: Data?.DtTrialEndAt || 0,
-						PlanName: Data?.PlanName?.toString() || ""
+						PlanName: Data?.PlanName?.toString() || "",
+						Address: shippingDetails.address
 					}).unwrap();
 					refetch();
 					setIspaymentSuccess(true);
@@ -101,9 +104,9 @@ function CartPage() {
 					</div>
 				</div>
 			</div>
-			<section className="flex gap-4 mt-5">
+			<section className="flex flex-col lg:flex-row gap-4 mt-5">
 				<CartList />
-				<div className="flex shirnk-0 flex-col gap-4 w-1/3">
+				<div className="flex shirnk-0 flex-col gap-4 w-full lg:w-1/3">
 					<MailingAddress />
 					<div className="card p-4 border border-gray-200 gap-4 flex flex-col">
 						<div className="space-y-3">

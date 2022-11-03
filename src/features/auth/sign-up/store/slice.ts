@@ -18,6 +18,9 @@ const slice = createSlice({
 	reducers: {
 		toggleIsVerified: state => {
 			state.isVerified = !state.isVerified;
+		},
+		toggleOtpVerified: (state, action) => {
+			state.isOtpVerified = action.payload;
 		}
 	},
 	extraReducers(builder) {

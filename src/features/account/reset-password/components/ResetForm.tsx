@@ -17,7 +17,7 @@ export const ResetForm = React.memo(() => {
 	const [resetUserPassword, option] = useResetPasswordMutation();
 	const [verifyEmailLink] = useVerifyEmailLinkMutation();
 
-	const { register, handleSubmit, formState } = useForm<ResetPasswordRequest>({
+	const { register, handleSubmit, formState, setValue, watch } = useForm<ResetPasswordRequest>({
 		resolver: yupResolver(passwordsSchema),
 		mode: "onChange"
 	});
@@ -40,6 +40,17 @@ export const ResetForm = React.memo(() => {
 		} else navigate(navigateLink.auth.forgotPassword);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	React.useEffect(() => {
+		watch((values, { name, value }) => {
+			if (name === "Password") {
+				setValue("CPassword", "", {
+					shouldValidate: true,
+					shouldDirty: true
+				});
+			}
+		});
+	}, [watch]);
 
 	return (
 		<>

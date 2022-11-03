@@ -2,26 +2,27 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
-import { useAppSelector } from "~/config/store";
+import { dispatch, useAppSelector } from "~/config/store";
 import { navigateLink } from "~/config/api/links";
 import { signUp } from "~/features/auth/sign-up/constants";
 import { SingUpRequest } from "~/features/auth/sign-up/@types";
 import { FloatingLabelInput } from "~/components/FloatingLabelInput";
 import { signupFormValidationSchema } from "~/features/auth/sign-up/validation";
-import { useSignUpMutation, useSendOtpMutation } from "~/features/auth/sign-up/store";
+import { useSignUpMutation, useSendOtpMutation, signUpAction } from "~/features/auth/sign-up/store";
 
 export const SignUpForm = React.memo(() => {
 	const navigate = useNavigate();
 	const [createAccount, { isLoading }] = useSignUpMutation();
 	const [verifyEmail, verifyEmailOption] = useSendOtpMutation();
 	const signup = useAppSelector((state: any) => state.authSignUp);
-	const { register, handleSubmit, getValues, formState } = useForm<SingUpRequest>({
+	const { register, handleSubmit, getValues, setValue, formState, watch } = useForm<SingUpRequest>({
 		resolver: yupResolver(signupFormValidationSchema),
 		mode: "onChange"
 	});
 	const { errors, isDirty, isValid } = formState;
+
 	const onSubmit: SubmitHandler<SingUpRequest> = async formData => {
 		await createAccount(formData).unwrap();
 		navigate(navigateLink.auth.login);
@@ -33,6 +34,21 @@ export const SignUpForm = React.memo(() => {
 
 		//eslint-disable-next-line
 	}, []);
+
+	React.useEffect(() => {
+		watch((values, { name, value }) => {
+			if (name === "Email") {
+				dispatch(signUpAction.toggleOtpVerified(false));
+			}
+			if (name === "Password") {
+				setValue("CPassword", "", {
+					shouldValidate: true,
+					shouldDirty: true
+				});
+			}
+		});
+	}, [watch]);
+
 	return (
 		<section className="space-y-4 mt-10">
 			<div className="flex flex-col space-y-1">
