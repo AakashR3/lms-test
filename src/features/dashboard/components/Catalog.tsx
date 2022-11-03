@@ -36,6 +36,9 @@ const Catalog = () => {
 				},
 				"(min-width: 992px)": {
 					slides: { perView: 3, spacing: 24 }
+				},
+				"(min-width: 1200px)": {
+					slides: { perView: 5, spacing: 24 }
 				}
 			}
 		},
@@ -56,11 +59,11 @@ const Catalog = () => {
 	}, [selectedCatalog]);
 
 	return (
-		<div className="mt-8 w-full">
-			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
-				Catalog
+		<div className="w-full">
+			<div className="flex items-center space-x-4 py-5 lg:py-6">
+				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">Catalog</h2>
 			</div>
-			<div className="mt-5 rounded-lg bg-white flex px-[6px] w-fit">
+			<div className="rounded-lg bg-slate-150 flex px-[6px] w-fit">
 				{distinctCatalog.map((catalog: any) => (
 					<button
 						key={catalog}
@@ -68,7 +71,7 @@ const Catalog = () => {
 							setSelectedCatalog(catalog);
 						}}
 						className={`px-[10px] py-[7px] text-slate-500 rounded-lg text-[14px] font-bold my-1 ${
-							selectedCatalog === catalog && "bg-slate-150 p-4 dark:bg-navy-700"
+							selectedCatalog === catalog && "bg-white p-4 dark:bg-navy-700"
 						}`}
 					>
 						{catalog}
@@ -81,7 +84,7 @@ const Catalog = () => {
 						{catalogDetails.map((item: any, index: number) => (
 							<div
 								key={index}
-								className={`bg-white px-5 py-5 flex rounded-lg   keen-slider__slide number-slide${index}  `}
+								className={`bg-white border border-gray-200 px-5 py-5 flex rounded-lg   keen-slider__slide number-slide${index}  `}
 							>
 								<img src={"assets/images/user-pic.svg"} alt="profile" className="w-18 h-18" />
 								{/* <img src={imageUrl+item.CategoryImageFileName} alt="profile" className="w-18 h-18" /> */}
@@ -89,7 +92,7 @@ const Catalog = () => {
 									<span className="mt-[6px] line-clamp-1 text-base font-medium text-slate-600 dark:text-navy-100">
 										{item.CategoryName}
 									</span>
-									<span className=" mt-1 text-xs text-slate-400 dark:text-navy-300">
+									<span className=" mt-1 text-xs+ text-slate-400 dark:text-navy-300">
 										{item.CourseCount} courses
 									</span>
 								</div>

@@ -81,9 +81,11 @@ const LearningPath = ({ userId }: IProps) => {
 	return (
 		<>
 			<div>
-				<div className="flex items-center justify-between  mt-8">
-					<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1">
-						Learning Path
+				<div className="flex items-center justify-between">
+					<div className="flex items-center space-x-4 py-5 lg:py-6">
+						<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+							Learning Path
+						</h2>
 					</div>
 					<div className="flex">
 						<div className="flex items-center">
@@ -245,7 +247,7 @@ const LearningPath = ({ userId }: IProps) => {
 									<tr className={"border border-slate-150"}>
 										<td className="whitespace-nowrap px-3 py-3 sm:px-5">
 											<div className="flex text-center">
-												<p className="my-16 text-sm font-dmsans text-[#020A12]/60">
+												<p className="my-16 text-xs+ text-[#020A12]/60">
 													{learningPathMessage}
 												</p>
 											</div>

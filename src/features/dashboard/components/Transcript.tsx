@@ -11,14 +11,14 @@ const Transcript = ({ userId }: IProps) => {
 
 	return (
 		<div className="col-span-12 lg:col-span-3">
-			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
-				Transcript
+			<div className="flex items-center space-x-4 py-5 lg:py-6">
+				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">Transcript</h2>
 			</div>
 			<div className="grid grid-row-4 gap-6">
 				<div className="hidden lg:block">
 					<img src="/assets/images/transcript.svg" alt="transcript" />
 				</div>
-				<div className="p-4 rounded-lg bg-white">
+				<div className="p-4 rounded-lg bg-white border border-gray-200">
 					<div className="flex items-center">
 						<div className="hidden lg:block">
 							<img src="/assets/images/goldcoin.svg" alt="" />
@@ -27,11 +27,11 @@ const Transcript = ({ userId }: IProps) => {
 							<p className="text-lg font-bold font-inter lg:text-lg">
 								{transcriptList && transcriptList[0]?.CoursePoints}
 							</p>
-							<p className="text-xs font-inter lg:text-sm">Course Points</p>
+							<p className="text-base">Course Points</p>
 						</span>
 					</div>
 				</div>
-				<div className="p-4 rounded-lg bg-white">
+				<div className="p-4 rounded-lg bg-white border border-gray-200">
 					<div className="flex items-center">
 						<div className="hidden lg:block">
 							<img src="/assets/images/goldcoin.svg" alt="" />
@@ -40,12 +40,12 @@ const Transcript = ({ userId }: IProps) => {
 							<p className="text-lg font-bold font-inter lg:text-lg">
 								{transcriptList && transcriptList[0]?.AssessmentPoints}
 							</p>
-							<p className="text-xs font-inter lg:text-sm">Assessments Points</p>
+							<p className="text-base">Assessments Points</p>
 						</span>
 					</div>
 				</div>
 				<div className="ml-16 text-xs lg:text-sm">
-					<button className="flex items-center justify-center font-inter font-semibold rounded-lg text-[#1268B3] px-6 py-3">
+					<button className="flex items-center justify-center font-inter font-semibold rounded-lg text-[#1268B3] px-6">
 						View transcript
 						<svg
 							className="ml-2.5"

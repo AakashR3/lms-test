@@ -11,9 +11,11 @@ const Stats = ({ userId }: IProps) => {
 	return (
 		<>
 			<div className="grid grid-cols-4 gap-6 mt-8">
-				<div className="rounded-lg bg-white pl-6">
+				<div className="rounded-lg bg-white pl-6 border border-gray-200">
 					<div className="flex justify-between">
-						<p className="mt-7 text-xs font-inter lg:text-sm">COURSES IN PROGRESS</p>
+						<p className="mt-7 text-lg font-medium tracking-wide text-slate-700 line-clamp-1">
+							Courses In Progress
+						</p>
 						<div className="flex items-center justify-center mt-4 mr-4 w-10 h-10 bg-[#E3F2FB] rounded-lg hidden lg:block">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -53,9 +55,11 @@ const Stats = ({ userId }: IProps) => {
 						</svg>
 					</div>
 				</div>
-				<div className="rounded-lg bg-white pl-6">
+				<div className="rounded-lg bg-white pl-6 border border-gray-200">
 					<div className="flex justify-between">
-						<p className="mt-7 text-xs font-inter lg:text-sm">COURSES COMPLETED</p>
+						<p className="mt-7 text-lg font-medium tracking-wide text-slate-700 line-clamp-1">
+							Courses Completed
+						</p>
 						<div className="flex items-center justify-center mt-4 mr-4 w-10 h-10 bg-[#E6F7E9] rounded-lg hidden lg:block">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -89,9 +93,11 @@ const Stats = ({ userId }: IProps) => {
 						</svg>
 					</div>
 				</div>
-				<div className="rounded-lg bg-white pl-6">
+				<div className="rounded-lg bg-white pl-6 border border-gray-200">
 					<div className="flex justify-between">
-						<p className="mt-7 text-xs font-inter lg:text-sm">ASSESSMENTS COMPLETED</p>
+						<p className="mt-7 text-lg font-medium tracking-wide text-slate-700 line-clamp-1">
+							Assessments Completed
+						</p>
 						<div className="flex items-center justify-center mt-4 mr-4 w-10 h-10 bg-[#FFFDE6] rounded-lg hidden lg:block">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -125,9 +131,11 @@ const Stats = ({ userId }: IProps) => {
 						</svg>
 					</div>
 				</div>
-				<div className="rounded-lg bg-white pl-6">
+				<div className="rounded-lg bg-white pl-6 border border-gray-200">
 					<div className="flex justify-between">
-						<p className="mt-7 text-xs font-inter lg:text-sm">LEARNING TIME</p>
+						<p className="mt-7 text-lg font-medium tracking-wide text-slate-700 line-clamp-1">
+							Learning Time
+						</p>
 						<div className="flex items-center justify-center mt-4 mr-4 w-10 h-10 bg-[#FAEBEE] rounded-lg hidden lg:block">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

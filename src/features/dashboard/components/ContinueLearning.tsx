@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { useAppSelector } from "~/config/store";
 import { useGetCourseListInProgressQuery } from "~/features/dashboard/store";
@@ -47,27 +48,35 @@ function calculateWidth(progress: any): string {
 const ContinueLearning = ({ userId }: IProps) => {
 	useGetCourseListInProgressQuery(userId);
 	const { courseListInProgress, courseListInProgressMessage } = useAppSelector((state: any) => state.dashboard);
-
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
 		{
 			initial: 1,
 			loop: false,
 			breakpoints: {
 				"(min-width: 400px)": {
-					slides: { perView: 3, spacing: 24 }
+					slides: { perView: 2, spacing: 24 }
 				},
 				"(min-width: 992px)": {
-					slides: { perView: 4, spacing: 24 }
+					slides: { perView: 3, spacing: 24 }
+				},
+				"(min-width: 1200px)": {
+					slides: { perView: 5, spacing: 24 }
 				}
+			},
+			slideChanged(s) {
+				setCurrentSlide(s.track.details.rel);
 			}
 		},
 		[ResizePlugin]
 	);
 	return (
 		<div>
-			<div className="mt-8 w-full">
-				<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1">
-					Continue Learning
+			<div className="w-full">
+				<div className="flex items-center space-x-4 py-5 lg:py-6">
+					<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+						Continue Learning
+					</h2>
 				</div>
 				<div className="relative">
 					<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
@@ -75,12 +84,14 @@ const ContinueLearning = ({ userId }: IProps) => {
 							courseListInProgress.map((course: any, index: number) => (
 								<div
 									key={course.CourseID}
-									className={`bg-white pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
+									className={`bg-white border border-gray-200  pt-4 px-4 rounded-lg keen-slider__slide number-slide${index}`}
 								>
-									<p className="text-sm text-[#020A12]/54 font-bold font-dmsans">
-										{course.CourseName}
-									</p>
-									<p className="text-xs text-[#020A12]/54 font-normal font-dmsans">
+									<div className="flex items-center space-x-1">
+										<p className="text-lg font-medium text-slate-700 line-clamp-1">
+											{course.CourseName}
+										</p>
+									</div>
+									<p className="text-xs+ space-x-2  text-[#020A12]/54 font-normal">
 										{course.CategoryName}
 									</p>
 									<div className="progress mt-10 h-1.5 bg-[#E9EEF5]">
@@ -91,7 +102,7 @@ const ContinueLearning = ({ userId }: IProps) => {
 										></div>
 									</div>
 									<div className="flex justify-between">
-										<div className=" text-xs text-[#020A12]/54 font-normal font-dmsans mt-4">
+										<div className=" text-xs+ text-[#020A12]/54 font-normal font-dmsans mt-4">
 											<span>
 												{course.LessonsCompleted} / {course.LessonsTotal} lessons
 											</span>
@@ -124,23 +135,23 @@ const ContinueLearning = ({ userId }: IProps) => {
 							</div>
 						)}
 					</div>
-					{courseListInProgress.length > 4 && (
-						<>
-							<button
-								className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
-								onClick={() => instanceRef?.current?.prev()}
-							>
-								<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
-							</button>
-
+					{currentSlide !== 0 && (
+						<button
+							className="lg:flex hidden  items-center justify-center cursor-pointer shadow-[0px_0px_7px] shadow-[#00000017] bg-white w-[52px] h-[52px] rounded-[50%] top-[50%] absolute translate-y-[-50%] left-[-2.25%]"
+							onClick={() => instanceRef?.current?.prev()}
+						>
+							<Icon icon="majesticons:chevron-left-line" width="24px" height="24px" />
+						</button>
+					)}
+					{instanceRef?.current?.track?.details &&
+						currentSlide !== instanceRef.current?.track?.details?.slides?.length - 3 && (
 							<button
 								className="lg:flex hidden items-center justify-center cursor-pointer w-[52px] shadow-[0px_0px_7px] shadow-[#00000017] bg-white h-[52px] rounded-[50%] top-[50%] absolute   translate-y-[-50%] right-[-2.25%]"
 								onClick={() => instanceRef?.current?.next()}
 							>
 								<Icon icon="majesticons:chevron-right-line" width="24px" height="24px" />
 							</button>
-						</>
-					)}
+						)}
 				</div>
 			</div>
 		</div>

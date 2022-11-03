@@ -58,9 +58,11 @@ const TrendingSubscriptions = () => {
 	};
 
 	return (
-		<div className="mt-8 w-full">
-			<div className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 mb-4">
-				Trending Subscriptions
+		<div className="mt-5 w-full lg:mt-6">
+			<div className="flex items-center space-x-4 py-5 lg:py-6">
+				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+					Trending Subscriptions
+				</h2>
 			</div>
 			<div className="relative">
 				<div className="flex keen-slider overflow-hidden w-full" ref={sliderRef}>
@@ -68,13 +70,13 @@ const TrendingSubscriptions = () => {
 						trendingSubscription.map((item: any, index: number) => (
 							<div
 								key={index}
-								className={`bg-white px-5 py-5   rounded-lg  keen-slider__slide number-slide${index} `}
+								className={`bg-white px-5 py-5 border border-gray-200  rounded-lg  keen-slider__slide number-slide${index} `}
 							>
 								<img src={"assets/images/user-pic.svg"} alt="icon" />
 								<div className="mt-3 h-12  text-base font-medium line-clamp-2 text-slate-600 dark:text-navy-100 max-w-[240px]">
 									{item.SubscriptionName}
 								</div>
-								<div className="mt-4 text-xs text-slate-400 dark:text-navy-300">
+								<div className="mt-4 text-xs+ space-x-2 dark:text-navy-300">
 									{item.CourseCount} courses
 								</div>
 								<div className="mt-12 after:content-[\u0BF9]">

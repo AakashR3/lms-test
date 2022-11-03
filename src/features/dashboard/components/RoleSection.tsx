@@ -95,10 +95,10 @@ const RoleSection = ({ userId }: IProps) => {
 
 	return (
 		<div className="col-span-12 lg:col-span-8">
-			<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
-				Popular Roles
+			<div className="flex items-center space-x-4 py-5 lg:py-6">
+				<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">Popular Roles</h2>
 			</div>
-			<div className="grid-cols-12 grid bg-white rounded-lg  px-6 py-[26px]">
+			<div className=" h-4/5 grid-cols-12 grid bg-white rounded-lg border border-gray-200 px-6 py-[26px]">
 				<div className="col-span-4">
 					<div className="border border-slate-150 rounded-lg   px-4 py-4">
 						{popularRoles.slice(0, 3).map((item: any, index: number) => (
@@ -109,11 +109,11 @@ const RoleSection = ({ userId }: IProps) => {
 									className="self-start mr-[5px] mt-1"
 								/>
 								<div>
-									<div className="text-base font-medium text-slate-600 dark:text-navy-100">
+									<div className="text-lg font-medium text-slate-700 line-clamp-1">
 										<span>{item.TotalPercentage}%</span>
 										<span className="ml-1">({item.TotalCount})</span>
 									</div>
-									<div className="text-xs text-slate-400 dark:text-navy-300mt-[3px]">
+									<div className="text-xs+ text-slate-400 dark:text-navy-300mt-[3px]">
 										{item.PopularRoleName}
 									</div>
 								</div>

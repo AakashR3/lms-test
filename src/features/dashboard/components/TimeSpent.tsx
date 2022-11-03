@@ -115,16 +115,18 @@ const TimeSpent = ({ userId }: IProps) => {
 
 	return (
 		<>
-			<div className="mt-8 w-full">
-				<div className="text-base mb-4 font-medium tracking-wide text-slate-700 line-clamp-1">Time Spent</div>
-				<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-8">
-					<div className="rounded-lg bg-white col-span-6">
+			<div className="w-full">
+				<div className="flex items-center space-x-4 py-5 lg:py-6">
+					<h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">Time Spent</h2>
+				</div>
+				<div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+					<div className="rounded-lg border border-gray-200 bg-white col-span-6">
 						<Chart options={data.options} series={data.series} type="area" height={"200px"} />
 					</div>
 
 					<div className="col-span-3">
 						<div className="grid grid-rows-2 gap-6">
-							<div className="rounded-lg bg-white p-3">
+							<div className="rounded-lg border border-gray-200 bg-white p-3">
 								<div className="flex justify-between">
 									<div>
 										<p className="text-2xl font-dmsans font-bold text-[#020A12]">
@@ -135,7 +137,7 @@ const TimeSpent = ({ userId }: IProps) => {
 												{timeSpent.TimeSpent && timeSpent.TimeSpent.split(" ")[1]}
 											</span>
 										</p>
-										<p className="mt-2 text-xs font-inter lg:text-sm">Time Spent</p>
+										<p className="mt-2 text-base">Time Spent</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
 										<svg
@@ -154,7 +156,7 @@ const TimeSpent = ({ userId }: IProps) => {
 								</div>
 								<div className="mt-4 flex text-left">
 									<button
-										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs+ space-x-2 ${showPercentage(
 											timeSpent.TotalTimePercentage
 										)}`}
 									>
@@ -162,13 +164,13 @@ const TimeSpent = ({ userId }: IProps) => {
 									</button>
 								</div>
 							</div>
-							<div className="rounded-lg bg-white p-3">
+							<div className="rounded-lg border border-gray-200 bg-white p-3">
 								<div className="flex justify-between">
 									<div>
 										<p className="text-2xl font-dmsans font-bold text-[#020A12]">
 											{timeSpent.CompletedAssessments}
 										</p>
-										<p className="mt-2 text-xs font-inter lg:text-sm">Assessments Completed</p>
+										<p className="mt-2 text-base">Assessments Completed</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
 										<svg
@@ -189,7 +191,7 @@ const TimeSpent = ({ userId }: IProps) => {
 								</div>
 								<div className="mt-4 flex text-left">
 									<button
-										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs+ space-x-2 ${showPercentage(
 											timeSpent.TotalAssessmentPercentage
 										)}`}
 									>
@@ -205,13 +207,13 @@ const TimeSpent = ({ userId }: IProps) => {
 					</div>
 					<div className="col-span-3">
 						<div className="grid grid-rows-2 gap-6">
-							<div className="rounded-lg bg-white p-3">
+							<div className="rounded-lg bg-white border border-gray-200 p-3">
 								<div className="flex justify-between">
 									<div>
 										<p className="text-2xl font-dmsans font-bold text-[#020A12]">
 											{timeSpent.CompletedCourses}
 										</p>
-										<p className="mt-2 text-xs font-inter lg:text-sm">Course Completed</p>
+										<p className="mt-2 text-base">Course Completed</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
 										<svg
@@ -230,7 +232,7 @@ const TimeSpent = ({ userId }: IProps) => {
 								</div>
 								<div className="mt-4 flex text-left">
 									<button
-										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs+ space-x-2 ${showPercentage(
 											timeSpent.TotalCoursePercentage
 										)}`}
 									>
@@ -238,7 +240,7 @@ const TimeSpent = ({ userId }: IProps) => {
 									</button>
 								</div>
 							</div>
-							<div className="rounded-lg bg-white p-3">
+							<div className="rounded-lg bg-white border border-gray-200 p-3">
 								<div className="flex justify-between">
 									<div>
 										<div className="flex">
@@ -254,7 +256,7 @@ const TimeSpent = ({ userId }: IProps) => {
 												/>
 											)}
 										</div>
-										<p className="mt-2 text-xs font-inter lg:text-sm">Performance Level</p>
+										<p className="mt-2 text-base">Performance Level</p>
 									</div>
 									<div className="flex items-center justify-center w-10 h-10 rounded-lg hidden lg:block">
 										<svg
@@ -276,7 +278,7 @@ const TimeSpent = ({ userId }: IProps) => {
 								</div>
 								<div className="mt-4 flex text-left">
 									<button
-										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs font-inter ${showPercentage(
+										className={`flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors text-xs+ space-x-2 ${showPercentage(
 											timeSpent.TotalPerformanceLevelPercentage
 										)}`}
 									>

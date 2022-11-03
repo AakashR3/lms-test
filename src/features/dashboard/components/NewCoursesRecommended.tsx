@@ -41,6 +41,9 @@ const NewCoursesRecommended = ({ userId }: IProps) => {
 				},
 				"(min-width: 992px)": {
 					slides: { perView: 3, spacing: 24 }
+				},
+				"(min-width: 1200px)": {
+					slides: { perView: 5, spacing: 24 }
 				}
 			},
 			slideChanged(s) {
@@ -74,7 +77,7 @@ const NewCoursesRecommended = ({ userId }: IProps) => {
 
 	function showRecommendHighlighted(): string {
 		if (highlightRecommended) {
-			return " bg-[#E9EEF5] hover:bg-[#E9EEF5]/80";
+			return " bg-white";
 		} else {
 			return "";
 		}
@@ -82,15 +85,15 @@ const NewCoursesRecommended = ({ userId }: IProps) => {
 
 	function showPeersHighlighted(): string {
 		if (highlightPeers) {
-			return " bg-[#E9EEF5] hover:bg-[#E9EEF5]/80";
+			return " bg-white";
 		} else {
 			return "";
 		}
 	}
 
 	return (
-		<div className="mt-8 w-full">
-			<div className="flex bg-white rounded-lg py-1 px-2 w-96 my-12">
+		<div className="py-5 lg:py-6 w-full">
+			<div className="flex bg-[#E9EEF5] rounded-lg py-1 px-2 w-96 my-4">
 				<button
 					className={` ${showRecommendHighlighted()} flex h-8 min-w-[2rem] items-center justify-center rounded-lg px-3 leading-tight transition-colors  font-semibold text-sm font-dmsans`}
 					onClick={() => onClickButton("R")}
@@ -160,7 +163,7 @@ const NewCoursesRecommended = ({ userId }: IProps) => {
 						))
 					) : (
 						<div className="flex text-center">
-							<p className="my-4 text-sm font-dmsans text-[#020A12]/60">{message}</p>
+							<p className="my-4 text-xs+ text-[#020A12]/60">{message}</p>
 						</div>
 					)}
 				</div>
